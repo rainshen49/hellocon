@@ -1,12 +1,12 @@
 # Skeleton of website:
 ## Home Page
-Banner with Conference Logo and Date & Location
-Links to Speakers and Schedule
-Intro to the Conference
-Submission entrance
- - Link/embedded iframe to a google form
- - How to submit file?
-Logos of sponsors
+[ ] Banner with Conference Logo and Date & Location
+[x] Links to Speakers and Schedule
+[x] Intro to the Conference
+[x] Submission entrance
+ - [x] Link/embedded iframe to a google form
+ - [ ] How to submit file?
+[ ] Logos of sponsors
 
 ## Speakers Page
 Banner
