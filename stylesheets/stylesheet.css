@@ -123,6 +123,10 @@ a:hover {
     opacity: 0.7;
 }
 
+.project-tagline a {
+    color: #fff;
+}
+
 @media screen and (min-width: 64em) {
     .project-tagline {
         font-size: 1.25rem;
@@ -308,6 +312,7 @@ a:hover {
     background: #159957;
     width: 100%;
     text-align: center;
+    color: rgb(255, 255, 255);
 }
 
 @media screen and (min-width: 64em) {
