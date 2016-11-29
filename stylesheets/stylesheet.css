@@ -66,7 +66,7 @@ a:hover {
     background-size: contain;*/
 }
 
-.page-header img {
+body img {
     max-width: 100%;
     max-height: 90%;
 }
