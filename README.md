@@ -6,7 +6,7 @@
 - Interactive canlendar: inspired by [Frosh](https://www.orientation.skule.ca/) to build a beautifully interactive calendar for the schedule page
 
 Todo:
-[ ] Code of conduct modal and whole page
-[ ] Calendar Interactivity
-[ ] Sponsors section
-[ ] Remove Home menu, click on banner to return home
+ [ ] Code of conduct modal and whole page
+ [ ] Calendar Interactivity
+ [ ] Sponsors section
+ [ ] Remove Home menu, click on banner to return home
