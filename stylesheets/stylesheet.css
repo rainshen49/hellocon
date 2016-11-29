@@ -94,7 +94,7 @@ body img {
 }
 
 #nav .btn:hover {
-    box-shadow: 0 0 0.2rem 0 rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0.2rem 0.1rem 0 rgba(0, 0, 0, 0.3);
 }
 
 @media screen and (min-width: 64em) {
