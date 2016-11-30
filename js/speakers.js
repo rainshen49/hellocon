@@ -1,6 +1,6 @@
 (function speaker() {
     var main = document.querySelector('main')
-    Papa.parse("data.csv", {
+    Papa.parse("data/speakers.csv", {
         download: true,
         complete: handleResults,
         error: function(err, file, inputElem, reason) {
