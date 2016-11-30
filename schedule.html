@@ -20,9 +20,19 @@
             overflow-x: auto;
         }
         
+        @media print {
+            #one,
+            #two {
+                display: flex;
+                width: 100%;
+                justify-content: flex-start;
+                flex-wrap: wrap;
+            }
+        }
+        
         .event {
             min-width: 15rem;
-            /*max-width: 30rem;*/
+            max-width: 25rem;
             /*height: 20rem;*/
             box-shadow: 0 0 0.5rem 0 rgba(30, 107, 184, 0.8);
             border-radius: 1rem;

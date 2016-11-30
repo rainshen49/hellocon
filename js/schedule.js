@@ -45,7 +45,7 @@
 
 function toggleFlip(event) {
     var clip = event.target
-    if (!clip.className.includes("event")) {
+    if (clip.className.slice(0, 5) != "event") {
         clip = clip.parentNode
     }
     clip.classList.toggle('show');
