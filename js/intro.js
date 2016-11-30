@@ -2,18 +2,20 @@
     var xhr = new XMLHttpRequest
     xhr.open('get', 'conduct.html')
     xhr.send()
-    xhr.onload = function (intro) {
+    xhr.onload = function(intro) {
         document.querySelector('#code').innerHTML = xhr.response;
     }
-    
+
     var modal = document.querySelector('#codeModal');
     var inModal = document.querySelector('#code');
     var trigger = document.querySelector('#codeTrigger');
+
     function toggleModal(ev) {
         ev.stopPropagation();
-        modal.classList.toggle('visible')
+        modal.classList.toggle('hidden')
     }
-    function preventBubble(ev){
+
+    function preventBubble(ev) {
         ev.stopPropagation();
     }
     trigger.onclick = toggleModal;

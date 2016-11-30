@@ -150,7 +150,6 @@ a:hover {
 }
 
 .modal {
-    visibility: hidden;
     position: fixed;
     margin: 0;
     top: 0;
@@ -170,10 +169,6 @@ a:hover {
     padding: 1rem;
     background: rgb(255, 255, 255);
     overflow-y: auto;
-}
-
-.visible {
-    display: initial;
 }
 
 .hidden {
