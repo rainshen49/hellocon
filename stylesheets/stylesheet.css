@@ -90,6 +90,7 @@ body img {
 
 #nav .btn {
     border: none;
+    border-radius: 0;
     width: 100%;
 }
 
