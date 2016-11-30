@@ -48,8 +48,10 @@ function toggleFlip(event) {
     if (clip.className.slice(0, 5) != "event") {
         clip = clip.parentNode
     }
-    clip.classList.toggle('show');
-    clip.children[0].classList.toggle('hidden');
-    clip.children[1].classList.toggle('hidden');
-    clip.children[2].classList.toggle('hidden');
+    if (clip.children[2].textContent) {
+        clip.classList.toggle('show');
+        clip.children[0].classList.toggle('hidden');
+        clip.children[1].classList.toggle('hidden');
+        clip.children[2].classList.toggle('hidden');
+    }
 }
