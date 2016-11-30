@@ -19,16 +19,22 @@
             width: 100%;
             overflow-x: auto;
         }
-
+        
         .event {
-            min-width: 20rem;
-            max-width: 30rem;
-            height: 20rem;
+            min-width: 15rem;
+            /*max-width: 30rem;*/
+            /*height: 20rem;*/
             box-shadow: 0 0 0.5rem 0 rgba(30, 107, 184, 0.8);
             border-radius: 1rem;
-            margin:1rem;
+            margin: 1rem;
             padding: 1rem;
             overflow-y: auto;
+            transition: background-color 0.2s;
+        }
+        
+        .event.show {
+            background: rgb(30, 107, 184);
+            color: white;
         }
     </style>
 </head>
