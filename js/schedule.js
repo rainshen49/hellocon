@@ -3,7 +3,7 @@
     Papa.parse("data/schedule.csv", {
         download: true,
         complete: handleResults,
-        error: function (err, file, inputElem, reason) {
+        error: function(err, file, inputElem, reason) {
             console.error(err, file, inputElem, reason)
         }
     })
@@ -13,8 +13,11 @@
         // row0=[day,time,topic,content,,day,time,topic,content]
         // row =[   ,time,topic,content,,   ,time,topic,content]
         var data = result.data;
-        var schedule = [[], []];
-        data.forEach(function (row, i) {
+        var schedule = [
+            [],
+            []
+        ];
+        data.forEach(function(row, i) {
             if (i > 0) {
                 if (row[1])
                     schedule[0].push({ time: row[1], topic: row[2], content: row[3] });
@@ -23,18 +26,32 @@
             }
         })
         generateCalendar(schedule)
-        // console.log(schedule)
+            // console.log(schedule)
     }
+
     function generateCalendar(schedule) {
         var day = [document.querySelector('#one'), document.querySelector('#two')]
         var HTMLTmp = ""
         for (var i = 0; i < 2; i++) {
-            schedule[i].forEach(function (event) {
-                HTMLTmp += '<div class="event"><h3 class="topic">' + event.topic + '</h3>' + '<p class="time">' + event.time + '</p>'
-                    + '<p class="content">' + event.content + '</p>' + '</div>'
+            schedule[i].forEach(function(event) {
+                HTMLTmp += '<div class="event" onclick="toggleFlip(event)"><h3 class="topic">' + event.topic + '</h3>' + '<p class="time">' + event.time + '</p>' +
+                    '<p class="content hidden">' + event.content + '</p>' + '</div>'
             })
-            day[i].innerHTML=HTMLTmp;
-            HTMLTmp=''
+            day[i].innerHTML = HTMLTmp;
+            HTMLTmp = ''
         }
     }
 })()
+
+function toggleFlip(event) {
+    var clip = event.target
+    if (clip.className.slice(0, 5) != "event") {
+        clip = clip.parentNode
+    }
+    if (clip.children[2].textContent) {
+        clip.classList.toggle('show');
+        clip.children[0].classList.toggle('hidden');
+        clip.children[1].classList.toggle('hidden');
+        clip.children[2].classList.toggle('hidden');
+    }
+}

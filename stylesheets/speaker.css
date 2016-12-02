@@ -1,27 +1,14 @@
-@media screen and (min-width: 43em) {
-    .aSpeaker {
-        width: 32%;
-    }
-}
-
-@media screen and (max-width: 42em) {
-    .aSpeaker {
-        width: 49%;
-    }
-}
-
-@media screen and (max-width: 21em) {
-    .aSpeaker {
-        width: 100%;
-    }
-}
-
 .aSpeaker {
     box-shadow: 0 0 5px 0 #159957;
     padding: 1rem;
     border-radius: 1rem;
+    width: auto;
+    max-height: 20rem;
+    overflow-y: auto;
 }
 
 main {
-    display: inline-flex;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
 }

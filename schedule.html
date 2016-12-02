@@ -19,16 +19,36 @@
             width: 100%;
             overflow-x: auto;
         }
-
+        
+        @media print {
+            #one,
+            #two {
+                display: flex;
+                width: 100%;
+                justify-content: flex-start;
+                flex-wrap: wrap;
+            }
+        }
+        
         .event {
-            min-width: 20rem;
-            max-width: 30rem;
-            height: 20rem;
+            min-width: 15rem;
+            max-width: 90%;
+            /*height: 20rem;*/
             box-shadow: 0 0 0.5rem 0 rgba(30, 107, 184, 0.8);
             border-radius: 1rem;
-            margin:1rem;
+            margin: 1rem;
             padding: 1rem;
             overflow-y: auto;
+            transition: background-color 0.2s;
+        }
+        
+        .event.show {
+            background: rgb(30, 107, 184);
+            color: white;
+        }
+        
+        .event:hover:not(.show) {
+            background: rgba(30, 107, 184, 0.3);
         }
     </style>
 </head>
@@ -52,8 +72,9 @@
             <h2>Conference Day 2</h2>
             <div id="two"></div>
         </main>
-        <footer class="site-footer"><span class="site-footer-credits"><a href="mailto:ieeeutstudentbranch@gmail.com">Contact: ieeeutstudentbranch@gmail.com</a></span>
-            <span class="site-footer-owner"><a href="https://github.com/rainshen49/hellocon">Hellocon</a> is maintained by <a href="https://github.com/rainshen49">rainshen49</a>.</span>
+        <footer class="site-footer">
+            <span class="site-footer-credits">If you're interested in sponsorship or partnership, please email: <a href="mailto:ieeeutstudentbranch@gmail.com">ieeeutstudentbranch@gmail.com</a></span>
+            <span class="site-footer-owner"><a href="https://github.com/rainshen49/hellocon">Hellocon</a> is maintained by <a href="https://github.com/rainshen49">rainshen49</a> at <a href="http://ieee.utoronto.ca/about/"><strong>IEEE University of Toronto</strong></a>.</span>
         </footer>
     </section>
     <script async src="js/schedule.js"></script>
