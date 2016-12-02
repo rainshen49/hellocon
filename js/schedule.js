@@ -34,8 +34,8 @@
         var HTMLTmp = ""
         for (var i = 0; i < 2; i++) {
             schedule[i].forEach(function(event) {
-                HTMLTmp += '<div class="event" onclick="toggleFlip(event)"><h3 class="topic">' + event.topic + '</h3>' + '<p class="time">' + event.time + '</p>' +
-                    '<p class="content hidden">' + event.content + '</p>' + '</div>'
+                HTMLTmp += '<div class="event" onclick="toggleFlip(event)"><h3 class="topic">' + event.topic + '</h3>' + '<p class="time">' + event.time + '<br>&#9660;</p>' +
+                    '<p class="content hidden">&#9650;<br>' + event.content + '</p>' + '</div>'
             })
             day[i].innerHTML = HTMLTmp;
             HTMLTmp = ''
