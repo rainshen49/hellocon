@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--<link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">-->
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.min.css" media="screen">
     <!--<link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">-->
 </head>
 
@@ -76,7 +76,32 @@
             <span class="site-footer-owner"><a href="https://github.com/rainshen49/hellocon">Hellocon</a> is maintained by <a href="https://github.com/rainshen49">rainshen49</a> at <a href="http://ieee.utoronto.ca/about/"><strong>IEEE University of Toronto</strong></a>.</span>
         </footer>
     </section>
-    <script src="js/intro.js"></script>
+    <script>
+    (function intro() {
+    var xhr = new XMLHttpRequest
+    xhr.open('get', 'conduct.html')
+    xhr.send()
+    xhr.onload = function(intro) {
+        document.querySelector('#code').innerHTML = xhr.response;
+    }
+
+    var modal = document.querySelector('#codeModal');
+    var inModal = document.querySelector('#code');
+    var trigger = document.querySelector('#codeTrigger');
+
+    function toggleModal(ev) {
+        ev.stopPropagation();
+        modal.classList.toggle('hidden')
+    }
+
+    function preventBubble(ev) {
+        ev.stopPropagation();
+    }
+    trigger.onclick = toggleModal;
+    modal.onclick = toggleModal;
+    inModal.onclick = preventBubble;
+})()
+</script>
 </body>
 
 </html>

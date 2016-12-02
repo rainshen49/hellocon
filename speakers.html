@@ -7,10 +7,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--<link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">-->
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" href="stylesheets/speaker.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.min.css" media="screen">
     <script src="js/papaparse.min.js"></script>
     <!--<link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">-->
+    <style>
+        .aSpeaker {
+            box-shadow: 0 0 5px 0 #159957;
+            padding: 1rem;
+            border-radius: 1rem;
+            width: auto;
+            max-height: 20rem;
+            overflow-y: auto;
+        }
+        
+        main {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+    </style>
 </head>
 
 <body>
@@ -28,11 +43,11 @@
     <section class="main-content">
         <template id="aSpeaker">
             <div class="aSpeaker">
-                <img alt="speaker's name" src="profile.jpg"/>
+                <img alt="speaker's name" src="profile.jpg" />
                 <h3>Name</h3>
                 <aside>Organization?Company</aside>
                 <h4>Topic</h4>
-<!--                 <p>Short Intro (Asbtract)</p> -->
+                <!--                 <p>Short Intro (Asbtract)</p> -->
             </div>
         </template>
         <main>
@@ -42,7 +57,31 @@
             <span class="site-footer-owner"><a href="https://github.com/rainshen49/hellocon">Hellocon</a> is maintained by <a href="https://github.com/rainshen49">rainshen49</a> at <a href="http://ieee.utoronto.ca/about/"><strong>IEEE University of Toronto</strong></a>.</span>
         </footer>
     </section>
-    <script async src="js/speakers.js"></script>
+    <script>
+    (function speaker() {
+    var main = document.querySelector('main')
+    Papa.parse("data/speakers.csv", {
+        download: true,
+        complete: handleResults,
+        error: function(err, file, inputElem, reason) {
+            console.error(err, file, inputElem, reason)
+        }
+    })
+
+    function handleResults(result) {
+        // {data:[title,item1,item2...],errors,meta}
+        var title = result.data[0]
+            // console.log(title)
+        result.data.forEach(function(data, i) {
+            if (i > 0) {
+                // console.log(data)
+                var addHTML = "<div class='aSpeaker'><h2>" + data[1] + "</h2>" + "<h3>Topic: " + data[5] + "</h3>" + "<p>" + data[6] + "</p></div>";
+                main.innerHTML += addHTML
+            }
+        })
+    }
+    })()
+    </script>
 </body>
 
 </html>
