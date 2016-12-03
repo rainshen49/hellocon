@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--<link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">-->
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.min.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
     <!--<link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">-->
 </head>
 
@@ -20,18 +20,25 @@
             <a href="schedule.html" class="btn">Schedule</a>
             <a href="index.html#submit" class="btn">Submit</a>
         </div>
-        <a href="index.html"><img src="banner.png" alt="Home" class="banner" /></a>
+        <a href="index.html"><img alt="Home" class="banner" /></a>
+        <script>
+            (function imgSelect() {
+                var img = document.querySelector('img[alt="Home"]');
+                if (window.chrome) {
+                    img.src = "pics/banner.webp"
+                } else {
+                    img.src = "pics/banner.jpg"
+                }
+            })()
+        </script>
     </section>
 
     <section class="main-content">
         <main>
             <h1>Hello, Con!</h1>
-            <p>Hello, Con! is a conference at University of Toronto comprised of a series of lightning talks given by selected
-                speakers. The talks are related to programming and computer science, but are otherwise unrestricted in terms
-                of topic and form. Speakers are going to share their personal stories, ongoing or completed projects, work
-                experience, research results, or even future visions regarding the field of programming or computer science
-                in a broader context. We welcome all Computer Science and Engineering students as well as any developers
-                from related industry fields who are interested. </p>
+            <p>Hello, Con! is a conference at University of Toronto comprised of a series of lightning talks given by selected speakers. The talks are related to programming and computer science, but are otherwise unrestricted in terms of topic and form.
+                Speakers are going to share their personal stories, ongoing or completed projects, work experience, research results, or even future visions regarding the field of programming or computer science in a broader context. We welcome all Computer
+                Science and Engineering students as well as any developers from related industry fields who are interested. </p>
             <p><strong>Important!</strong> Please read the <a id="codeTrigger" href="#code">Code of Conduct</a>.</p>
 
             <div id="codeModal" class="modal hidden">
@@ -53,8 +60,7 @@
                 <h3 id="topics">Topics</h3>
                 <p>Anything inspiring, fresh, exciting and original! And of course, programming related.</p>
                 <h3 id="style">Style</h3>
-                <p>Free choice of the speakers; as long as you convey the absolute most important ideas in ten minutes and bring
-                    joy and excitement to the audience. </p>
+                <p>Free choice of the speakers; as long as you convey the absolute most important ideas in ten minutes and bring joy and excitement to the audience. </p>
                 <h4 id="example-styles">Example styles</h4>
                 <ul>
                     <li>Live demonstration (Product/app demo)</li>
@@ -65,11 +71,9 @@
                 <a href="https://docs.google.com/forms/d/e/1FAIpQLSdJ_uMUS4S9ILo6-POVABV0vi3cpR27RQ_YFVaj-4QUOWrERw/viewform" class="btn">Submit</a>
             </div>
             <h1>About <a href="http://ieee.utoronto.ca/about/"><strong>IEEE University of Toronto</strong></a></h1>
-            <p>The IEEE University of Toronto Student Branch is the leading technical and professional development club for
-                UofT’s engineering students. We aim to foster student interest in the field of computer and electrical technologies,
-                and to provide them with more insights into the respective industry and academic scenes. We offer many opportunities
-                for students to develop their technical and professional skills through our competitions and hackathons,
-                industry tours, talks and seminars, and more.</p>
+            <p>The IEEE University of Toronto Student Branch is the leading technical and professional development club for UofT’s engineering students. We aim to foster student interest in the field of computer and electrical technologies, and to provide
+                them with more insights into the respective industry and academic scenes. We offer many opportunities for students to develop their technical and professional skills through our competitions and hackathons, industry tours, talks and seminars,
+                and more.</p>
         </main>
         <footer class="site-footer">
             <span class="site-footer-credits">If you're interested in sponsorship or partnership, please email: <a href="mailto:ieeeutstudentbranch@gmail.com">ieeeutstudentbranch@gmail.com</a></span>
@@ -77,31 +81,32 @@
         </footer>
     </section>
     <script>
-    (function intro() {
-    var xhr = new XMLHttpRequest
-    xhr.open('get', 'conduct.html')
-    xhr.send()
-    xhr.onload = function(intro) {
-        document.querySelector('#code').innerHTML = xhr.response;
-    }
+        (function intro() {
+            var xhr = new XMLHttpRequest
+            xhr.open('get', 'conduct.html')
+            xhr.send()
+            xhr.onload = function(intro) {
+                document.querySelector('#code').innerHTML = xhr.response;
+            }
 
-    var modal = document.querySelector('#codeModal');
-    var inModal = document.querySelector('#code');
-    var trigger = document.querySelector('#codeTrigger');
+            var modal = document.querySelector('#codeModal');
+            var inModal = document.querySelector('#code');
+            var trigger = document.querySelector('#codeTrigger');
 
-    function toggleModal(ev) {
-        ev.stopPropagation();
-        modal.classList.toggle('hidden')
-    }
+            function toggleModal(ev) {
+                ev.stopPropagation();
+                modal.classList.toggle('hidden');
+                document.body.classList.toggle("unscrollable");
+            }
 
-    function preventBubble(ev) {
-        ev.stopPropagation();
-    }
-    trigger.onclick = toggleModal;
-    modal.onclick = toggleModal;
-    inModal.onclick = preventBubble;
-})()
-</script>
+            function preventBubble(ev) {
+                ev.stopPropagation();
+            }
+            trigger.onclick = toggleModal;
+            modal.onclick = toggleModal;
+            inModal.onclick = preventBubble;
+        })()
+    </script>
 </body>
 
 </html>

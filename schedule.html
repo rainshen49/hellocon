@@ -58,7 +58,17 @@
     <section class="page-header">
         <!--<h1 class="project-name">Hello, Con!</h1>-->
         <!--<h2 class="project-tagline">An engaging tech conference to connect professionals to students, hosted by <br> <a href="http://ieee.utoronto.ca/about/"><strong>IEEE University of Toronto</strong></a></h2>-->
-        <a href="index.html"><img src="small.png" alt="Loading banner" class="banner" /></a>
+        <a href="index.html"><img alt="Home" class="banner" /></a>
+        <script>
+            (function imgSelect() {
+                var img = document.querySelector('img[alt="Home"]');
+                if (window.chrome) {
+                    img.src = "pics/small.webp"
+                } else {
+                    img.src = "pics/small.jpg"
+                }
+            })()
+        </script>
         <div id="nav">
             <a href="speakers.html" class="btn">Speakers</a>
             <a href="schedule.html" class="btn">Schedule</a>
@@ -79,61 +89,69 @@
         </footer>
     </section>
     <script>
-    (function schedule() {
-    var main = document.querySelector('main')
-    Papa.parse("data/schedule.csv", {
-        download: true,
-        complete: handleResults,
-        error: function(err, file, inputElem, reason) {
-            console.error(err, file, inputElem, reason)
-        }
-    })
-
-    function handleResults(result) {
-        // {data:[row1,row2,row3],errors,meta}
-        // row0=[day,time,topic,content,,day,time,topic,content]
-        // row =[   ,time,topic,content,,   ,time,topic,content]
-        var data = result.data;
-        var schedule = [
-            [],
-            []
-        ];
-        data.forEach(function(row, i) {
-            if (i > 0) {
-                if (row[1])
-                    schedule[0].push({ time: row[1], topic: row[2], content: row[3] });
-                if (row[6])
-                    schedule[1].push({ time: row[6], topic: row[7], content: row[8] });
-            }
-        })
-        generateCalendar(schedule)
-            // console.log(schedule)
-    }
-
-    function generateCalendar(schedule) {
-        var day = [document.querySelector('#one'), document.querySelector('#two')]
-        var HTMLTmp = ""
-        for (var i = 0; i < 2; i++) {
-            schedule[i].forEach(function(event) {
-                HTMLTmp += '<div class="event" onclick="toggleFlip(event)"><h3 class="topic">' + event.topic + '</h3>' + '<p class="time">' + event.time + '<br>&#9660;</p>' +
-                    '<p class="content hidden">&#9650;<br>' + event.content + '</p>' + '</div>'
+        (function schedule() {
+            var main = document.querySelector('main')
+            Papa.parse("data/schedule.csv", {
+                download: true,
+                complete: handleResults,
+                error: function(err, file, inputElem, reason) {
+                    console.error(err, file, inputElem, reason)
+                }
             })
-            day[i].innerHTML = HTMLTmp;
-            HTMLTmp = ''
-        }
-    }
-    })()
 
-    function toggleFlip(event) {
-        var clip = event.target
-        if (clip.className.slice(0, 5) != "event") {
-            clip = clip.parentNode
-        }
+            function handleResults(result) {
+                // {data:[row1,row2,row3],errors,meta}
+                // row0=[day,time,topic,content,,day,time,topic,content]
+                // row =[   ,time,topic,content,,   ,time,topic,content]
+                var data = result.data;
+                var schedule = [
+                    [],
+                    []
+                ];
+                data.forEach(function(row, i) {
+                    if (i > 0) {
+                        if (row[1])
+                            schedule[0].push({
+                                time: row[1],
+                                topic: row[2],
+                                content: row[3]
+                            });
+                        if (row[6])
+                            schedule[1].push({
+                                time: row[6],
+                                topic: row[7],
+                                content: row[8]
+                            });
+                    }
+                })
+                generateCalendar(schedule)
+                    // console.log(schedule)
+            }
+
+            function generateCalendar(schedule) {
+                var day = [document.querySelector('#one'), document.querySelector('#two')]
+                var HTMLTmp = ""
+                for (var i = 0; i < 2; i++) {
+                    schedule[i].forEach(function(event) {
+                        HTMLTmp += '<div class="event" onclick="toggleFlip(event)"><h3 class="topic">' + event.topic + '</h3>' + '<p class="time">' + event.time + '<br>&#9660;</p>' +
+                            '<p class="content hidden">&#9650;<br>' + event.content + '</p>' + '</div>'
+                    })
+                    day[i].innerHTML = HTMLTmp;
+                    HTMLTmp = ''
+                }
+            }
+        })()
+
+        function toggleFlip(event) {
+            var clip = event.target
+            if (clip.className.slice(0, 5) != "event") {
+                clip = clip.parentNode
+            }
             clip.classList.toggle('show');
             clip.children[0].classList.toggle('hidden');
             clip.children[1].classList.toggle('hidden');
             clip.children[2].classList.toggle('hidden');
-    }
+        }
     </script>
 </body>
 

@@ -7,6 +7,7 @@
 - Modal: Code of Conduct page is built with a modal to ensure focused reading
 - Compability: due to compability issues (especially for some Android integrated browsers and old version of iOS), ES5 standard is used.
 - Optimized first-load: minified css, inline important css and jss to reduce requests.
+- Optimized images: use webp for chrome, use png otherwise
 
 Todo:
 
