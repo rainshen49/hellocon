@@ -11,4 +11,11 @@
 
 Todo:
 
- - [ ] Sponsors section
+ - [x] Sponsors section
+ - [x] Submit (be a speaker) button embed google form in a separate page
+ - [x] location BA
+ - [x] home page button in menu
+ - [ ] update code of Conduct
+ - [x] speaker page content
+ - [x] intro content
+ - [ ] google map integration in location

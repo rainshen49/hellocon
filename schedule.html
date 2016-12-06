@@ -1,58 +1,58 @@
-<h1 id="code-of-conduct">Code of Conduct</h1>
+<!DOCTYPE html>
+<html>
 
-<p>Hello, Con! is dedicated to offering the programming community in the Greater Toronto Area an opportunity to teach, learn and have fun! To provide a good experience for everyone, we feel that it is necessary for participants/attendees to follow the following
-    code of conduct.</p>
-
-<p>We ask that every attendee of the conference behave professionally during the conference. Any actions and statements based on ideas of discrimination and inequality of any kind are not allowed.</p>
-
-<p>Offensive statement topics include but are not limited to:</p>
-
-<ol>
-    <li>Gender identity and sexual orientation</li>
-    <li>Disability</li>
-    <li>Physical appearance</li>
-    <li>Race, culture and national origin</li>
-    <li>Religion and creed</li>
-    <li>Ancestry</li>
-    <li>Age</li>
-</ol>
-
-<p>Inappropriate actions include but are not limited to:</p>
-
-<ol>
-    <li>Displaying disturbing images in public spaces</li>
-    <li>Deliberate intimidation</li>
-    <li>Stalking</li>
-    <li>Photography or recording without consent</li>
-    <li>Sustained disruption of talks or other events</li>
-    <li>Inappropriate physical contact</li>
-    <li>Unwelcome sexual attention</li>
-</ol>
-
-<p>Attendees who are asked to end their inappropriate actions and comments, even when they are unintentional, should immediately comply with this code of conduct. <br> For attendees violating any of the above, the conference organizers will take actions
-    that they deem appropriate, ranging from verbal warnings/exclusion from the conference to the involvement of the relevant authorities.</p>
-
-<h2 id="social-rules">Social Rules</h2>
-
-<p>We hereby present a set of suggestions that we found from the Recurse Center for any social engagement during the conference. We believe that this set of suggestions will improve everyone’s socializing experience. All attendees are encouraged to keep
-    the following social rules in mind when making new friends at the conference! <br> Social Rules: <a href="https://www.recurse.com/manual#sub-sec-social-rules">https://www.recurse.com/manual#sub-sec-social-rules</a> <br> The suggestions provided here,
-    compared to the previous section of code of conduct that are to be strictly followed by attendees, are much more informal. The violation of such suggestions will not result in any actions taken against them by the conference organizers. However, it
-    is still strongly encouraged that people learn about them and follow them whenever possible (not only at the Hello, Con!).</p>
-
-
-
-<h2 id="license">License</h2>
-
-<p>The Hello, Con! Code of Conduct is under a Creative Commons Zero license.</p>
-
-.event.show { background: rgb(30, 107, 184); color: white; } .event:hover:not(.show) { background: rgba(30, 107, 184, 0.3); }
-</style>
+<head>
+    <meta charset="UTF-8">
+    <title>Schedule</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.min.css" media="screen">
+    <script src="js/papaparse.min.js"></script>
+    <style>
+        #one,
+        #two {
+            display: flex;
+            justify-content: flex-start;
+            width: 100%;
+            overflow-x: auto;
+        }
+        
+        @media print {
+            #one,
+            #two {
+                display: flex;
+                width: 100%;
+                justify-content: flex-start;
+                flex-wrap: wrap;
+            }
+        }
+        
+        .event {
+            min-width: 15rem;
+            max-width: 90%;
+            /*height: 20rem;*/
+            box-shadow: 0 0 0.5rem 0 rgba(30, 107, 184, 0.8);
+            border-radius: 1rem;
+            margin: 1rem;
+            padding: 1rem;
+            overflow-y: auto;
+            transition: background-color 0.2s;
+            cursor: pointer;
+        }
+        
+        .event.show {
+            background: rgb(30, 107, 184);
+            color: white;
+        }
+        
+        .event:hover:not(.show) {
+            background: rgba(30, 107, 184, 0.3);
+        }
+    </style>
 </head>
 
 <body>
     <section class="page-header">
-        <!--<h1 class="project-name">Hello, Con!</h1>-->
-        <!--<h2 class="project-tagline">An engaging tech conference to connect professionals to students, hosted by <br> <a href="http://ieee.utoronto.ca/about/"><strong>IEEE University of Toronto</strong></a></h2>-->
         <a href="index.html"><img alt="Home" class="banner" /></a>
         <script>
             (function imgSelect() {
@@ -65,18 +65,21 @@
             })()
         </script>
         <div id="nav">
+            <a href="index.html" class="btn">Home</a>
             <a href="speakers.html" class="btn">Speakers</a>
             <a href="schedule.html" class="btn">Schedule</a>
-            <a href="index.html#submit" class="btn">Submit</a>
+            <a href="submit.html" class="btn">Become A Speaker</a>
         </div>
     </section>
 
     <section class="main-content">
         <main>
             <h2>Conference Day 1</h2>
-            <div id="one"></div>
+            <div id="one">
+            </div>
             <h2>Conference Day 2</h2>
-            <div id="two"></div>
+            <div id="two">
+            </div>
         </main>
         <footer class="site-footer">
             <span class="site-footer-credits">If you're interested in sponsorship or partnership, please email: <a href="mailto:ieeeutstudentbranch@gmail.com">ieeeutstudentbranch@gmail.com</a></span>
@@ -148,6 +151,10 @@
             clip.children[2].classList.toggle('hidden');
         }
     </script>
+
+
+    <iframe frameborder="0" scrolling="no" style="background-color: transparent; border: 0px; display: none;" src="./schedule_files/saved_resource.html"></iframe>
+    <div id="GOOGLE_INPUT_CHEXT_FLAG" style="display: none;" input="" input_stat="{&quot;tlang&quot;:true,&quot;tsbc&quot;:true,&quot;pun&quot;:true,&quot;mk&quot;:true,&quot;ss&quot;:true}"></div>
 </body>
 
 </html>
