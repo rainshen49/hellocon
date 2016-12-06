@@ -11,13 +11,13 @@
 
 <body>
     <section class="page-header">
+        <a href="index.html"><img alt="Home" class="banner" /></a>
         <div id="nav">
             <a href="index.html" class="btn">Home</a>
             <a href="speakers.html" class="btn">Speakers</a>
             <a href="schedule.html" class="btn">Schedule</a>
             <a href="submit.html" class="btn">Become A Speaker</a>
         </div>
-        <a href="index.html"><img alt="Home" class="banner" /></a>
         <script>
             (function imgSelect() {
                 var img = document.querySelector('img[alt="Home"]');
@@ -72,13 +72,15 @@
             <span class="site-footer-owner"><a href="https://github.com/rainshen49/hellocon">Hellocon</a> is maintained by <a href="https://github.com/rainshen49">rainshen49</a> at <a href="http://ieee.utoronto.ca/about/"><strong>IEEE University of Toronto</strong></a>.</span>
         </footer>
     </section>
-    <script>
+    <script defer src="js/marked.js"></script>
+    <script defer>
         (function intro() {
             var xhr = new XMLHttpRequest
-            xhr.open('get', 'conduct.html')
+            xhr.open('get', 'data/Code-of-Conduct.md')
             xhr.send()
             xhr.onload = function(intro) {
-                document.querySelector('#code').innerHTML = xhr.response;
+                var htmlConduct = marked(xhr.response);
+                document.querySelector('#code').innerHTML = htmlConduct;
             }
 
             var modal = document.querySelector('#codeModal');

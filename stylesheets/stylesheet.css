@@ -82,7 +82,7 @@ a:hover {
     left: 0;
     display: flex;
     justify-content: space-around;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.3);
     background: rgba(255, 255, 255, 0.7);
 }
@@ -90,9 +90,18 @@ a:hover {
 #nav .btn {
     border: none;
     border-radius: 0;
-    width: 100%;
+    min-width: 12rem;
     text-transform: uppercase;
     font-size: 1.1rem;
+}
+
+@media screen and (max-width: 39rem) {
+    #nav {
+        position: initial;
+    }
+    .page-header {
+        padding: 0;
+    }
 }
 
 #nav .btn:hover:not(:active) {
