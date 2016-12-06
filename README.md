@@ -9,7 +9,7 @@
 - Compability: due to compability issues (especially for some Android integrated browsers and old version of iOS), ES5 standard is used.
 - Optimized first-load: minified css, inline important css and jss to reduce requests.
 - Optimized images: use webp for chrome, use png otherwise
-
+- Google Map API for location
 Todo:
 
  - [x] Sponsors section
@@ -19,6 +19,8 @@ Todo:
  - [x] update code of Conduct
  - [x] speaker page content
  - [x] intro content
- - [ ] google map integration in location
- - [ ] a close button for the modal
+ - [x] google map integration in location
+ - [x] a close button for the modal
  - [ ] minimize html and css
+
+ API key with google map:AIzaSyCSE3FGIgC846uwx02LDGRAJg8hnGqwJE0
