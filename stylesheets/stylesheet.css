@@ -85,6 +85,7 @@ a:hover {
     flex-wrap: wrap;
     box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.3);
     background: rgba(255, 255, 255, 0.7);
+    z-index: 1;
 }
 
 #nav .btn {
@@ -152,6 +153,10 @@ a:hover {
     display: none;
 }
 
+.main-content {
+    position: relative;
+}
+
 .main-content img {
     max-width: 100%;
 }
@@ -211,7 +216,6 @@ a:hover {
 
 @media screen and (min-width: 64em) {
     .main-content {
-        max-width: 64rem;
         padding: 2rem 6rem;
         margin: 0 auto;
         font-size: 1.1rem;
