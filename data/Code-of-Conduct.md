@@ -1,4 +1,4 @@
-**Code of Conduct**
+# Code of Conduct
 
 Hello, Con! is dedicated to offering the programming community in the Greater Toronto Area an opportunity to teach, learn and **have fun**! To provide a good experience for everyone, we feel that it is necessary for participants/attendees to follow the following code of conduct. 
 
