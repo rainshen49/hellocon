@@ -26,7 +26,7 @@ If a participant engages in behavior that violates the anti-harassment policy, t
 
 ## **Social Rules**
 
-In addition to having a code of conduct as an anti-harassment policy, we have a small set of [social rules](https://www.recurse.com/manual#sub-sec-social-rules) we follow. We (the organizers) learned and lifted these rules from [the Recurse Center](https://www.recurse.com/), where we felt that they contributed enormously to a supportive, productive, and fun learning environment. We'd like Hello, Con! to share that environment. These rules are intended to be lightweight, and to make more explicit certain social norms that are normally implicit. Most of our social rules really boil down to "don’t be a jerk" or “don’t be annoying.” Of course, almost nobody sets out to be a jerk or annoying, so telling people not to be jerks isn’t a very productive strategy.
+In addition to having a code of conduct as an anti-harassment policy, we have a small set of [social rules](https://www.recurse.com/manual#sub-sec-social-rules) we follow. We (the organizers) believe that the rules from [the Recurse Center](https://www.recurse.com/) contribute enormously to a supportive, productive, and fun learning environment. These rules are intended to be lightweight, and to make more explicit certain social norms that are normally implicit. Most of our social rules really boil down to "don’t be a jerk" or “don’t be annoying.” Of course, almost nobody sets out to be a jerk or annoying, so telling people not to be jerks isn’t a very productive strategy.
 
 Unlike the anti-harassment policy, violation of the social rules will not result in expulsion from the conference or a strong warning from conference organizers. Rather, they are designed to provide some lightweight social structure for conference attendees to use when interacting with each other.
 
@@ -34,13 +34,10 @@ Unlike the anti-harassment policy, violation of the social rules will not result
 
 If you have any questions about any part of the code of conduct or social rules, please feel free to reach out to any of the conference organizers.
 
-We have learnt the code of conduct from the [!!Con](http://bangbangcon.com/). 
-
 **Contact**
 
 Every attendee, speaker and volunteer must act according to the code of conduct. If you witnessed, or have experienced any violation of the above code of conduct, please don't hesitate to report to us at** **[ieeeutstudentbranch@gmail.com](mailto:ieeeutstudentbranch@gmail.com)
 
-**License **
+**License**
 
-The Hello, Con! Code of Conduct is under a Creative Commons Zero license. 
-
+The Hello, Con! Code of Conduct is under a [Creative Commons Zero license](http://creativecommons.org/about/cc0). It is forked from the one used by [!!Con](http://bangbangcon.com/conduct.html), which is derived from the [PyCon 2013 Code of Conduct](https://us.pycon.org/2013/about/code-of-conduct/). The subject matter is unchanged; only the contact information and conference name have been modified.
