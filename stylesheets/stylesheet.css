@@ -23,6 +23,7 @@ a {
 
 a:hover {
     text-decoration: underline;
+    cursor: pointer;
 }
 
 .btn {
@@ -73,6 +74,12 @@ a:hover {
 
 .banner {
     width: 100%;
+}
+
+.flex{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 #nav {
@@ -268,4 +275,10 @@ a:hover {
     .site-footer {
         font-size: 0.9rem;
     }
+}
+
+@keyframes glow {
+    0% {box-shadow: 0 0 0.1rem 0 rgb(255,255,255)}
+    50% {box-shadow: 0 0 5rem 0.5rem rgb(255,255,255)}
+    100% {box-shadow: 0 0 0.1rem 0 rgb(255,255,255)}
 }
