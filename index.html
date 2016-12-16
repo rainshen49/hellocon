@@ -216,6 +216,10 @@
                 window.scrollBy(0, window.innerHeight/2);
                 scrollDown.style.display = "none";
             }
+            window.onscroll=function(){
+                scrollDown.onclick();
+                window.onscroll=null;
+            }
         })()
 </script>
 </body>
