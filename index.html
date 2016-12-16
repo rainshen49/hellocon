@@ -13,18 +13,18 @@
     <section class="page-header">
         <a href="index.html"><img alt="Home" class="banner" />
         </a>
-        <a href="#main" class="flex">
-            <div class="moreBelow"></div>
-        </a>
+        <div class="flex moreBelow">
+            <div></div>
+        </div>
         <style>
-            a[href="#main"]{
+            .moreBelow{
                 position: fixed;
                 bottom:5%;
                 left:0;
                 right:0;
                 z-index: 1;
             }
-            .moreBelow{
+            .moreBelow div{
                 display: flex;
                 justify-content: center;
                 border-radius: 50%;
@@ -36,12 +36,12 @@
                 animation: glow 1.2s infinite;
                 animation-play-state: running;
             }
-            .moreBelow:hover{
+            .moreBelow div:hover{
                 animation-play-state: paused;
                 cursor: pointer;
                 opacity: 0.3;                
             }
-            .moreBelow::before{
+            .moreBelow div::before{
                 margin: 0;
                 padding: 0;
                 display: block;
@@ -211,6 +211,11 @@
             trigger.onclick = toggleModal;
             modal.onclick = toggleModal;
             inModal.onclick = preventBubble;
+            var scrollDown = document.querySelector('.moreBelow')
+            scrollDown.onclick = function () {
+                window.scrollBy(0, window.innerHeight/2);
+                scrollDown.style.display = "none";
+            }
         })()
 </script>
 </body>
