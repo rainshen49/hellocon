@@ -13,8 +13,9 @@
             box-shadow: 0 0 5px 0 #159957;
             padding: 1rem;
             border-radius: 1rem;
-            width: auto;
-            max-height: 20rem;
+            /*width: auto;*/
+            margin: 0.5rem;
+            max-height: 30rem;
             overflow-y: auto;
         }
         
@@ -60,6 +61,7 @@
         (function speaker() {
             var main = document.querySelector('main')
             Papa.parse("data/Tech Conference RFP Form.csv", {
+            // Papa.parse("data/Tech Conference RFP Form (Responses) - Form Responses 1.csv", {
                 download: true,
                 complete: handleResults,
                 error: function(err, file, inputElem, reason) {
@@ -75,6 +77,7 @@
                     if (i > 0) {
                         // console.log(data)
                         var addHTML = "<div class='aSpeaker'><h2>" + data[1] + "</h2>" + "<h3> " + data[5] + "</h3>" + "<p>" + data[6] + "</p></div>";
+                        // var addHTML = "<div class='aSpeaker'><h2>" + data[1] + "</h2>" + "<p> " + data[3] + "</p><h3>" + data[4] + "</h3><p>"+data[5].replace(/\n/g,"<br>") + "</p></div>";
                         main.innerHTML += addHTML
                     }
                 })
