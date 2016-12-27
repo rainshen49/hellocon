@@ -17,81 +17,84 @@
             <div></div>
         </div>
         <style>
-            .moreBelow{
+            .moreBelow {
                 position: fixed;
-                bottom:5%;
-                left:0;
-                right:0;
+                bottom: 5%;
+                left: 0;
+                right: 0;
                 z-index: 1;
             }
-            .moreBelow div{
+            
+            .moreBelow div {
                 display: flex;
                 justify-content: center;
                 border-radius: 50%;
-                background:seagreen;
-                margin:0;
+                background: seagreen;
+                margin: 0;
                 padding: 1rem;
                 opacity: 0.8;
                 transition: opacity 0.2s;
                 animation: glow 1.2s infinite;
                 animation-play-state: running;
             }
-            .moreBelow div:hover{
+            
+            .moreBelow div:hover {
                 animation-play-state: paused;
                 cursor: pointer;
-                opacity: 0.3;                
+                opacity: 0.3;
             }
-            .moreBelow div::before{
+            
+            .moreBelow div::before {
                 margin: 0;
                 padding: 0;
                 display: block;
-                border-left: 0.3rem solid rgba(255,255,255,0.9);
-                border-bottom: 0.3rem solid rgba(255,255,255,0.9);
+                border-left: 0.3rem solid rgba(255, 255, 255, 0.9);
+                border-bottom: 0.3rem solid rgba(255, 255, 255, 0.9);
                 height: 2rem;
                 width: 2rem;
                 transform: rotate(-45deg);
-                content:"";
+                content: "";
             }
-            </style>
-<div id="nav">
-    <a href="index.html" class="btn">Home</a>
-    <a href="speakers.html" class="btn">Speakers</a>
-    <a href="schedule.html" class="btn">Schedule</a>
-    <a href="submit.html" class="btn">Become A Speaker</a>
-    <a href="CoC.html" class="btn">Code of Conduct</a>
-</div>
-<script>
-    (function imgSelect() {
-        var img = document.querySelector('img[alt="Home"]');
-        if (window.chrome) {
-            img.src = "pics/banner.webp"
-        } else {
-            img.src = "pics/banner.jpg"
-        }
-    })()
-</script>
-</section>
-
-<section class="main-content">
-    <div id="codeModal" class="modal hidden">
-        <p class="close">&#xd7;</p>
-        <div class="inModal" id="code">
+        </style>
+        <div id="nav">
+            <a href="index.html" class="btn">Home</a>
+            <a href="speakers.html" class="btn">Speakers</a>
+            <a href="schedule.html" class="btn">Schedule</a>
+            <a href="submit.html" class="btn">Become A Speaker</a>
+            <a href="CoC.html" class="btn">Code of Conduct</a>
         </div>
-    </div>
-    <main id="main">
-        <h1>Hello, Con!</h1>
-        <p>Hello, Con! is a software technology conference that will be held at the University of Toronto.</p>
-        <p>We provide a platform to share meaningful programming experiences and ideas, expose participants to the messy and
-            joyous experience of being software developers, and above all, foster and extend the passion for computer science/computer
-            engineering.
-        </p>
-        <p><strong>Hello, Con!</strong> is a series of 10 minute talks on any topic that involves programming or computer science.
-            Speakers will share personal stories, projects, research results, and more!</p>
-        <p>Are you interested in programming? Do you like <i>accomplishing things</i> by writing code?<br>You belong here.</p>
-        <p><strong>All attendees and speakers are expected to abide by the <a id="codeTrigger" href="#code">Code of Conduct</a>.</strong></p>
-        <h1>Keynote Speakers</h1>
-        <div id="keynote">
-            <style>
+        <script>
+            (function imgSelect() {
+                var img = document.querySelector('img[alt="Home"]');
+                if (window.chrome) {
+                    img.src = "pics/banner.webp"
+                } else {
+                    img.src = "pics/banner.jpg"
+                }
+            })()
+        </script>
+    </section>
+
+    <section class="main-content">
+        <div id="codeModal" class="modal hidden">
+            <p class="close">&#xd7;</p>
+            <div class="inModal" id="code">
+            </div>
+        </div>
+        <main id="main">
+            <h1>Hello, Con!</h1>
+            <p>Hello, Con! is a software technology conference that will be held at the University of Toronto.</p>
+            <p>We provide a platform to share meaningful programming experiences and ideas, expose participants to the messy
+                and joyous experience of being software developers, and above all, foster and extend the passion for computer
+                science/computer engineering.
+            </p>
+            <p><strong>Hello, Con!</strong> is a series of 10 minute talks on any topic that involves programming or computer
+                science. Speakers will share personal stories, projects, research results, and more!</p>
+            <p>Are you interested in programming? Do you like <i>accomplishing things</i> by writing code?<br>You belong here.</p>
+            <p><strong>All attendees and speakers are expected to abide by the <a id="codeTrigger" href="#code">Code of Conduct</a>.</strong></p>
+            <h1>Keynote Speakers</h1>
+            <div id="keynote">
+                <style>
                     #keynote {
                         display: flex;
                         flex-wrap: wrap;
@@ -116,59 +119,68 @@
                         }
                     }
                 </style>
-<div class="keynote">
-    <img src="data/Lindy.jpg" alt="">
-    <h2>Lindy Wilkins</h2>
-    <p>Lindy Wilkins is a cyborg, educator and creative technologist based currently in Toronto. Lindy is co-founder of Little
-        Dada, and Make Friends Monthly. They do community work bringing queer, femme, and marginalized Makers together to
-        make whimsical robots. They hold an MFA from OCAD University and a BFA from Concordia University.</p>
-</div>
-<div class="keynote">
-    <img src="data/Ashley.jpg" alt="">
-    <h2>Ashley Williams</h2>
-    <h3>I Can Operating System and So Can You</h3>
-    <p>Ashley Williams wears a lot of hats, both literally and professionally. She currently works at npm, Inc and is the Individual
-        Membership Director on the Node.js Foundation Board of Directors. Previously a backend and services engineer at Mozilla,
-        and a web engineer and educator at Bocoup, Ashley has a long history of designing, developing, and teaching systems
-        and systems architecture.</p>
-</div>
-</div>
-</p>
-<h1>Speakers</h1>
-<p><a <href="submit.html">Submit</a> a talk proposal! Speakers will be announced on Jan 13, 2017.</p>
-<h1>Event Date</h1>
-<p>Feb 25th and 26th, 2017</p>
-<h1>Event Location</h1>
-<p>Bahen Centre for Information Technology - <strong>BA</strong><br> 40 St. George Street<br> Toronto, Ontario</p>
-<iframe frameborder="0" id="Gmap" src="https://www.google.com/maps/embed/v1/place?q=Bahen%20center%20for%20information%20and%20technology&key=AIzaSyCSE3FGIgC846uwx02LDGRAJg8hnGqwJE0"
-    allowfullscreen alt="Loading Map"></iframe>
-<style>
+                <div class="keynote">
+                    <img src="data/Lindy.jpg" alt="">
+                    <h2>Lindy Wilkins</h2>
+                    <p>Lindy Wilkins is a cyborg, educator and creative technologist based currently in Toronto. Lindy is co-founder
+                        of Little Dada, and Make Friends Monthly. They do community work bringing queer, femme, and marginalized
+                        Makers together to make whimsical robots. They hold an MFA from OCAD University and a BFA from Concordia
+                        University.</p>
+                </div>
+                <div class="keynote">
+                    <img src="data/Ashley.jpg" alt="">
+                    <h2>Ashley Williams</h2>
+                    <h3>I Can Operating System and So Can You</h3>
+                    <p>Ashley Williams wears a lot of hats, both literally and professionally. She currently works at npm, Inc
+                        and is the Individual Membership Director on the Node.js Foundation Board of Directors. Previously
+                        a backend and services engineer at Mozilla, and a web engineer and educator at Bocoup, Ashley has
+                        a long history of designing, developing, and teaching systems and systems architecture.</p>
+                </div>
+            </div>
+            </p>
+            <h1>Speakers</h1>
+            <p><a href="submit.html">Submit</a> a talk proposal! Speakers will be announced on Jan 13, 2017.</p>
+            <h1>Event Date</h1>
+            <p>Feb 25th and 26th, 2017</p>
+            <h1>Event Location</h1>
+            <p>Bahen Centre for Information Technology - <strong>BA</strong><br> 40 St. George Street<br> Toronto, Ontario</p>
+            <iframe frameborder="0" id="Gmap" src="https://www.google.com/maps/embed/v1/place?q=Bahen%20center%20for%20information%20and%20technology&key=AIzaSyCSE3FGIgC846uwx02LDGRAJg8hnGqwJE0"
+                allowfullscreen alt="Loading Map"></iframe>
+            <style>
                 #Gmap {
                     width: 100%;
                     height: 30rem;
                 }
             </style>
-<h1>Sponsorship</h1>
-<div id="sponsor">
-    We are actively seeking sponsors to support bringing this technology event to students and industry professionals. If you
-    just have any questions or suggestions about the event, we are more than happy to discuss further details with you! Please
-    email: <a href="mailto:ieeeutstudentbranch@gmail.com">ieeeutstudentbranch@gmail.com</a>
-</div>
-<h1>About <a href="http://ieee.utoronto.ca/about/"><strong>IEEE University of Toronto</strong></a></h1>
-<p>The IEEE University of Toronto Student Branch is the leading technical and professional development club for UofT’s engineering
-    students. We aim to foster student interest in the field of computer and electrical technologies, and to provide them
-    with more insights into the respective industry and academic scenes. We offer many opportunities for students to develop
-    their technical and professional skills through our competitions and hackathons, industry tours, talks and seminars,
-    and more.</p>
-</main>
-<div class="twitter">
-    <a class="twitter-timeline" href="https://twitter.com/helloconTO">Tweets by helloconTO</a>
-    <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-    <style>
-        .twitter{
-            max-height: 23rem;
-            overflow-y:auto;
-        }
+            <h1>Sponsorship</h1>
+            <div id="sponsor">
+                <p>We are actively seeking speakers with inspiring topics, and sponsors who would love to support bringing this
+                    technology event to students. If you just have any questions or suggestions about the event, we are more
+                    than happy to discuss further details with you! We will be extremely grateful for any form of sponsorship.
+                    Fundings will be spent on speaker invites, marketing, venue booking, and etc. </p>
+
+                <p>By supporting the “Hello, Con!”, your organization will benefit from not only promotion and connection towards
+                    a selected, highly relevant group of passionate developers, but also long-term relationship with IEEE
+                    UofT student branch and future collaboration opportunities. For this conference, we are providing various
+                    sponsorship packages including company branded tech talks, featured introduction on all marketing media.
+                    For a full list, as well as more details about IEEE UofT, please email: <a href="mailto:ieeeutstudentbranch@gmail.com">ieeeutstudentbranch@gmail.com</a>                    or check the section below! </p>
+            </div>
+            <h1>About <a href="http://ieee.utoronto.ca/about/"><strong>IEEE University of Toronto</strong></a></h1>
+            <p>The IEEE University of Toronto Student Branch is the leading technical and professional development club for
+                UofT’s engineering students. We aim to foster student interest in the field of computer and electrical technologies,
+                and to provide them with more insights into the respective industry and academic scenes. We offer many opportunities
+                for students to develop their technical and professional skills through our competitions and hackathons,
+                industry tours, talks and seminars, and more.</p>
+        </main>
+        <div class="twitter">
+            <a class="twitter-timeline" href="https://twitter.com/helloconTO">Tweets by helloconTO</a>
+            <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+            <style>
+                .twitter {
+                    max-height: 23rem;
+                    overflow-y: auto;
+                }
+                
                 @media screen and (min-width:50rem) {
                     .twitter {
                         position: absolute;
@@ -181,15 +193,15 @@
                     }
                 }
             </style>
-</div>
+        </div>
 
-<footer class="site-footer">
-    <span class="site-footer-credits">Contact <a href="https://twitter.com/helloconTO">@helloconTO</a> or <a href="mailto:ieeeutstudentbranch@gmail.com">ieeeutstudentbranch@gmail.com</a></span>
-    <span class="site-footer-owner"><a href="https://github.com/rainshen49/hellocon">Hellocon</a> is maintained by <a href="https://github.com/rainshen49">rainshen49</a> at <a href="http://ieee.utoronto.ca/about/"><strong>IEEE University of Toronto</strong></a>.</span>
-</footer>
-</section>
-<script src="js/marked.js"></script>
-<script defer>
+        <footer class="site-footer">
+            <span class="site-footer-credits">Contact <a href="https://twitter.com/helloconTO">@helloconTO</a> or <a href="mailto:ieeeutstudentbranch@gmail.com">ieeeutstudentbranch@gmail.com</a></span>
+            <span class="site-footer-owner"><a href="https://github.com/rainshen49/hellocon">Hellocon</a> is maintained by <a href="https://github.com/rainshen49">rainshen49</a> at <a href="http://ieee.utoronto.ca/about/"><strong>IEEE University of Toronto</strong></a>.</span>
+        </footer>
+    </section>
+    <script src="js/marked.js"></script>
+    <script defer>
         (function intro() {
             var xhr = new XMLHttpRequest
             xhr.open('get', 'data/Code-of-Conduct.md')
@@ -217,15 +229,15 @@
             inModal.onclick = preventBubble;
             var scrollDown = document.querySelector('.moreBelow')
             scrollDown.onclick = function () {
-                window.scrollBy(0, window.innerHeight/2);
+                window.scrollBy(0, window.innerHeight / 2);
                 scrollDown.style.display = "none";
             }
-            window.onscroll=function(){
+            window.onscroll = function () {
                 scrollDown.style.display = "none";
-                window.onscroll=null;
+                window.onscroll = null;
             }
         })()
-</script>
+    </script>
 </body>
 
 </html>
