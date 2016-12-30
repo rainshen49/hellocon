@@ -1,0 +1,14 @@
+.aSpeaker {
+    box-shadow: 0 0 5px 0 #159957;
+    padding: 1rem;
+    border-radius: 1rem;
+    margin: 0.5rem;
+    max-height: 30rem;
+    overflow-y: auto;
+}
+
+main {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}

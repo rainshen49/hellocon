@@ -88,10 +88,6 @@
     overflow-x: visible;
 }
 
-.hidden {
-    display: none;
-}
-
 #keynote {
     display: flex;
     flex-wrap: wrap;

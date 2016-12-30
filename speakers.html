@@ -6,25 +6,11 @@
     <title>Speakers</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css">
+    <script src="js/$.js"></script>
+
     <script src="js/papaparse.min.js"></script>
-    <style>
-        .aSpeaker {
-            box-shadow: 0 0 5px 0 #159957;
-            padding: 1rem;
-            border-radius: 1rem;
-            /*width: auto;*/
-            margin: 0.5rem;
-            max-height: 30rem;
-            overflow-y: auto;
-        }
-        
-        main {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-        }
-    </style>
+    <link rel="stylesheet" href="stylesheets/speakers.css">
 </head>
 
 <body>
@@ -32,7 +18,7 @@
         <a href="index.html"><img alt="Home" class="banner" /></a>
         <script>
             (function imgSelect() {
-                var img = document.querySelector('img[alt="Home"]');
+                var img = $('img[alt="Home"]');
                 if (window.chrome) {
                     img.src = "pics/small.webp"
                 } else {
@@ -59,9 +45,9 @@
     </section>
     <script>
         (function speaker() {
-            var main = document.querySelector('main')
+            var main = $('main')
             Papa.parse("data/Tech Conference RFP Form.csv", {
-            // Papa.parse("data/Tech Conference RFP Form (Responses) - Form Responses 1.csv", {
+                // Papa.parse("data/Tech Conference RFP Form (Responses) - Form Responses 1.csv", {
                 download: true,
                 complete: handleResults,
                 error: function(err, file, inputElem, reason) {

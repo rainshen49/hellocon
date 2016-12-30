@@ -6,7 +6,9 @@
     <title>Code of Conduct</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css">
+
+    <script src="js/$.js"></script>
 </head>
 
 <body>
@@ -14,7 +16,7 @@
         <a href="index.html"><img alt="Home" class="banner" /></a>
         <script>
             (function imgSelect() {
-                var img = document.querySelector('img[alt="Home"]');
+                var img = $('img[alt="Home"]');
                 if (window.chrome) {
                     img.src = "pics/small.webp"
                 } else {
@@ -46,10 +48,10 @@
             xhr.send()
             xhr.onload = function(intro) {
                 var htmlConduct = marked(xhr.response);
-                document.querySelector('main').innerHTML = htmlConduct;
+                $('main').innerHTML = htmlConduct;
             }
         })()
-</script>
+    </script>
 </body>
 
 </html>

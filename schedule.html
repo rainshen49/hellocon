@@ -6,49 +6,11 @@
     <title>Schedule</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css">
+    <script src="js/$.js"></script>
+
     <script src="js/papaparse.min.js"></script>
-    <style>
-        #one,
-        #two {
-            display: flex;
-            justify-content: flex-start;
-            width: 100%;
-            overflow-x: auto;
-        }
-        
-        @media print {
-            #one,
-            #two {
-                display: flex;
-                width: 100%;
-                justify-content: flex-start;
-                flex-wrap: wrap;
-            }
-        }
-        
-        .event {
-            min-width: 15rem;
-            max-width: 90%;
-            /*height: 20rem;*/
-            box-shadow: 0 0 0.5rem 0 rgba(30, 107, 184, 0.8);
-            border-radius: 1rem;
-            margin: 1rem;
-            padding: 1rem;
-            overflow-y: auto;
-            transition: background-color 0.2s;
-            cursor: pointer;
-        }
-        
-        .event.show {
-            background: rgb(30, 107, 184);
-            color: white;
-        }
-        
-        .event:hover:not(.show) {
-            background: rgba(30, 107, 184, 0.3);
-        }
-    </style>
+    <link rel="stylesheet" href="stylesheets/schedule.css">
 </head>
 
 <body>
@@ -56,7 +18,7 @@
         <a href="index.html"><img alt="Home" class="banner" /></a>
         <script>
             (function imgSelect() {
-                var img = document.querySelector('img[alt="Home"]');
+                var img = $('img[alt="Home"]');
                 if (window.chrome) {
                     img.src = "pics/small.webp"
                 } else {
@@ -90,7 +52,7 @@
     </section>
     <script>
         (function schedule() {
-            var main = document.querySelector('main')
+            var main = $('main')
             Papa.parse("data/schedule.csv", {
                 download: true,
                 complete: handleResults,
@@ -129,7 +91,7 @@
             }
 
             function generateCalendar(schedule) {
-                var day = [document.querySelector('#one'), document.querySelector('#two')]
+                var day = [$('#one'), $('#two')]
                 var HTMLTmp = ""
                 for (var i = 0; i < 2; i++) {
                     schedule[i].forEach(function(event) {
@@ -153,10 +115,6 @@
             clip.children[2].classList.toggle('hidden');
         }
     </script>
-
-
-    <iframe frameborder="0" scrolling="no" style="background-color: transparent; border: 0px; display: none;" src="./schedule_files/saved_resource.html"></iframe>
-    <div id="GOOGLE_INPUT_CHEXT_FLAG" style="display: none;" input="" input_stat="{&quot;tlang&quot;:true,&quot;tsbc&quot;:true,&quot;pun&quot;:true,&quot;mk&quot;:true,&quot;ss&quot;:true}"></div>
 </body>
 
 </html>

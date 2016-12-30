@@ -82,6 +82,10 @@ a:hover {
     flex-wrap: wrap;
 }
 
+.hidden {
+    display: none !important;
+}
+
 #nav {
     position: fixed;
     top: 0;
