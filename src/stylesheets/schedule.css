@@ -1,0 +1,39 @@
+ #one,
+ #two {
+     display: flex;
+     justify-content: flex-start;
+     width: 100%;
+     overflow-x: auto;
+ }
+ 
+ @media print {
+     #one,
+     #two {
+         display: flex;
+         width: 100%;
+         justify-content: flex-start;
+         flex-wrap: wrap;
+     }
+ }
+ 
+ .event {
+     min-width: 15rem;
+     max-width: 90%;
+     /*height: 20rem;*/
+     box-shadow: 0 0 0.5rem 0 rgba(30, 107, 184, 0.8);
+     border-radius: 1rem;
+     margin: 1rem;
+     padding: 1rem;
+     overflow-y: auto;
+     transition: background-color 0.2s;
+     cursor: pointer;
+ }
+ 
+ .event.show {
+     background: rgb(30, 107, 184);
+     color: white;
+ }
+ 
+ .event:hover:not(.show) {
+     background: rgba(30, 107, 184, 0.3);
+ }
