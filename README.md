@@ -29,4 +29,4 @@ Todo:
  - [x] intro content
  - [x] google map integration in location
  - [x] a close button for the modal
- - [ ] minimize html and css
+ - [x] minimize html, css and javascripts

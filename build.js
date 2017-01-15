@@ -1,6 +1,7 @@
 const fs = require('fs')
 const csso = require('csso')
 const uglifyjs = require('uglify-js')
+const htmlminify = require('html-minifier').minify
 
 function compressCSS(filename) {
     const source = fs.readFileSync('./src/stylesheets/' + filename).toString()
@@ -13,5 +14,12 @@ function compressJS(filename) {
     fs.writeFileSync('./js/' + filename, output)
 }
 
+function compressHTML(filename) {
+    const source = fs.readFileSync('./src/html/' + filename).toString()
+    const output = htmlminify(source, { minifyJS: true, collapseWhitespace: true, conservativeCollapse: true });
+    fs.writeFileSync('./' + filename, output)
+}
+
 ['index.css', 'schedule.css', 'speakers.css', 'stylesheet.css', 'submit.css'].forEach(filename => compressCSS(filename));
 ['$.js', 'marked.js'].forEach(filename => compressJS(filename));
+['index.html', 'schedule.html', 'speakers.html', 'CoC.html', 'submit.html'].forEach(filename => compressHTML(filename));
