@@ -52,7 +52,7 @@
     <script>
         (function schedule() {
             var main = $('main')
-            Papa.parse("data/schedule.csv", {
+            Papa.parse("data/HelloCon Schedule - Sheet1.csv", {
                 download: true,
                 complete: handleResults,
                 error: function(err, file, inputElem, reason) {
@@ -65,26 +65,11 @@
                 // row0=[day,time,topic,content,,day,time,topic,content]
                 // row =[   ,time,topic,content,,   ,time,topic,content]
                 var data = result.data;
-                var schedule = [
-                    [],
-                    []
-                ];
-                data.forEach(function(row, i) {
-                    if (i > 0) {
-                        if (row[1])
-                            schedule[0].push({
-                                time: row[1],
-                                topic: row[2],
-                                content: row[3]
-                            });
-                        if (row[6])
-                            schedule[1].push({
-                                time: row[6],
-                                topic: row[7],
-                                content: row[8]
-                            });
-                    }
-                })
+                var schedule = [data.slice(1, 9).map(function(event) {
+                    return event.slice(1)
+                }), data.slice(9, 13).map(function(event) {
+                    return event.slice(1)
+                })];
                 generateCalendar(schedule)
                     // console.log(schedule)
             }
@@ -94,8 +79,8 @@
                 var HTMLTmp = ""
                 for (var i = 0; i < 2; i++) {
                     schedule[i].forEach(function(event) {
-                        HTMLTmp += '<div class="event" onclick="toggleFlip(event)"><h3 class="topic">' + event.topic + '</h3>' + '<p class="time">' + event.time + '<br>&#9660;</p>' +
-                            '<p class="content hidden">&#9650;<br>' + event.content + '</p>' + '</div>'
+                        HTMLTmp += '<div class="event" onclick="toggleFlip(event)"><h3 class="topic">' + event[1] + '</h3>' + '<p class="time">' + event[0] + (event[2] ? '<br>&#9660;</p>' : "") +
+                            '<p class="content hidden">' + (event[2] ? ("&#9650;<br>" + event[2]) : "") + '</p></div>'
                     })
                     day[i].innerHTML = HTMLTmp;
                     HTMLTmp = ''

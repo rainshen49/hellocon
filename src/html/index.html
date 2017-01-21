@@ -140,7 +140,7 @@
                 var i = 0;
                 var target = $('main').offsetTop + window.innerHeight / 3 * 2;
                 (function scroll() {
-                    window.scrollTo(0, i += 10 + 20 * Math.sin(i / target * 3.14));
+                    window.scrollTo(0, i += 6 + 20 * Math.sin(i / target * 3.14));
                     if (i < target) window.setTimeout(scroll, 16)
                 })()
                 scrollDown.style.display = "none";
