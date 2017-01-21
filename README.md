@@ -30,7 +30,7 @@ Todo:
  - [x] google map integration in location
  - [x] a close button for the modal
  - [x] minimize html, css and javascripts
- - [ ] remove submit page and link
- - [ ] add speakers to index.html
- - [ ] update schedule
+ - [x] remove submit page and link
+ - [x] add speakers to index.html
+ - [x] update schedule
  - [x] include a schedule integrated speakers page (the format of the confirmed speakers is totally different from before)
