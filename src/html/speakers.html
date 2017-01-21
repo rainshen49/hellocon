@@ -30,7 +30,6 @@
             <a href="index.html" class="btn">Home</a>
             <a href="speakers.html" class="btn">Speakers</a>
             <a href="schedule.html" class="btn">Schedule</a>
-            <a href="submit.html" class="btn">Become A Speaker</a>
             <a href="CoC.html" class="btn">Code of Conduct</a>
         </div>
     </section>
@@ -46,7 +45,7 @@
     <script>
         (function speaker() {
             var main = $('main')
-            Papa.parse("data/Tech Conference RFP Form.csv", {
+            Papa.parse("data/HelloCon Schedule - Speaker.csv", {
                 // Papa.parse("data/Tech Conference RFP Form (Responses) - Form Responses 1.csv", {
                 download: true,
                 complete: handleResults,
@@ -56,17 +55,21 @@
             })
 
             function handleResults(result) {
-                // {data:[title,item1,item2...],errors,meta}
-                var title = result.data[0]
+                // {data:[0:["Day 1"],1:["Session 1"],16["Day 2"]],errors,meta}
+                var data = result.data
+                var addHTML = ["<p>*There is a 2min break between each talk</p><h1>Day 1</h1>"]
                     // console.log(title)
-                result.data.forEach(function(data, i) {
-                    if (i > 0) {
-                        // console.log(data)
-                        var addHTML = "<div class='aSpeaker'><h2>" + data[1] + "</h2>" + "<h3> " + data[5] + "</h3>" + "<p>" + data[6] + "</p></div>";
-                        // var addHTML = "<div class='aSpeaker'><h2>" + data[1] + "</h2>" + "<p> " + data[3] + "</p><h3>" + data[4] + "</h3><p>"+data[5].replace(/\n/g,"<br>") + "</p></div>";
-                        main.innerHTML += addHTML
+                for (var i = 1; i < 27; i++) {
+                    var item = data[i]
+                    if (i == 16) {
+                        addHTML.push("<h1>Day 2</h1>")
+                    } else if (item[0].startsWith("Session")) {
+                        addHTML.push("<h2>" + item[0] + "</h2>")
+                    } else {
+                        addHTML.push("<div class='aSpeaker'><h3>" + item[1] + "</h3>" + "<time> " + item[0] + "</time><h4>" + item[2] + "</h4><p>" + item[3] + "</p></div>")
                     }
-                })
+                }
+                main.innerHTML = addHTML.join('')
             }
         })()
     </script>
