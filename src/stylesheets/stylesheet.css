@@ -42,20 +42,20 @@ a:hover {
     border-color: rgba(30, 107, 184, 0.3);
 }
 
-@media screen and (min-width: 64em) {
+@media screen and (min-width: 64rem) {
     .btn {
-        padding: 0.75rem 1rem;
+        padding: 0.9rem 2rem;
     }
 }
 
-@media screen and (min-width: 42em) and (max-width: 64em) {
+@media screen and (min-width: 41rem) and (max-width: 64rem) {
     .btn {
-        padding: 0.6rem 0.9rem;
+        padding: 0.5rem 0.4rem;
         font-size: 0.9rem;
     }
 }
 
-@media screen and (max-width: 42em) {
+@media screen and (max-width: 41rem) {
     .btn {
         display: block;
         width: 100%;
@@ -102,12 +102,12 @@ a:hover {
 #nav .btn {
     border: none;
     border-radius: 0;
-    min-width: 12rem;
+    min-width: 10rem;
     text-transform: uppercase;
-    font-size: 1.1rem;
+    font-size: 1rem;
 }
 
-@media screen and (max-width: 39rem) {
+@media screen and (max-width: 41rem) {
     #nav {
         position: initial;
     }
