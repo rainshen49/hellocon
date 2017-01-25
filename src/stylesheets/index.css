@@ -15,16 +15,14 @@
     background: seagreen;
     margin: 0;
     padding: 1rem;
-    opacity: 0.8;
-    transition: opacity 0.2s;
-    animation: glow 1.2s infinite;
+    box-shadow: 0 0 5rem 2rem rgb(255, 255, 255);
+    animation: glow 0.6s infinite alternate;
     animation-play-state: running;
 }
 
 .moreBelow div:hover {
-    animation-play-state: paused;
     cursor: pointer;
-    opacity: 0.3;
+    animation-play-state: paused;
 }
 
 .moreBelow div::before {
@@ -41,13 +39,10 @@
 
 @keyframes glow {
     0% {
-        box-shadow: 0 0 0.1rem 0 rgb(255, 255, 255)
-    }
-    50% {
-        box-shadow: 0 0 5rem 0.5rem rgb(255, 255, 255)
+        opacity: 0.2;
     }
     100% {
-        box-shadow: 0 0 0.1rem 0 rgb(255, 255, 255)
+        opacity: 0.8;
     }
 }
 
@@ -118,7 +113,7 @@
 }
 
 .twitter {
-    max-height: 23rem;
+    max-height: 30rem;
     overflow-y: auto;
 }
 
@@ -132,4 +127,9 @@
     main {
         margin-right: 25%;
     }
+}
+
+.logo {
+    max-width: 5rem;
+    max-height: 5rem;
 }
