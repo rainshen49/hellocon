@@ -69,7 +69,7 @@
                     } else if (item[0].startsWith("Session")) {
                         addHTML.push("<h2>" + item[0] + "</h2>")
                     } else {
-                        addHTML.push("<div class='aSpeaker'><h3>" + item[1] + "</h3>" + "<time> " + item[0] + "</time><h4>" + item[2] + "</h4><p>" + item[3] + "</p></div>")
+                        addHTML.push("<div class='aSpeaker'><h3>" + item[1] + "</h3>" + "<time> " + item[0] + "</time><h4>" + item[2] + "</h4><p>" + item[3] + "</p>" + "<h5>About the Speaker</h5><p>" + item[4] + "</p></div>")
                     }
                 }
                 main.innerHTML = addHTML.join('')
