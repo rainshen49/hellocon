@@ -20,6 +20,6 @@ function compressHTML(filename) {
     fs.writeFileSync('./' + filename, output)
 }
 
-['index.css', 'schedule.css', 'speakers.css', 'stylesheet.css'].forEach(filename => compressCSS(filename));
+['index.css', 'schedule.css', 'speakers.css', 'stylesheet.css','nametags.css'].forEach(filename => compressCSS(filename));
 ['$.js', 'marked.js'].forEach(filename => compressJS(filename));
-['index.html', 'schedule.html', 'speakers.html', 'CoC.html'].forEach(filename => compressHTML(filename));
+['index.html', 'schedule.html', 'speakers.html', 'CoC.html','nametags.html'].forEach(filename => compressHTML(filename));
