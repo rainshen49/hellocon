@@ -59,6 +59,7 @@ p {
     position: absolute;
     padding: 0.5rem;
     top: 5rem;
+    opacity: 0.8;
 }
 
 .left {
