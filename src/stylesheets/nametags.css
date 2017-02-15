@@ -21,6 +21,7 @@ body {
 
 h1 {
     margin: 3rem auto 0;
+    max-width: 90%;
 }
 
 h3 {
