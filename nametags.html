@@ -1,1 +1,18 @@
-<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width,initial-scale=1"> <title>Hellocon nametags</title> <link rel="stylesheet" href="stylesheets/nametags.css"> </head> <body> <div class="nametag"> <span class="upleft">HELLO, CON!</span> <span class="left"></span><span class="right"></span> <h1>Name</h1> <h3>Highlight</h3> <p>Ask me about: <br><span class="expertise">JavaScript</span></p> </div> </body> </html>
+<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width,initial-scale=1"> <title>Hellocon nametags</title> <link rel="stylesheet" href="stylesheets/nametags.css"> <script src="js/$.js"></script> <script> let XHR = new XMLHttpRequest();
+        XHR.open('get', "data/nametags.json")
+        XHR.responseType = 'json'
+        XHR.onload = () => {
+            const template = $('.nametag')
+            XHR.response.forEach(({
+                name,
+                highlight,
+                expertise
+            }) => {
+                const ppl = template.cloneNode(true);
+                ppl.children[3].textContent = name;
+                ppl.children[4].textContent = highlight;
+                ppl.children[5].children[1].textContent = expertise;
+                document.body.appendChild(ppl)
+            })
+        }
+        XHR.send(); </script> </head> <body> <div class="nametag"> <span class="upleft">HELLO, CON!</span> <span class="left"></span><span class="right"></span> <h1><br></h1> <h3><br></h3> <p>Ask me about: <br><span class="expertise"></span></p> </div> </body> </html>

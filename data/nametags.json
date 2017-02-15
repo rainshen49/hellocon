@@ -1,0 +1,81 @@
+[{
+    "name": "Mike Conley",
+    "highlight": "Mozilla",
+    "expertise": "Multiplatform Games"
+}, {
+    "name": "Henrik Bechmann",
+    "highlight": "Retired Developer",
+    "expertise": "My Bucket List"
+}, {
+    "name": "Ori Bernstein",
+    "highlight": "Human Coder",
+    "expertise": "Malloc"
+}, {
+    "name": "Liz Baillie",
+    "highlight": "Tilde",
+    "expertise": "Game Dev, Ruby, Rust"
+}, {
+    "name": "Charu Jaiswal",
+    "highlight": "Peak Power Energy",
+    "expertise": "Machine Learning, Energy"
+}, {
+    "name": "Tanner Rogalsky",
+    "highlight": "Artistic Developer",
+    "expertise": "Video Games"
+}, {
+    "name": "Michael Kwan",
+    "highlight": "Google",
+    "expertise": "Wearables"
+}, {
+    "name": "MaxVeytsman",
+    "highlight": "Appcanary",
+    "expertise": "Hacking Networks"
+}, {
+    "name": "Sen",
+    "highlight": "Photographer & Developer",
+    "expertise": "Coding for Extreme Conditions"
+}, {
+    "name": "Alex Leitch",
+    "highlight": "Playground Inc",
+    "expertise": "JavaScript"
+}, {
+    "name": "Aayush Rajasekaran",
+    "highlight": "Outsider",
+    "expertise": "CS & Cultures"
+}, {
+    "name": "Vlad Filippov",
+    "highlight": "Mozilla",
+    "expertise": "3D on the Web"
+}, {
+    "name": "Rahim Mitha",
+    "highlight": "iOS Developer & Gamer",
+    "expertise": "Aimbots"
+}, {
+    "name": "Abigail CabunocMayes",
+    "highlight": "Mozilla",
+    "expertise": "Ethics"
+}, {
+    "name": "Anne Cahalan",
+    "highlight": "iOS Developer",
+    "expertise": "Swift Protocols"
+}, {
+    "name": "Ankit Rastogi",
+    "highlight": "Healthcare Programmer",
+    "expertise": "Healthtech"
+}, {
+    "name": "Josh Matthews",
+    "highlight": "Mozilla",
+    "expertise": "Debugging"
+}, {
+    "name": "Leanne Shapton",
+    "highlight": "Shopify",
+    "expertise": "Git, Ruby on Rails"
+}, {
+    "name": "Ehsan Akhgari",
+    "highlight": "Mozilla",
+    "expertise": "Running C on Web"
+}, {
+    "name": "William Lachance",
+    "highlight": "Mozilla",
+    "expertise": "Performance"
+}]
