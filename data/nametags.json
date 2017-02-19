@@ -1,4 +1,13 @@
 [{
+    "name": "Lindy Wilkins",
+    "highlight": "Little Data",
+    "expertise": "Education, Creativity"
+},{
+    "name": "Ashley Williams",
+    "highlight": "Mozilla",
+    "expertise": "Node.js, Education, Architecture"
+},
+    {
     "name": "Mike Conley",
     "highlight": "Mozilla",
     "expertise": "Multiplatform Games"
@@ -27,7 +36,7 @@
     "highlight": "Google",
     "expertise": "Wearables"
 }, {
-    "name": "MaxVeytsman",
+    "name": "Max Veytsman",
     "highlight": "Appcanary",
     "expertise": "Hacking Networks"
 }, {
@@ -65,7 +74,7 @@
 }, {
     "name": "Josh Matthews",
     "highlight": "Mozilla",
-    "expertise": "Debugging"
+    "expertise": "Making Open Source Accessible"
 }, {
     "name": "Leanne Shapton",
     "highlight": "Shopify",
