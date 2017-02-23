@@ -9,7 +9,7 @@
     <script src="js/$.js"></script>
     <script>
         let XHR = new XMLHttpRequest();
-        XHR.open('get', "data/nametags.json")
+        XHR.open('get', "data/editNametags.json")
         XHR.responseType = 'json'
         XHR.onload = () => {
             const template = $('.nametag')
