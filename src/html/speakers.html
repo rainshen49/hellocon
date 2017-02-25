@@ -62,9 +62,9 @@
                 var data = result.data
                 var addHTML = ["<p>*There is a 2min break between each talk</p><h1>Day 1</h1>"]
                     // console.log(title)
-                for (var i = 1; i < 26; i++) {
+                for (var i = 1; i < 25; i++) {
                     var item = data[i]
-                    if (i == 15) {
+                    if (i == 14) {
                         addHTML.push("<h1>Day 2</h1>")
                     } else if (item[0].startsWith("Session")) {
                         addHTML.push("<h2>" + item[0] + "</h2>")
