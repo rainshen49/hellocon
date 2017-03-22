@@ -8,16 +8,3 @@ class Image extends React.Component {
         <img src={this.props.image} alt={this.props.alt} onClick={this.onClick.bind(this)} />
     }
 }
-
-class Video extends React.Component{
-    
-    componentWillMount() {
-        // request the thumnail
-    }
-    onClick(ev){
-        // show iframe fullscreen
-    }
-    render(){
-        <img src="thumnail" alt="thumnail" onClick={this.onClick.bind(this)}/>
-    }
-}

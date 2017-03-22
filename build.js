@@ -22,4 +22,4 @@ function compressHTML(filename) {
 
 ['index.css', 'schedule.css', 'speakers.css', 'stylesheet.css','nametags.css'].forEach(filename => compressCSS(filename));
 ['$.js', 'marked.js'].forEach(filename => compressJS(filename));
-['index.html', 'schedule.html', 'speakers.html', 'CoC.html','nametags.html'].forEach(filename => compressHTML(filename));
+['index.html', 'schedule.html', 'speakers.html', 'CoC.html','nametags.html',"hellocon2017.html"].forEach(filename => compressHTML(filename));
