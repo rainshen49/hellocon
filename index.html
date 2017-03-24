@@ -9,15 +9,18 @@
             text-align: center;
             max-height: 26rem;
             max-width: 19rem;
-            margin: 1rem;
+            margin: 0;
+            padding: 1rem;
         }
         
         #imagebox a img {
             max-height: 100%;
             max-width: 100%;
             box-shadow: 0 0 1rem 0 rgba(30, 107, 184, 0.5);
+            transition: transform ease 0.2s;
         }
         
-        #imagebox a img:hover {
+        #imagebox a img:hover:not(:active) {
+            transform: scale(1.2);
             box-shadow: 0 0 1rem 0 rgba(30, 107, 184, 0.9);
         } </style> <link rel="prefetch" href="pics/banner.webp"> </body> </html>
