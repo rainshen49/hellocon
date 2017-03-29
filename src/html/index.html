@@ -29,15 +29,20 @@
             <a href="schedule.html" class="btn">Schedule</a>
             <a href="CoC.html" class="btn">Code of Conduct</a>
             <a href="oldhome.html" class="btn">Old Home</a>
-            
+
         </div>
     </section>
 
     <section class="main-content">
         <main>
             <p>Hello, Con! 2017 at the University of Toronto was the first conference of its kind in Canada, where over 150
-                enthusiastic students and developers shared their stories and exchanged ideas. Check out these photos and
-                videos!</p>
+                enthusiastic students and developers shared their stories and exchanged ideas. Thanks to our sponsors who
+                made this event possible:</p>
+            <div class="flex">
+                <a href="https://www.mozilla.org" title="Mozilla"><img class="logo" src="https://www.mozilla.org/media/img/pebbles/moz-wordmark-dark-reverse.2cbc28bb9895.svg"
+                        alt="Mozilla"></a>
+                <a href="https://hatchery.engineering.utoronto.ca/" title="Hatchery - University of Toronto"><img class="logo" src="https://hatchery.engineering.utoronto.ca/wp-content/uploads/2013/09/logo-hatchery-large.png"></a>
+            </div>
 
             <div id="imagebox">
                 <a href="data/2017/IMG_5160.jpg"><img src="data/2017/small/IMG_5160.jpg" /></a>
@@ -66,7 +71,8 @@
             </div>
 
             <div id="videobox">
-                <iframe width="100%" src="https://www.youtube.com/embed/videoseries?list=PLvtUJ-xItR4vF1PTuGWJ2_WSCqZqd6DoG" frameborder="0" allowfullscreen></iframe>
+                <iframe width="100%" src="https://www.youtube.com/embed/videoseries?list=PLvtUJ-xItR4vF1PTuGWJ2_WSCqZqd6DoG" frameborder="0"
+                    allowfullscreen></iframe>
                 <script>
                     $('#videobox iframe').style.height = String(window.innerHeight * 0.9) + "px"
                 </script>
@@ -83,6 +89,10 @@
     </section>
     <!--<script src="js/2017.js" />-->
     <style>
+        .logo{
+            height: 10rem;
+            margin: 0 1rem;
+        }
         #imagebox {
             display: flex;
             flex-wrap: wrap;
@@ -108,8 +118,8 @@
             transform: scale(1.2);
             box-shadow: 0 0 1rem 0 rgba(30, 107, 184, 0.9);
         }
-
-        .twitter{
+        
+        .twitter {
             width: 100%;
         }
     </style>
