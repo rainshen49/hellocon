@@ -10,8 +10,9 @@ function compressCSS(filename) {
 }
 
 function compressJS(filename) {
-    const output = uglifyjs.minify('./src/js/' + filename).code
-    fs.writeFileSync('./js/' + filename, output)
+    // const output = uglifyjs.minify('./src/js/' + filename).code
+    // fs.writeFileSync('./js/' + filename, output)
+    fs.createReadStream('./src/js/' + filename).pipe(fs.createWriteStream('./js/' + filename))
 }
 
 function compressHTML(filename) {
@@ -19,7 +20,6 @@ function compressHTML(filename) {
     const output = htmlminify(source, { minifyJS: true, collapseWhitespace: true, conservativeCollapse: true });
     fs.writeFileSync('./' + filename, output)
 }
-
-['index.css', 'schedule.css', 'speakers.css', 'stylesheet.css','nametags.css'].forEach(filename => compressCSS(filename));
-['$.js', 'marked.js'].forEach(filename => compressJS(filename));
-['index.html', 'schedule.html', 'speakers.html', 'CoC.html','nametags.html','oldhome.html'].forEach(filename => compressHTML(filename));
+fs.readdirSync("./src/stylesheets/").filter(file => file.endsWith('.css')).forEach(filename => compressCSS(filename));
+fs.readdirSync("./src/js/").filter(file => file.endsWith('.js')).forEach(filename => compressJS(filename));
+fs.readdirSync("./src/html").filter(file => file.endsWith('.html')).forEach(filename => compressHTML(filename));
