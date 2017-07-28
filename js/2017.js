@@ -45,5 +45,5 @@ var galleryTop = new Swiper('.gallery-top', {
     // Enable lazy loading
     lazyLoading: true,
     lazyLoadingInPrevNext: true,
-    lazyLoadingInPrevNextAmount: 2
+    lazyLoadingInPrevNextAmount: 5
 });
