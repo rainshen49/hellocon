@@ -1,0 +1,119 @@
+* {
+    box-sizing: border-box;
+    -webkit-overflow-scrolling: touch;
+}
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    overflow: auto;
+    font-family: sans-serif;
+    --color1: rgba(241, 227, 243, 1);
+    --color2: rgba(194, 187, 240, 1);
+    --color3: rgba(143, 184, 237, 1);
+    --color4: rgba(98, 191, 237, 1);
+    --color5: rgba(53, 144, 243, 1);
+    --black-shadow: 0 0 0.3rem 0.01rem black
+}
+
+.splash {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-image: url("splash/small.jpeg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+@media screen and (min-width: 48rem) {
+    /* apply only to large screen */
+    .splash {
+        background-image: url("splash/big.jpeg");
+    }
+}
+
+@media screen and (max-width: 48rem) {
+    /* apply only to small screen */
+    .banner span {
+        display: none;
+    }
+}
+
+.splash .info {
+    position: absolute;
+    padding: 0 1rem;
+    bottom: 4rem;
+    right: 0;
+    width: 61%;
+    max-height: 70%;
+    overflow-y: auto;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 1rem 0 0 1rem;
+}
+
+.splash .below:not(.detached) {
+    position: absolute;
+    bottom: 0.5rem;
+    width: 100%;
+    /* color: white; */
+    display: flex;
+    justify-content: center;
+    font-size: 2rem;
+}
+
+.below i {
+    animation: up 2s ease infinite;
+}
+
+.banner:not(.detached) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--color5);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: var(--black-shadow);
+    padding: 0 1rem;
+    animation: slidein 0.6s ease forwards;
+}
+
+.fa-bars,
+.below>i {
+    cursor: pointer;
+}
+
+@keyframes up {
+    from {
+        transform: translateY(0);
+        color: var(--color1);
+    }
+    to {
+        transform: translateY(-50%);
+        color: var(--color5);
+    }
+}
+
+@keyframes slidein {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.detached {
+    display: none;
+}
