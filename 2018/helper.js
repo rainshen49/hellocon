@@ -3,5 +3,5 @@ export function $(selector, container = document) {
 }
 
 export function $$(selector, container = document) {
-    return container.querySelectorAll(selector)
+    return Array.from(container.querySelectorAll(selector))
 }

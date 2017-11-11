@@ -103,7 +103,7 @@ body {
     border-bottom: 1px solid var(--color5);
 }
 
-#toc a:hover {
+#toc a:hover:not(:active) {
     background-color: var(--color2);
 }
 
@@ -216,6 +216,34 @@ body {
     background-color: rgba(0, 0, 0, 0.3);
     z-index: 1;
 }
+
+.socialmedia {
+    border-radius: 1rem;
+    padding: 0.1 0.5rem;
+}
+
+.socialmedia a {
+    padding: 0.5rem;
+    font-size: 1.8rem;
+    z-index: 2;
+}
+
+.socialmedia i:hover:not(:active) {
+    transform: scale(1.1);
+}
+
+.socialmedia a {
+    color: white;
+}
+
+.splash .socialmedia {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.8);
+    right: 0;
+    bottom: 1rem;
+}
+
+.banner .socialmedia {}
 
 
 /* animations */

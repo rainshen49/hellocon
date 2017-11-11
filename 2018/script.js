@@ -9,6 +9,7 @@ const below = $('.below', splash)
 const ham = $('i', Banner)
 const toc = $('#toc', container)
 const modalbg = $('.modalbg', container)
+const socialmedia = $('.socialmedia', container)
 const ObsWindowScroll = Rx.Observable.fromEvent(window, 'scroll')
 
 ObsWindowScroll
@@ -16,9 +17,9 @@ ObsWindowScroll
     .debounceTime(10)
     .map(() => cards.getBoundingClientRect().y)
     .subscribe(y => {
-        if (y > 0) {
+        if (y > 10) {
             UIstore.dispatch(Object.assign({}, actions.togglebanner, { tobe: false }))
-        } else if (y < 0) {
+        } else if (y < 10) {
             UIstore.dispatch(Object.assign({}, actions.togglebanner, { tobe: true }))
         }
     })
@@ -36,10 +37,17 @@ UIstore.subscribe(() => {
     if (banner === Banner.classList.contains('detached')) {
         // need to update banner
         Banner.classList.toggle('detached')
+            // manipulate dom only on change
+        if (banner) {
+            Banner.insertBefore(socialmedia, ham)
+        } else {
+            splash.appendChild(socialmedia)
+        }
     }
     if (nav === toc.classList.contains('detached')) {
         // need to update toc
         toc.classList.toggle('detached')
+            // manipulate dom only on change        
         if (nav) {
             modalbg.classList.remove('detached')
             ObsModalClick.first().subscribe(() => UIstore.dispatch(Object.assign({}, actions.togglenav, { tobe: false })))
@@ -50,6 +58,7 @@ UIstore.subscribe(() => {
 })
 
 Datastore.subscribe(() => {
+    // managing card content changes
     const cardstore = Datastore.getState()
     const contents = Array.from(toc.children)
     const titles = contents.map(a => a.textContent)
@@ -76,15 +85,17 @@ function generateCard(info) {
     const details = document.createElement('div')
     dummyroot.innerHTML = info
     const [h2, pimg, brief, ...detailsele] = dummyroot.children
+    const iframes = $$('iframe', dummyroot)
     const img = pimg.lastElementChild
     const expand = expandButton()
         // put the correct classnames in
     dummyroot.classList.add('card')
-    h2.classList.add('cardtitle')
     img.classList.add('thumbnail')
     brief.classList.add('brief')
     details.classList.add('details')
-        // shake the dom tree
+        // put iframe src to null for lazy load
+    iframes.forEach(swapsrc)
+        // rearrange the dom tree
     dummyroot.insertBefore(expand, h2)
     dummyroot.insertBefore(img, pimg)
     dummyroot.removeChild(pimg)
@@ -97,14 +108,18 @@ function generateCard(info) {
         // register listeners for expansion
     expand.addEventListener('click', () => {
         dummyroot.classList.toggle('expanded')
-        setTimeout(() => {
-                requestAnimationFrame(() => {
-                    dummyroot.scrollIntoView()
-                })
-            }, 300)
-            // dummyroot.scrollIntoView()
+        setTimeout(() => requestAnimationFrame(() => dummyroot.scrollIntoView()), 300)
+        iframes.forEach(swapsrc)
+            // iframe switch
     })
-    window.dummyroot = dummyroot
+}
+
+function swapsrc(iframe) {
+    const { src } = iframe
+    const datasrc = iframe.dataset.src || ""
+    const temp = src
+    iframe.setAttribute('src', datasrc)
+    iframe.dataset.src = src
 }
 
 const converter = new showdown.Converter()

@@ -1,0 +1,3 @@
+- check all card links
+- check all social media links
+- check grammar
