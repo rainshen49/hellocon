@@ -8,5 +8,5 @@ Conventionally, tech conferences are comprised of hour-long talks based on eithe
 
 We aim to host a conference of digestible talks that share with attendees the joys and surprises of coding, instead of swarming technical details. We would like to host speakers with varied experiences and skill sets, allowing participants to gain different perspectives in not only software development, but also the delight and passion of programming adventures!
 
-Hello, Con! was first held in Feb 2017. You can checkout last year's content [here](http://hellocon.net/2017/) <span class="desktoponly">or below</span>.
-<iframe src="http://hellocon.net/" frameborder="0" class="desktoponly"></iframe>
+Hello, Con! was first held in Feb 2017. You can checkout last year's content [here](/2017/oldhome.html) <span class="desktoponly">or below</span>.
+<iframe src="/2017/oldhome.html" frameborder="0" class="desktoponly"></iframe>
