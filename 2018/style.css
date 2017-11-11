@@ -137,16 +137,22 @@ body {
 }
 
 .card.expanded {
-    grid-template-areas: "expand expand" "title thumbnail" "brief thumbnail" "detail detail";
+    grid-template-areas: "expand expand" "title thumbnail" "brief brief" "detail detail";
     grid-template-rows: 3rem auto auto auto;
+    grid-template-columns: auto 10rem;
     box-shadow: var(--big-black-shadow);
     overflow-y: auto;
     height: 100%;
     width: 100%;
 }
 
-.card.expanded>*:not(.expand) {
-    padding: 1rem;
+.card.expanded>*:not(.expand):not(img) {
+    padding: 0 1rem;
+}
+
+.card.expanded>.thumbnail {
+    border-radius: 50%;
+    padding: 0.5rem;
 }
 
 .card:not(.expanded) .details {
@@ -167,6 +173,7 @@ body {
 
 .card>h2 {
     text-align: center;
+    align-self: center;
     grid-area: title;
     margin: 0.5rem;
 }
@@ -189,7 +196,7 @@ body {
 
 .card>.details {
     grid-area: detail;
-    margin: 0.5rem;
+    margin: 0 0.5rem;
 }
 
 .card>.details iframe {
@@ -264,8 +271,8 @@ body {
     .desktoponly {
         display: none;
     }
-    .card.expanded>*:not(.expand) {
-        padding: 0.5rem;
+    .card.expanded>*:not(.expand):not(img) {
+        padding: 0 0.5rem;
     }
 }
 
