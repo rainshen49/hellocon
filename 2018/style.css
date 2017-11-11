@@ -1,6 +1,8 @@
 * {
     box-sizing: border-box;
     -webkit-overflow-scrolling: touch;
+    /* box-shadow: var(--black-shadow); */
+    transition: all 0.3s ease;
 }
 
 html,
@@ -19,8 +21,12 @@ body {
     --color3: rgba(143, 184, 237, 1);
     --color4: rgba(98, 191, 237, 1);
     --color5: rgba(53, 144, 243, 1);
-    --black-shadow: 0 0 0.3rem 0.01rem black
+    --black-shadow: 0 0 0.3rem 0.01rem black;
+    --big-black-shadow: 0 0 1rem 0.04rem black;
 }
+
+
+/* Splash page & Banner */
 
 .splash {
     position: relative;
@@ -30,20 +36,6 @@ body {
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-}
-
-@media screen and (min-width: 48rem) {
-    /* apply only to large screen */
-    .splash {
-        background-image: url("splash/big.jpeg");
-    }
-}
-
-@media screen and (max-width: 48rem) {
-    /* apply only to small screen */
-    .banner span {
-        display: none;
-    }
 }
 
 .splash .info {
@@ -62,7 +54,6 @@ body {
     position: absolute;
     bottom: 0.5rem;
     width: 100%;
-    /* color: white; */
     display: flex;
     justify-content: center;
     font-size: 2rem;
@@ -84,13 +75,137 @@ body {
     align-items: center;
     box-shadow: var(--black-shadow);
     padding: 0 1rem;
-    animation: slidein 0.6s ease forwards;
+    animation: topin 0.6s ease forwards;
+    height: 3rem;
+    z-index: 3;
 }
 
 .fa-bars,
 .below>i {
     cursor: pointer;
+    padding: 0.5rem;
 }
+
+#toc {
+    position: fixed;
+    right: 0;
+    top: 3rem;
+    max-height: calc(100% - 3rem);
+    overflow-y: auto;
+    animation: rightin 0.3s ease forwards;
+    background-color: white;
+    z-index: 2;
+}
+
+#toc a {
+    display: block;
+}
+
+
+/* Cards */
+
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: stretch;
+    align-content: flex-start;
+    padding-top: 3rem;
+}
+
+.card {
+    width: 24rem;
+    height: 13rem;
+    position: relative;
+    box-shadow: var(--black-shadow);
+    border-radius: 1rem;
+    margin: 1rem;
+    flex-grow: 1;
+    flex-shrink: 1;
+    display: grid;
+    grid-template-areas: "expand expand" "title title" "brief thumbnail";
+    grid-template-rows: 15% 20% 65%;
+    grid-template-columns: 61% 39%;
+    justify-items: stretch;
+    overflow-y: hidden;
+}
+
+.card.expanded {
+    grid-template-areas: "expand expand" "title thumbnail" "brief thumbnail" "detail detail";
+    grid-template-rows: 3rem auto auto auto;
+    box-shadow: var(--big-black-shadow);
+    overflow-y: auto;
+    height: 100%;
+    width: 100%;
+}
+
+.card.expanded>*:not(.expand) {
+    padding: 1rem;
+}
+
+.card:not(.expanded) .details {
+    display: none;
+}
+
+.card>.expand {
+    grid-area: expand;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    background-color: var(--color5);
+    color: white;
+    padding: 0.5rem;
+    cursor: pointer;
+}
+
+.card>h2 {
+    text-align: center;
+    grid-area: title;
+    margin: 0.5rem;
+}
+
+.card>.thumbnail {
+    grid-area: thumbnail;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.card>.brief {
+    grid-area: brief;
+    margin: 0.5rem;
+}
+
+.card:not(.expanded)>.brief {
+    overflow-y: auto;
+}
+
+.card>.details {
+    grid-area: detail;
+    margin: 0.5rem;
+}
+
+.card>.details iframe {
+    width: 100%;
+    min-height: 30rem;
+}
+
+
+/* Global elements */
+
+.modalbg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 1;
+}
+
+
+/* animations */
 
 @keyframes up {
     from {
@@ -103,7 +218,7 @@ body {
     }
 }
 
-@keyframes slidein {
+@keyframes topin {
     from {
         transform: translateY(-100%);
         opacity: 0;
@@ -114,6 +229,52 @@ body {
     }
 }
 
+@keyframes rightin {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+
+/* responsive */
+
+@media screen and (min-width: 48rem) {
+    /* apply only to large screen */
+    .splash {
+        background-image: url("splash/big.jpeg");
+    }
+    .mobileonly {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 48rem) {
+    /* apply only to small screen */
+    .desktoponly {
+        display: none;
+    }
+}
+
+
+/* Utility */
+
 .detached {
     display: none;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.fillwidth {
+    width: 100%;
+}
+
+.fillheight {
+    height: 100%;
 }

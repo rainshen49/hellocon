@@ -8,9 +8,8 @@
         - Cards related
     - Cards
         - Title
-        - Brief
+        - Brief/Detail
         - Image
-        - Fallback card
 
 - style.css
     - box-sizing, touch scrolling
@@ -30,3 +29,17 @@
 
 - common dependencies
     - icons
+    - redux
+    - rxjs
+- Redux design
+    - actions
+        - nav toggle
+        - splash toggle
+    - reducers
+        - change nav state
+        - change banner state
+        - change card state
+        - load cards & manage duplicates
+    - store
+        - UI states
+        - Data states

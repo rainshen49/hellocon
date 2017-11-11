@@ -16,5 +16,11 @@
         "url": "https://github.com/rainshen49/hellocon/issues"
     },
     "homepage": "https://github.com/rainshen49/hellocon/",
-    "devDependencies": {}
+    "devDependencies": {
+        "showdown": "^1.8.1"
+    },
+    "dependencies": {
+        "redux": "^3.7.2",
+        "rxjs-es": "^5.0.0-beta.12"
+    }
 }
