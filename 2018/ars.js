@@ -30,26 +30,30 @@ function reduceUI(state = initialUIState, action) {
     switch (action.type) {
         case "toggle_nav":
             if (action.tobe === undefined) {
-                return {...state, nav: !state.nav }
+                return Object.assign({}, state, { nav: !state.nav })
             } else if (action.tobe === state.nav) {
                 return state
             } else {
-                return {...state, nav: action.tobe }
+                return Object.assign({}, state, { nav: action.tobe })
             }
             break;
         case "toggle_banner":
             if (action.tobe === undefined) {
-                return {...state, banner: state.banner }
+                return Object.assign({}, state, { banner: state.banner })
             } else if (action.tobe === state.banner) {
                 return state
             } else {
-                return {...state, banner: action.tobe }
+                return Object.assign({}, state, { banner: action.tobe })
             }
             break;
         case "add_card":
             if (action.title !== "") {
-                return {...state, cards: {...state.cards, [action.title]: false } }
-                // default unexpanded card
+                return Object.assign({}, state, {
+                        cards: Object.assign({}, state.cards, {
+                            [action.title]: false
+                        })
+                    })
+                    // default unexpanded card
             } else return state
         default:
             return state
@@ -59,7 +63,9 @@ function reduceUI(state = initialUIState, action) {
 function reduceData(state = initialDataState, action) {
     switch (action.type) {
         case "add_card":
-            return {...state, [action.title]: action.dom }
+            return Object.assign({}, state, {
+                [action.title]: action.dom
+            })
         default:
             return state
     }

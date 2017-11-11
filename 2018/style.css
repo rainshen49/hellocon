@@ -80,10 +80,9 @@ body {
     z-index: 3;
 }
 
-.fa-bars,
-.below>i {
+.fa-bars {
     cursor: pointer;
-    padding: 0.5rem;
+    padding: 0.6rem;
 }
 
 #toc {
@@ -99,6 +98,13 @@ body {
 
 #toc a {
     display: block;
+    padding: 1rem;
+    text-decoration: none;
+    border-bottom: 1px solid var(--color5);
+}
+
+#toc a:hover {
+    background-color: var(--color2);
 }
 
 
@@ -169,7 +175,7 @@ body {
     grid-area: thumbnail;
     object-fit: cover;
     width: 100%;
-    height: 100%;
+    /* height: 100%; */
 }
 
 .card>.brief {
@@ -257,6 +263,9 @@ body {
     /* apply only to small screen */
     .desktoponly {
         display: none;
+    }
+    .card.expanded>*:not(.expand) {
+        padding: 0.5rem;
     }
 }
 

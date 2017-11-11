@@ -17,9 +17,9 @@ ObsWindowScroll
     .map(() => cards.getBoundingClientRect().y)
     .subscribe(y => {
         if (y > 0) {
-            UIstore.dispatch({...actions.togglebanner, tobe: false })
+            UIstore.dispatch(Object.assign({}, actions.togglebanner, { tobe: false }))
         } else if (y < 0) {
-            UIstore.dispatch({...actions.togglebanner, tobe: true })
+            UIstore.dispatch(Object.assign({}, actions.togglebanner, { tobe: true }))
         }
     })
 
@@ -42,7 +42,7 @@ UIstore.subscribe(() => {
         toc.classList.toggle('detached')
         if (nav) {
             modalbg.classList.remove('detached')
-            ObsModalClick.first().subscribe(() => UIstore.dispatch({...actions.togglenav, tobe: false }))
+            ObsModalClick.first().subscribe(() => UIstore.dispatch(Object.assign({}, actions.togglenav, { tobe: false })))
         } else {
             modalbg.classList.add('detached')
         }
@@ -91,7 +91,7 @@ function generateCard(info) {
     detailsele.forEach(ele => details.appendChild(ele))
     dummyroot.appendChild(details)
         // trigger action
-    const action = {...actions.addcard, title: h2.textContent, dom: dummyroot }
+    const action = Object.assign({}, actions.addcard, { title: h2.textContent, dom: dummyroot })
     UIstore.dispatch(action)
     Datastore.dispatch(action)
         // register listeners for expansion
