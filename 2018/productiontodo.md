@@ -1,3 +1,5 @@
 - check all card links
 - check all social media links
 - check grammar
+- image size optimize
+- convert all icon to unicode

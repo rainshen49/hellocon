@@ -47,7 +47,6 @@ body {
     max-height: 70%;
     overflow-y: auto;
     background-color: rgba(255, 255, 255, 0.8);
-    border-radius: 1rem 0 0 1rem;
 }
 
 .splash .below:not(.detached) {
@@ -124,13 +123,12 @@ body {
     height: 13rem;
     position: relative;
     box-shadow: var(--black-shadow);
-    border-radius: 1rem;
     margin: 1rem;
     flex-grow: 1;
     flex-shrink: 1;
     display: grid;
     grid-template-areas: "expand expand" "title title" "brief thumbnail";
-    grid-template-rows: 15% 20% 65%;
+    grid-template-rows: 20% 20% 60%;
     grid-template-columns: 61% 39%;
     justify-items: stretch;
     overflow-y: hidden;
@@ -218,7 +216,6 @@ body {
 }
 
 .socialmedia {
-    border-radius: 1rem;
     padding: 0.1 0.5rem;
 }
 
@@ -242,8 +239,6 @@ body {
     right: 0;
     bottom: 1rem;
 }
-
-.banner .socialmedia {}
 
 
 /* animations */
@@ -302,6 +297,9 @@ body {
     .card.expanded>*:not(.expand):not(img) {
         padding: 0 0.5rem;
     }
+    .card {
+        height: 10rem;
+    }
 }
 
 
@@ -321,4 +319,8 @@ body {
 
 .fillheight {
     height: 100%;
+}
+
+.rounded {
+    border-radius: 2px;
 }

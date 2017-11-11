@@ -1,0 +1,12 @@
+{
+    "short_name": "HelloCon",
+    "name": "Hello, Con! A Fun Programming Conference",
+    "icons": [{
+        "src": "icon.png",
+        "type": "image/png",
+        "sizes": "225x225"
+    }],
+    "start_url": "index.html?launcher=true",
+    "display": "standalone",
+    "theme_color": "#3590f3"
+}

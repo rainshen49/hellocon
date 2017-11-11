@@ -90,6 +90,7 @@ function generateCard(info) {
     const expand = expandButton()
         // put the correct classnames in
     dummyroot.classList.add('card')
+    dummyroot.classList.add('rounded')
     img.classList.add('thumbnail')
     brief.classList.add('brief')
     details.classList.add('details')
