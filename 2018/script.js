@@ -10,8 +10,8 @@ const ham = $('i', Banner)
 const toc = $('#toc', container)
 const modalbg = $('.modalbg', container)
 const socialmedia = $('.socialmedia', container)
-const ObsWindowScroll = Rx.Observable.fromEvent(window, 'scroll')
 
+const ObsWindowScroll = Rx.Observable.fromEvent(window, 'scroll')
 ObsWindowScroll
     .startWith(0)
     .debounceTime(10)
@@ -25,7 +25,6 @@ ObsWindowScroll
     })
 
 ObsWindowScroll.first().subscribe(() => below.classList.add('detached'))
-
 const ObsHamClick = Rx.Observable.fromEvent(ham, 'click')
 
 ObsHamClick.subscribe(() => UIstore.dispatch(actions.togglenav))
@@ -68,8 +67,10 @@ Datastore.subscribe(() => {
         a.textContent = title
         a.href = '#' + $('h2', cardstore[title]).id
         a.addEventListener('click', (ev) => {
+            ev.preventDefault()
+            location.hash = a.getAttribute('href')
             UIstore.dispatch(actions.togglenav)
-            requestAnimationFrame(() => window.scrollBy(0, -96))
+            cardstore[title].firstElementChild.scrollIntoView({ behavior: 'smooth' })
                 // offset the nav bar
         })
         toc.appendChild(a)
@@ -109,7 +110,7 @@ function generateCard(info) {
         // register listeners for expansion
     expand.addEventListener('click', () => {
         dummyroot.classList.toggle('expanded')
-        setTimeout(() => requestAnimationFrame(() => dummyroot.scrollIntoView()), 300)
+        setTimeout(() => h2.scrollIntoView({ behavior: 'smooth' }), 300)
         iframes.forEach(swapsrc)
             // iframe switch
     })
