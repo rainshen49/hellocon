@@ -1,10 +1,9 @@
 # Global:
 - index.html
-    - splash image, become a top brief info when scrolled down
+    - splash image, become a top banner info when scrolled down
         - Intro, date, location, social media/contact buttons
-    - FAB Table of Content
-        - Detailed HelloCon, IEEE
-        - Location with map and parking info
+    - FAB Table of Content + Banner
+        - Social media buttons
         - Cards related
     - Cards
         - Title
