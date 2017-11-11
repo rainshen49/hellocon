@@ -15,11 +15,11 @@ const ObsWindowScroll = Rx.Observable.fromEvent(window, 'scroll')
 ObsWindowScroll
     .startWith(0)
     .debounceTime(10)
-    .map(() => cards.getBoundingClientRect().y)
+    .map(() => splash.getBoundingClientRect().bottom)
     .subscribe(y => {
-        if (y > 10) {
+        if (y > 0) {
             UIstore.dispatch(Object.assign({}, actions.togglebanner, { tobe: false }))
-        } else if (y < 10) {
+        } else if (y < 0) {
             UIstore.dispatch(Object.assign({}, actions.togglebanner, { tobe: true }))
         }
     })
@@ -33,11 +33,13 @@ const ObsModalClick = Rx.Observable.fromEvent(modalbg, 'click').do(ev => ev.stop
 
 UIstore.subscribe(() => {
     const { banner, nav } = UIstore.getState()
-    if (banner === Banner.classList.contains('detached')) {
+    if (banner === !Banner.classList.contains('ontop')) {
         // need to update banner
-        Banner.classList.toggle('detached')
+        Banner.classList.toggle('ontop')
+        splash.classList.toggle('over')
             // manipulate dom only on change
         if (banner) {
+            // need to show banner as overlay
             Banner.insertBefore(socialmedia, ham)
         } else {
             splash.appendChild(socialmedia)
@@ -110,7 +112,7 @@ function generateCard(info) {
         // register listeners for expansion
     expand.addEventListener('click', () => {
         dummyroot.classList.toggle('expanded')
-        setTimeout(() => h2.scrollIntoView({ behavior: 'smooth' }), 300)
+        if (dummyroot.classList.contains('expanded')) setTimeout(() => dummyroot.scrollIntoView({ behavior: 'smooth' }), 200)
         iframes.forEach(swapsrc)
             // iframe switch
     })

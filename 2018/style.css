@@ -2,7 +2,7 @@
     box-sizing: border-box;
     -webkit-overflow-scrolling: touch;
     /* box-shadow: var(--black-shadow); */
-    transition: all 0.3s ease;
+    /* transition: all 0.3s ease; */
 }
 
 html,
@@ -62,11 +62,12 @@ body {
     animation: up 2s ease infinite;
 }
 
-.banner:not(.detached) {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
+.splash.over {
+    margin-bottom: 3rem;
+}
+
+.banner {
+    position: relative;
     background-color: var(--color5);
     color: white;
     display: flex;
@@ -74,8 +75,15 @@ body {
     align-items: center;
     box-shadow: var(--black-shadow);
     padding: 0 1rem;
-    animation: topin 0.6s ease forwards;
     height: 3rem;
+}
+
+.banner.ontop {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
     z-index: 3;
 }
 
@@ -85,10 +93,10 @@ body {
 }
 
 #toc {
-    position: fixed;
+    position: absolute;
     right: 0;
     top: 3rem;
-    max-height: calc(100% - 3rem);
+    /* max-height: calc(100% - 3rem); */
     overflow-y: auto;
     animation: rightin 0.3s ease forwards;
     background-color: white;
@@ -115,7 +123,7 @@ body {
     justify-content: space-around;
     align-items: stretch;
     align-content: flex-start;
-    padding-top: 3rem;
+    transition: all 0.2s ease;
 }
 
 .card {
@@ -132,6 +140,7 @@ body {
     grid-template-columns: 61% 39%;
     justify-items: stretch;
     overflow-y: hidden;
+    transition: all 0.2s ease;
 }
 
 .card.expanded {
@@ -223,6 +232,7 @@ body {
     padding: 0.5rem;
     font-size: 1.8rem;
     z-index: 2;
+    animation: fadein 0.5s ease;
 }
 
 .socialmedia i:hover:not(:active) {
@@ -272,6 +282,15 @@ body {
     }
     to {
         transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
         opacity: 1;
     }
 }
