@@ -279,7 +279,7 @@ body {
 
 /* responsive */
 
-@media screen and (min-width: 48rem) {
+@media screen and (min-width: 49rem) {
     /* apply only to large screen */
     .splash {
         background-image: url("splash/big.jpeg");
