@@ -2,6 +2,6 @@
 - check all social media links
 - check grammar
 - image size optimize
-- convert all icon to unicode
 - check all cases
-    - TOC click with and without splash
+- unicode icon optimization
+- minimize scripts

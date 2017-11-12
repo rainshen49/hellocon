@@ -16,9 +16,16 @@
     <title>Hello,Con!'18</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/3.7.2/redux.js" defer></script>
-    <script src="https://unpkg.com/@reactivex/rxjs@5.0.0/dist/global/Rx.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/3.7.2/redux.min.js" defer></script>
+    <script src="https://unpkg.com/@reactivex/rxjs@5.0.0/dist/global/Rx.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.8.1/showdown.min.js" defer></script>
+
+    <!-- preload assets -->
+    <link rel="preload" href="ars.js" as="script">
+    <link rel="preload" href="helper.js" as="script">
+    <link rel="preload" href="splash/big.jpeg" as="image" media="(min-width: 49rem)">
+    <link rel="preload" href="splash/small.jpeg" as="image" media="(max-width: 48rem)">
+
 </head>
 
 <body>
@@ -26,6 +33,7 @@
         <section class="info rounded">
             <h1>Hello, Con!</h1>
             <p>A TED-talk style technology conference with a focus on the fun of programming.</p>
+            <!-- <i>&#xf065</i> -->
         </section>
         <div class="below">
             <i class="fa fa-angle-double-up" aria-hidden="true"></i>
