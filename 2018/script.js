@@ -3,57 +3,54 @@ import { $, $$ } from './helper.js'
 import { actions, UIstore, Datastore } from './ars.js'
 const container = document.body
 const splash = $('.splash', container)
-const Banner = $('.banner', container)
+const banner = $('.banner', container)
 const cards = $('.cards', container)
 const below = $('.below', splash)
-const ham = $('i', Banner)
+const ham = $('i', banner)
 const toc = $('#toc', container)
 const modalbg = $('.modalbg', container)
 const socialmedia = $('.socialmedia', container)
+const mobile = window.innerWidth <= 48 * 16
 
-const ObsWindowScroll = Rx.Observable.fromEvent(window, 'scroll')
+const ObsWindowScroll = Rx.Observable.fromEvent(window, 'scroll', { passive: true })
 ObsWindowScroll
     .startWith(0)
     .debounceTime(10)
     .map(() => splash.getBoundingClientRect().bottom)
-    .subscribe(y => {
-        if (y > 0) {
-            UIstore.dispatch(Object.assign({}, actions.togglebanner, { tobe: false }))
-        } else if (y < 0) {
-            UIstore.dispatch(Object.assign({}, actions.togglebanner, { tobe: true }))
+    .subscribe(bottom => {
+        const showbanner = bottom < 0
+        if (showbanner !== banner.classList.contains('ontop')) {
+            banner.classList.toggle('ontop')
+            splash.classList.toggle('over')
+                // manipulate dom only on change
+            if (showbanner) {
+                // need to show banner as overlay
+                banner.insertBefore(socialmedia, ham)
+            } else {
+                splash.appendChild(socialmedia)
+            }
         }
     })
 
 ObsWindowScroll.first().subscribe(() => below.classList.add('detached'))
-const ObsHamClick = Rx.Observable.fromEvent(ham, 'click')
 
-ObsHamClick.subscribe(() => UIstore.dispatch(actions.togglenav))
-
-const ObsModalClick = Rx.Observable.fromEvent(modalbg, 'click').do(ev => ev.stopPropagation())
+ham.addEventListener('click', () => UIstore.dispatch(actions.togglenav))
 
 UIstore.subscribe(() => {
-    const { banner, nav } = UIstore.getState()
-    if (banner === !Banner.classList.contains('ontop')) {
-        // need to update banner
-        Banner.classList.toggle('ontop')
-        splash.classList.toggle('over')
-            // manipulate dom only on change
-        if (banner) {
-            // need to show banner as overlay
-            Banner.insertBefore(socialmedia, ham)
-        } else {
-            splash.appendChild(socialmedia)
-        }
-    }
+    const { nav } = UIstore.getState()
     if (nav === toc.classList.contains('detached')) {
         // need to update toc
         toc.classList.toggle('detached')
             // manipulate dom only on change        
         if (nav) {
             modalbg.classList.remove('detached')
-            ObsModalClick.first().subscribe(() => UIstore.dispatch(Object.assign({}, actions.togglenav, { tobe: false })))
+            modalbg.onclick = ev => {
+                ev.stopPropagation()
+                UIstore.dispatch(Object.assign({}, actions.togglenav, { tobe: false }))
+            }
         } else {
             modalbg.classList.add('detached')
+            modalbg.onclick = null
         }
     }
 })
@@ -69,11 +66,7 @@ Datastore.subscribe(() => {
         a.textContent = title
         a.href = '#' + $('h2', cardstore[title]).id
         a.addEventListener('click', (ev) => {
-            ev.preventDefault()
-            location.hash = a.getAttribute('href')
             UIstore.dispatch(actions.togglenav)
-            cardstore[title].firstElementChild.scrollIntoView({ behavior: 'smooth' })
-                // offset the nav bar
         })
         toc.appendChild(a)
         cards.appendChild(cardstore[title])
@@ -84,43 +77,50 @@ Datastore.subscribe(() => {
 
 function generateCard(info) {
     // generate card element from info as html text
+    const card = document.createElement('div')
     const dummyroot = document.createElement('div')
     const details = document.createElement('div')
     dummyroot.innerHTML = info
-    const [h2, pimg, brief, ...detailsele] = dummyroot.children
+    const [h2, brief, pimg, ...detailsele] = dummyroot.children
     const iframes = $$('iframe', dummyroot)
-    const img = pimg.lastElementChild
     const expand = expandButton()
         // put the correct classnames in
-    dummyroot.classList.add('card')
-    dummyroot.classList.add('rounded')
-    img.classList.add('thumbnail')
+    card.classList.add('card', 'rounded')
+    dummyroot.classList.add('card-content')
     brief.classList.add('brief')
+    pimg.classList.add('thumbnail')
     details.classList.add('details')
-        // put iframe src to null for lazy load
+        // put iframe src to # for lazy load
     iframes.forEach(swapsrc)
         // rearrange the dom tree
-    dummyroot.insertBefore(expand, h2)
-    dummyroot.insertBefore(img, pimg)
-    dummyroot.removeChild(pimg)
     detailsele.forEach(ele => details.appendChild(ele))
     dummyroot.appendChild(details)
-        // trigger action
-    const action = Object.assign({}, actions.addcard, { title: h2.textContent, dom: dummyroot })
-    UIstore.dispatch(action)
-    Datastore.dispatch(action)
+    card.appendChild(expand)
+    card.appendChild(dummyroot)
         // register listeners for expansion
     expand.addEventListener('click', () => {
-        dummyroot.classList.toggle('expanded')
-        if (dummyroot.classList.contains('expanded')) setTimeout(() => dummyroot.scrollIntoView({ behavior: 'smooth' }), 200)
-        iframes.forEach(swapsrc)
+        card.classList.toggle('expanded')
             // iframe switch
+        iframes.forEach(iframe => {
+            if (!mobile) {
+                swapsrc(iframe)
+                    // swap only if in dom tree
+            }
+        })
+        h2.scrollIntoView({ behavior: "smooth" })
     })
+    return card
+}
+
+function registerCard(card) {
+    const action = Object.assign({}, actions.addcard, { title: $('h2', card).textContent, dom: card })
+    UIstore.dispatch(action)
+    Datastore.dispatch(action)
 }
 
 function swapsrc(iframe) {
     const { src } = iframe
-    const datasrc = iframe.dataset.src || ""
+    const datasrc = iframe.dataset.src || "//#"
     const temp = src
     iframe.setAttribute('src', datasrc)
     iframe.dataset.src = src
@@ -140,5 +140,7 @@ function expandButton() {
     return wrapper
 }
 
-fetch('cards/hellocon.md').then(res => res.text()).then(mdtohtml).then(generateCard)
-fetch('cards/submit.md').then(res => res.text()).then(mdtohtml).then(generateCard)
+fetch('cards/hellocon.md').then(res => res.text()).then(mdtohtml).then(generateCard).then(registerCard)
+fetch('cards/submit.md').then(res => res.text()).then(mdtohtml).then(generateCard).then(registerCard)
+
+console.log('scripted')

@@ -5,3 +5,5 @@ export function $(selector, container = document) {
 export function $$(selector, container = document) {
     return Array.from(container.querySelectorAll(selector))
 }
+
+console.log('loaded helper')

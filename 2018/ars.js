@@ -4,10 +4,6 @@ export const actions = {
         type: "toggle_nav",
         tobe: undefined
     },
-    togglebanner: {
-        type: "toggle_banner",
-        tobe: undefined
-    },
     addcard: {
         type: "add_card",
         title: "",
@@ -16,7 +12,6 @@ export const actions = {
 }
 
 const initialUIState = {
-    banner: false,
     nav: false,
     cards: {} //keeping the UI state of each card, not any content
     // title:{expanded:boolean}
@@ -35,15 +30,6 @@ function reduceUI(state = initialUIState, action) {
                 return state
             } else {
                 return Object.assign({}, state, { nav: action.tobe })
-            }
-            break;
-        case "toggle_banner":
-            if (action.tobe === undefined) {
-                return Object.assign({}, state, { banner: state.banner })
-            } else if (action.tobe === state.banner) {
-                return state
-            } else {
-                return Object.assign({}, state, { banner: action.tobe })
             }
             break;
         case "add_card":
@@ -73,3 +59,5 @@ function reduceData(state = initialDataState, action) {
 
 export const UIstore = createStore(reduceUI, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 export const Datastore = createStore(reduceData, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+
+console.log('loaded redux data')

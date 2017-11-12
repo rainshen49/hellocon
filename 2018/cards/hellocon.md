@@ -1,8 +1,8 @@
 ## About Hello, Con!
-<!-- thumbnail -->
-![hellocon](https://pbs.twimg.com/profile_images/806769701573431297/FSYgyO1T_400x400.jpg)
 <!-- followed by brief -->
 Hello, Con! was first held in Feb 2017 at University of Toronto. It was a TED-talk style technology conference focusing on the fun of programming.
+<!-- followed by thumbnail -->
+![hellocon](https://pbs.twimg.com/profile_images/806769701573431297/FSYgyO1T_400x400.jpg)
 <!-- Followed by detail -->
 Conventionally, tech conferences are comprised of hour-long talks based on either academic research or industry developments. While this traditional form serves as a good platform for exchanging ideas in fine details, Hello, Con! addresses a differentniche in a TED-talk style.
 

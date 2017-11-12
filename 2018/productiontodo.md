@@ -3,3 +3,5 @@
 - check grammar
 - image size optimize
 - convert all icon to unicode
+- check all cases
+    - TOC click with and without splash
