@@ -17,6 +17,7 @@ ObsWindowScroll
     .startWith(0)
     .debounceTime(10)
     .map(() => splash.getBoundingClientRect().bottom)
+    .observeOn(Rx.Scheduler.animationFrame)
     .subscribe(bottom => {
         const showbanner = bottom < 0
         if (showbanner !== banner.classList.contains('ontop')) {
@@ -32,27 +33,31 @@ ObsWindowScroll
         }
     })
 
-ObsWindowScroll.first().subscribe(() => below.classList.add('detached'))
+ObsWindowScroll
+    .observeOn(Rx.Scheduler.animationFrame)
+    .first().subscribe(() => below.classList.add('detached'))
 
 ham.addEventListener('click', () => UIstore.dispatch(actions.togglenav))
 
 UIstore.subscribe(() => {
     const { nav } = UIstore.getState()
-    if (nav === toc.classList.contains('detached')) {
-        // need to update toc
-        toc.classList.toggle('detached')
-            // manipulate dom only on change        
-        if (nav) {
-            modalbg.classList.remove('detached')
-            modalbg.onclick = ev => {
-                ev.stopPropagation()
-                UIstore.dispatch(Object.assign({}, actions.togglenav, { tobe: false }))
+    requestAnimationFrame(() => {
+        if (nav === toc.classList.contains('detached')) {
+            // need to update toc
+            toc.classList.toggle('detached')
+                // manipulate dom only on change        
+            if (nav) {
+                modalbg.classList.remove('detached')
+                modalbg.onclick = ev => {
+                    ev.stopPropagation()
+                    UIstore.dispatch(Object.assign({}, actions.togglenav, { tobe: false }))
+                }
+            } else {
+                modalbg.classList.add('detached')
+                modalbg.onclick = null
             }
-        } else {
-            modalbg.classList.add('detached')
-            modalbg.onclick = null
         }
-    }
+    })
 })
 
 Datastore.subscribe(() => {
@@ -99,15 +104,14 @@ function generateCard(info) {
     card.appendChild(dummyroot)
         // register listeners for expansion
     expand.addEventListener('click', () => {
-        card.classList.toggle('expanded')
-            // iframe switch
+        // iframe switch
         iframes.forEach(iframe => {
-            if (!mobile) {
-                swapsrc(iframe)
-                    // swap only if in dom tree
-            }
+            if (!mobile) swapsrc(iframe)
         })
-        h2.scrollIntoView({ behavior: "smooth" })
+        requestAnimationFrame(() => {
+            card.classList.toggle('expanded')
+            requestAnimationFrame(() => h2.scrollIntoView({ behavior: "smooth" }))
+        })
     })
     return card
 }

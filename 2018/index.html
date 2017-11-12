@@ -15,16 +15,11 @@
     <link rel="manifest" href="manifest.json">
     <title>Hello,Con!'18</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/3.7.2/redux.min.js" defer></script>
-    <script src="https://unpkg.com/@reactivex/rxjs@5.0.0/dist/global/Rx.min.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.8.1/showdown.min.js" defer></script>
+    <link rel="preload" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" as="style" onload="this.rel='stylesheet'">
 
     <!-- preload assets -->
-    <link rel="preload" href="ars.js" as="script">
-    <link rel="preload" href="helper.js" as="script">
-    <link rel="preload" href="splash/big.jpeg" as="image" media="(min-width: 49rem)">
-    <link rel="preload" href="splash/small.jpeg" as="image" media="(max-width: 48rem)">
+    <link rel="preload" href="splash/big.jpeg" as="image" media="(min-width: 769px)">
+    <link rel="preload" href="splash/small.jpeg" as="image" media="(max-width: 768px)">
 
 </head>
 
@@ -51,7 +46,15 @@
     </div>
     <div class="modalbg detached"></div>
     <div class="cards"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/3.7.2/redux.min.js" defer></script>
+    <script src="https://unpkg.com/@reactivex/rxjs@5.0.0/dist/global/Rx.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.8.1/showdown.min.js" defer></script>
+    <script type="module" src="ars.js" defer></script>
+    <script type="module" src="helper.js" defer></script>
     <script type="module" src="script.js" defer></script>
+    <noscript>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">    
+    </noscript>
 </body>
 
 </html>

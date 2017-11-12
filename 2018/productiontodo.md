@@ -5,3 +5,4 @@
 - check all cases
 - unicode icon optimization
 - minimize scripts
+- load criticl css first
