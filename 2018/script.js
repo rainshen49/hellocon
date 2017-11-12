@@ -33,53 +33,6 @@ ObsWindowScroll
         }
     })
 
-ObsWindowScroll
-    .observeOn(Rx.Scheduler.animationFrame)
-    .first().subscribe(() => below.classList.add('detached'))
-
-ham.addEventListener('click', () => UIstore.dispatch(actions.togglenav))
-
-UIstore.subscribe(() => {
-    const { nav } = UIstore.getState()
-    requestAnimationFrame(() => {
-        if (nav === toc.classList.contains('detached')) {
-            // need to update toc
-            toc.classList.toggle('detached')
-                // manipulate dom only on change        
-            if (nav) {
-                modalbg.classList.remove('detached')
-                modalbg.onclick = ev => {
-                    ev.stopPropagation()
-                    UIstore.dispatch(Object.assign({}, actions.togglenav, { tobe: false }))
-                }
-            } else {
-                modalbg.classList.add('detached')
-                modalbg.onclick = null
-            }
-        }
-    })
-})
-
-Datastore.subscribe(() => {
-    // managing card content changes
-    const cardstore = Datastore.getState()
-    const contents = Array.from(toc.children)
-    const titles = contents.map(a => a.textContent)
-    Object.keys(cardstore).filter(title => !titles.includes(title)).forEach(title => {
-        // add new content items
-        const a = document.createElement('a')
-        a.textContent = title
-        a.href = '#' + $('h2', cardstore[title]).id
-        a.addEventListener('click', (ev) => {
-            UIstore.dispatch(actions.togglenav)
-        })
-        toc.appendChild(a)
-        cards.appendChild(cardstore[title])
-    })
-    contents.filter(({ textContent }) => !cardstore.hasOwnProperty(textContent)).forEach(item => item.parentNode.removeChild(item))
-        // remove old content items
-})
-
 function generateCard(info) {
     // generate card element from info as html text
     const card = document.createElement('div')
@@ -147,4 +100,52 @@ function expandButton() {
 fetch('cards/hellocon.md').then(res => res.text()).then(mdtohtml).then(generateCard).then(registerCard)
 fetch('cards/submit.md').then(res => res.text()).then(mdtohtml).then(generateCard).then(registerCard)
 
+ObsWindowScroll
+    .observeOn(Rx.Scheduler.animationFrame)
+    .first().subscribe(() => below.classList.add('detached'))
+
+ham.addEventListener('click', () => UIstore.dispatch(actions.togglenav))
+
+UIstore.subscribe(() => {
+    const { nav } = UIstore.getState()
+    requestAnimationFrame(() => {
+        if (nav === toc.classList.contains('detached')) {
+            // need to update toc
+            toc.classList.toggle('detached')
+                // manipulate dom only on change        
+            if (nav) {
+                modalbg.classList.remove('detached')
+                modalbg.onclick = ev => {
+                    ev.stopPropagation()
+                    UIstore.dispatch(Object.assign({}, actions.togglenav, { tobe: false }))
+                }
+            } else {
+                modalbg.classList.add('detached')
+                modalbg.onclick = null
+            }
+        }
+    })
+})
+
+Datastore.subscribe(() => {
+    // managing card content changes
+    const cardstore = Datastore.getState()
+    const contents = Array.from(toc.children)
+    const titles = contents.map(a => a.textContent)
+    Object.keys(cardstore).filter(title => !titles.includes(title)).forEach(title => {
+        // add new content items
+        const a = document.createElement('a')
+        a.textContent = title
+        a.href = '#' + $('h2', cardstore[title]).id
+        a.addEventListener('click', (ev) => {
+            UIstore.dispatch(actions.togglenav)
+        })
+        toc.appendChild(a)
+        cards.appendChild(cardstore[title])
+    })
+    contents.filter(({ textContent }) => !cardstore.hasOwnProperty(textContent)).forEach(item => item.parentNode.removeChild(item))
+        // remove old content items
+})
+
+$$('link[as="style"]').forEach(link => link.rel = "stylesheet")
 console.log('scripted')
