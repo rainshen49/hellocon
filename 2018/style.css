@@ -1,5 +1,6 @@
 /* z index
 highest 10: nav
+6 refresh
 5 banner
 lowest 0: default
 */
@@ -29,6 +30,10 @@ body {
     --color5: rgba(53, 144, 243, 1);
     --black-shadow: 0 0 0.3rem 0.01rem black;
     --big-black-shadow: 0 0 1rem 0.04rem black;
+}
+
+body.modalopen {
+    overflow: hidden;
 }
 
 
@@ -286,6 +291,33 @@ body {
     z-index: 1;
 }
 
+#reload {
+    position: fixed;
+    padding: 1rem;
+    height: 4rem;
+    width: 4rem;
+    text-align: center;
+    background-color: var(--color4);
+    color: white;
+    top: 0.5rem;
+    font-size: 2rem;
+    line-height: 2rem;
+    border-radius: 50%;
+    left: calc(50% - 2rem);
+    animation: topin 0.2s ease;
+    transition: all 0.2s ease;
+    z-index: 6;
+}
+
+#reload.activated {
+    transform: rotate(90deg);
+    box-shadow: var(--big-black-shadow);
+}
+
+#reload.active {
+    animation: spin 1s linear infinite;
+}
+
 
 /* animations */
 
@@ -322,12 +354,32 @@ body {
     }
 }
 
+@keyframes bottomin {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
 @keyframes fadein {
     from {
         opacity: 0;
     }
     to {
         opacity: 1;
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
     }
 }
 

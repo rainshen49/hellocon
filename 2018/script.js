@@ -8,20 +8,52 @@ const cards = $('.cards', container)
 const ham = $('#ham', banner)
 const toc = $('#toc', container)
 const modalbg = $('.modalbg', container)
+const reload = $('#reload', container)
+let toreload = false
+const scrollthreshold = 4 * 16;
 const mobile = window.innerWidth <= 48 * 16
 
 const ObsWindowScroll = Rx.Observable.fromEvent(window, 'scroll', { passive: true })
 ObsWindowScroll
     .startWith(0)
+    .filter(() => !toreload)
     .map(() => splash.getBoundingClientRect().bottom - 48)
     // 48 depends on per rem size
-    .observeOn(Rx.Scheduler.animationFrame)
-    .subscribe(location => {
+    .do(location => {
         const showbanner = location < 0
-        if (showbanner !== banner.classList.contains('ontop')) {
-            banner.classList.toggle('ontop')
+        requestAnimationFrame(() => {
+            if (showbanner !== banner.classList.contains('ontop')) {
+                banner.classList.toggle('ontop')
+            }
+        })
+    })
+    .do(() => {
+        const classList = reload.classList
+        if (scrollY < 0) {
+            if (classList.contains('detached')) {
+                // show the reload button if not already
+                classList.remove('detached')
+            } else if (scrollY < -scrollthreshold) {
+                // refresh when released
+                classList.add('activated')
+                toreload = true
+            }
+        } else {
+            if (!classList.contains('detached')) {
+                // hide the reload button
+                classList.add('detached')
+            }
         }
     })
+    .subscribe()
+
+ObsWindowScroll.filter(() => toreload && scrollY >= -scrollthreshold).do(() => {
+    requestAnimationFrame(() => {
+        reload.classList.add('active')
+        requestAnimationFrame(() => window.location.reload())
+    })
+}).subscribe()
+
 
 function generateCard(info) {
     // generate card element from info as html text
@@ -89,10 +121,18 @@ function expandButton() {
 }
 
 fetch('cards/hellocon.md').then(res => res.text()).then(mdtohtml).then(generateCard).then(registerCard)
+
 fetch('cards/submit.md').then(res => res.text()).then(mdtohtml).then(generateCard).then(registerCard)
 
 ham.addEventListener('click', () => UIstore.dispatch(actions.togglenav))
-
+modalbg.addEventListener('touchmove', ev => {
+    ev.preventDefault()
+        // console.log('moving')
+})
+banner.addEventListener('touchmove', ev => {
+    ev.preventDefault()
+        // console.log('moving banner')
+})
 UIstore.subscribe(() => {
     const { nav } = UIstore.getState()
     requestAnimationFrame(() => {
@@ -102,12 +142,14 @@ UIstore.subscribe(() => {
                 // manipulate dom only on change        
             if (nav) {
                 modalbg.classList.remove('detached')
+                document.body.classList.add('modalopen')
                 modalbg.onclick = ev => {
                     ev.stopPropagation()
                     UIstore.dispatch(Object.assign({}, actions.togglenav, { tobe: false }))
                 }
             } else {
                 modalbg.classList.add('detached')
+                document.body.classList.remove('modalopen')
                 modalbg.onclick = null
             }
         }
