@@ -12,13 +12,11 @@ const modalbg = $('.modalbg', container)
 const reload = $('#reload', container)
 const cardtemplate = $('.cardtem', container)
 
-window.cardtemplate = cardtemplate
-
 const scrollthreshold = 4 * 16;
 const mobile = window.innerWidth <= 48 * 16
 
 const ObsWindowScroll = Rx.Observable.fromEvent(window, 'scroll', { passive: true })
-ObsWindowScroll
+const scrollBanner = ObsWindowScroll
     .startWith(0)
     .map(() => splash.getBoundingClientRect().bottom - 48)
     // 48 depends on per rem size
@@ -30,7 +28,6 @@ ObsWindowScroll
             }
         })
     })
-    .subscribe()
 
 const ObsSplashTouchStart = Rx.Observable.fromEvent(splash, 'touchstart', { passive: true })
 const ObsSplashTouchMove = Rx.Observable.fromEvent(splash, 'touchmove', { passive: true })
@@ -40,7 +37,7 @@ const ObsSplashTouchEnd = Rx.Observable.fromEvent(splash, 'touchend', { passive:
 // ObsSplashTouchMove.subscribe((ev) => console.log('moving', scrollY))
 // ObsSplashTouchEnd.subscribe((ev) => console.log('ended', scrollY))
 
-ObsSplashTouchStart.subscribe(() => {
+const pullToRefresh = ObsSplashTouchStart.do(() => {
     const touchstart = ObsReloadWaiting.subscribe()
         // when touch ended, unsubscript
     const touchend = ObsReloadConfirm.subscribe(() => {
@@ -82,6 +79,7 @@ function plugintemplate(root) {
     const target = cardtemplate.content.children[0].cloneNode(true)
     const [h2, brief, pimg, ...details] = root.children
     const iframes = $$('iframe', root)
+    const ObsCardTransition = Rx.Observable.fromEvent(target, 'transitionend', { passive: true }).debounceTime(5)
     iframes.forEach(swapsrc)
     Object.assign($('.cardtitle', target), { textContent: h2.textContent, id: h2.id })
     $('.thumbnail', target).appendChild(pimg.children[0])
@@ -94,17 +92,20 @@ function plugintemplate(root) {
         })
         requestAnimationFrame(() => {
             target.classList.toggle('expanded')
-            requestAnimationFrame(() => h2.scrollIntoView({ behavior: "smooth" }))
+            ObsCardTransition.first().observeOn(Rx.Scheduler.animationFrame).subscribe(() => {
+                console.log('fired transition end')
+                target.firstElementChild.scrollIntoView({ behavior: "smooth" })
+            })
         })
     })
     return target
 }
 
-function generateCard(info) {
+function parseHtml(info) {
     // generate card element from info as html text
     const dummyroot = document.createElement('div')
     dummyroot.innerHTML = info
-    return plugintemplate(dummyroot)
+    return dummyroot
 }
 
 function registerCard(card) {
@@ -128,21 +129,8 @@ function mdtohtml(md) {
     return converter.makeHtml(md)
 }
 
-fetch('cards/hellocon.md').then(res => res.text()).then(mdtohtml).then(generateCard).then(registerCard)
 
-fetch('cards/submit.md').then(res => res.text()).then(mdtohtml).then(generateCard).then(registerCard)
-
-ham.addEventListener('click', () => UIstore.dispatch(actions.togglenav))
-modalbg.addEventListener('touchmove', ev => {
-    ev.preventDefault()
-        // console.log('moving')
-})
-banner.addEventListener('touchmove', ev => {
-    ev.preventDefault()
-        // console.log('moving banner')
-})
-
-UIstore.subscribe(() => {
+function onUIChange(UIstore) {
     const { nav } = UIstore.getState()
     requestAnimationFrame(() => {
         if (nav === toc.classList.contains('detached')) {
@@ -163,10 +151,10 @@ UIstore.subscribe(() => {
             }
         }
     })
-})
+}
 
-Datastore.subscribe(() => {
-    // managing card content changes
+
+function onDataChange(Datastore) {
     const cardstore = Datastore.getState()
     const contents = Array.from(toc.children)
     const titles = contents.map(a => a.textContent)
@@ -186,7 +174,29 @@ Datastore.subscribe(() => {
     })
     contents.filter(({ textContent }) => !cardstore.hasOwnProperty(textContent)).forEach(item => item.parentNode.removeChild(item))
         // remove old content items
-})
+}
 
-$$('link[as="style"]:not([rel="stylesheet"])').forEach(link => link.rel = "stylesheet")
-console.log('scripted')
+function fetchCards(cardmds) {
+    return Promise.all(cardmds.map(card =>
+        fetch('cards/' + card).then(res => res.text()).then(mdtohtml).then(parseHtml).then(plugintemplate)
+    ))
+}
+
+async function main() {
+    $$('link[as="style"]:not([rel="stylesheet"])').forEach(link => link.rel = "stylesheet")
+    console.log('scripted')
+    Datastore.subscribe(() => onDataChange(Datastore))
+    UIstore.subscribe(() => onUIChange(UIstore))
+    requestAnimationFrame(() => reload.classList.add('active'))
+    const cardQueue = fetchCards(['hellocon.md', 'submit.md']).then(cards => cards.forEach(registerCard))
+    ham.addEventListener('click', () => UIstore.dispatch(actions.togglenav))
+        // prevent scrolling through body
+    modalbg.addEventListener('touchmove', ev => ev.preventDefault())
+    banner.addEventListener('touchmove', ev => ev.preventDefault())
+    scrollBanner.subscribe()
+    pullToRefresh.subscribe()
+    await cardQueue
+    requestAnimationFrame(() => reload.classList.remove('active'))
+}
+
+main()
