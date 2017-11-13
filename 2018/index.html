@@ -8,58 +8,74 @@
     <meta name="mobile-web-app-capable" content="yes">
     <!-- IOS -->
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="HelloCon">
     <link rel="apple-touch-icon" href="icon.png">
     <link rel="apple-touch-startup-image" href="splash/small.jpeg">
-    <meta name="apple-mobile-web-app-title" content="HelloCon">
 
     <link rel="manifest" href="manifest.json">
     <title>Hello,Con!'18</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/3.7.2/redux.min.js" defer></script>
-    <script src="https://unpkg.com/@reactivex/rxjs@5.0.0/dist/global/Rx.min.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.8.1/showdown.min.js" defer></script>
+    <link rel="stylesheet" href="animations.css">
+    <link rel="stylesheet" href="cards.css">
+    <link rel="preload" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" as="style" onload="this.rel='stylesheet'">
 
     <!-- preload assets -->
-    <link rel="preload" href="ars.js" as="script">
-    <link rel="preload" href="helper.js" as="script">
-    <link rel="preload" href="splash/big.jpeg" as="image" media="(min-width: 49rem)">
-    <link rel="preload" href="splash/small.jpeg" as="image" media="(max-width: 48rem)">
+    <link rel="preload" href="splash/big.jpeg" as="image" media="(min-width: 769px)">
+    <link rel="preload" href="splash/small.jpeg" as="image" media="(max-width: 768px)">
 
 </head>
 
 <body>
-    <div class="splash">
-        <section class="info rounded">
+    <div id="splash">
+        <section id="info" class="rounded">
             <h1>Hello, Con!</h1>
             <p>A TED-talk style technology conference with a focus on the fun of programming.</p>
-            <!-- <i>&#xf065</i> -->
         </section>
-        <div class="below">
-            <i class="fa fa-angle-double-up" aria-hidden="true"></i>
+        <div id="banner">
+            <div id="socialmedia" class="rounded">
+                <a href="mailto:ieeeutstudentbranch@gmail.com"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+                <a href="https://www.facebook.com/events/758938007586723/" rel="noopener noreferrer" target="_blank"><i class="fa fa-facebook-official" aria-hidden="true"></i></a>
+                <a href="https://twitter.com/helloconTO" rel="noopener noreferrer" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+            </div>
+            <h3 id="header">HelloCon</h3>
+            <i class="fa fa-bars" id="ham" aria-hidden="true"></i>
+            <nav id="toc" class="detached rounded">
+            </nav>
         </div>
-        <div class="socialmedia rounded">
-            <a href="mailto:ieeeutstudentbranch@gmail.com"><i class="fa fa-envelope" aria-hidden="true"></i></a>
-            <a href="https://www.facebook.com/events/758938007586723/" rel="noopener noreferrer" target="_blank"><i class="fa fa-facebook-official" aria-hidden="true"></i></a>
-            <a href="https://twitter.com/helloconTO" rel="noopener noreferrer" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-        </div>
-    </div>
-    <div class="banner">
-        <p>HelloCon</p>
-        <i class="fa fa-bars" aria-hidden="true"></i>
-        <nav id="toc" class="detached rounded"></nav>
     </div>
     <div class="modalbg detached"></div>
     <div class="cards"></div>
+    <div id="reload" class="detached"><i class="fa fa-refresh" aria-hidden="true"></i></div>
+
+    <template class="cardtem">
+        <div class="card rounded">
+            <div class="expand"><i class="fa fa-expand" aria-hidden="true"></i></div>
+            <div class="card-content">
+                <h2 class="cardtitle"></h2>
+                <p class="thumbnail"></p>
+                <p class="brief"></p>
+                <div class="details"></div>
+            </div>
+        </div>
+    </template>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/3.7.2/redux.min.js" defer></script>
+    <script src="https://unpkg.com/@reactivex/rxjs@5.0.0/dist/global/Rx.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.8.1/showdown.min.js" defer></script>
+    <script type="module" src="ars.js" defer></script>
+    <script type="module" src="helper.js" defer></script>
     <script type="module" src="script.js" defer></script>
+    <noscript>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">    
+    </noscript>
 </body>
 
 </html>
 
 <!-- Todo
-    detect and fix redundant scrolling
+    automate the css preload process
+    pull to refresh, give cancel opportunity
     submission of new cards
     add cards in real time
     service workers & notification
-    pagespeed
 -->

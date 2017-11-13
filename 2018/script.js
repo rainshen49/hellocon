@@ -1,115 +1,111 @@
 // todo: make card looks right in both states
 import { $, $$ } from './helper.js'
 import { actions, UIstore, Datastore } from './ars.js'
+
 const container = document.body
-const splash = $('.splash', container)
-const banner = $('.banner', container)
-const cards = $('.cards', container)
-const below = $('.below', splash)
-const ham = $('i', banner)
+const splash = $('#splash', container)
+const banner = $('#banner', container)
+const ham = $('#ham', banner)
 const toc = $('#toc', container)
+const cards = $('.cards', container)
 const modalbg = $('.modalbg', container)
-const socialmedia = $('.socialmedia', container)
+const reload = $('#reload', container)
+const cardtemplate = $('.cardtem', container)
+
+const scrollthreshold = 4 * 16;
 const mobile = window.innerWidth <= 48 * 16
 
 const ObsWindowScroll = Rx.Observable.fromEvent(window, 'scroll', { passive: true })
-ObsWindowScroll
+const scrollBanner = ObsWindowScroll
     .startWith(0)
-    .debounceTime(10)
-    .map(() => splash.getBoundingClientRect().bottom)
-    .subscribe(bottom => {
-        const showbanner = bottom < 0
-        if (showbanner !== banner.classList.contains('ontop')) {
-            banner.classList.toggle('ontop')
-            splash.classList.toggle('over')
-                // manipulate dom only on change
-            if (showbanner) {
-                // need to show banner as overlay
-                banner.insertBefore(socialmedia, ham)
-            } else {
-                splash.appendChild(socialmedia)
+    .map(() => splash.getBoundingClientRect().bottom - 48)
+    // 48 depends on per rem size
+    .do(location => {
+        const showbanner = location < 0
+        requestAnimationFrame(() => {
+            if (showbanner !== banner.classList.contains('ontop')) {
+                banner.classList.toggle('ontop')
             }
-        }
+        })
     })
 
-ObsWindowScroll.first().subscribe(() => below.classList.add('detached'))
+const ObsSplashTouchStart = Rx.Observable.fromEvent(splash, 'touchstart', { passive: true })
+const ObsSplashTouchMove = Rx.Observable.fromEvent(splash, 'touchmove', { passive: true })
+const ObsSplashTouchEnd = Rx.Observable.fromEvent(splash, 'touchend', { passive: true })
 
-ham.addEventListener('click', () => UIstore.dispatch(actions.togglenav))
+// ObsSplashTouchStart.subscribe((ev) => console.log('started', scrollY))
+// ObsSplashTouchMove.subscribe((ev) => console.log('moving', scrollY))
+// ObsSplashTouchEnd.subscribe((ev) => console.log('ended', scrollY))
 
-UIstore.subscribe(() => {
-    const { nav } = UIstore.getState()
-    if (nav === toc.classList.contains('detached')) {
-        // need to update toc
-        toc.classList.toggle('detached')
-            // manipulate dom only on change        
-        if (nav) {
-            modalbg.classList.remove('detached')
-            modalbg.onclick = ev => {
-                ev.stopPropagation()
-                UIstore.dispatch(Object.assign({}, actions.togglenav, { tobe: false }))
+const pullToRefresh = ObsSplashTouchStart.do(() => {
+    const touchstart = ObsReloadWaiting.subscribe()
+        // when touch ended, unsubscript
+    const touchend = ObsReloadConfirm.subscribe(() => {
+        touchend.unsubscribe()
+        touchstart.unsubscribe()
+    })
+})
+
+const rlclassList = reload.classList
+const ObsReloadWaiting = ObsSplashTouchMove
+    .observeOn(Rx.Scheduler.animationFrame)
+    .do(() => {
+        if (scrollY < 0) {
+            rlclassList.remove('detached')
+            if (scrollY < -scrollthreshold) {
+                rlclassList.add('activated')
+            } else {
+                rlclassList.remove('activated')
             }
         } else {
-            modalbg.classList.add('detached')
-            modalbg.onclick = null
+            rlclassList.add('detached')
         }
-    }
-})
-
-Datastore.subscribe(() => {
-    // managing card content changes
-    const cardstore = Datastore.getState()
-    const contents = Array.from(toc.children)
-    const titles = contents.map(a => a.textContent)
-    Object.keys(cardstore).filter(title => !titles.includes(title)).forEach(title => {
-        // add new content items
-        const a = document.createElement('a')
-        a.textContent = title
-        a.href = '#' + $('h2', cardstore[title]).id
-        a.addEventListener('click', (ev) => {
-            UIstore.dispatch(actions.togglenav)
-        })
-        toc.appendChild(a)
-        cards.appendChild(cardstore[title])
     })
-    contents.filter(({ textContent }) => !cardstore.hasOwnProperty(textContent)).forEach(item => item.parentNode.removeChild(item))
-        // remove old content items
-})
 
-function generateCard(info) {
-    // generate card element from info as html text
-    const card = document.createElement('div')
-    const dummyroot = document.createElement('div')
-    const details = document.createElement('div')
-    dummyroot.innerHTML = info
-    const [h2, brief, pimg, ...detailsele] = dummyroot.children
-    const iframes = $$('iframe', dummyroot)
-    const expand = expandButton()
-        // put the correct classnames in
-    card.classList.add('card', 'rounded')
-    dummyroot.classList.add('card-content')
-    brief.classList.add('brief')
-    pimg.classList.add('thumbnail')
-    details.classList.add('details')
-        // put iframe src to # for lazy load
+const ObsReloadConfirm = ObsSplashTouchEnd
+    .do(() => {
+        if (scrollY >= -scrollthreshold) {
+            // remove the refresh button if not triggered
+            rlclassList.add('detached')
+        } else {
+            requestAnimationFrame(() => {
+                rlclassList.add('active')
+                requestAnimationFrame(() => window.location.reload())
+            })
+        }
+    })
+
+function plugintemplate(root) {
+    const target = cardtemplate.content.children[0].cloneNode(true)
+    const [h2, brief, pimg, ...details] = root.children
+    const iframes = $$('iframe', root)
+    const ObsCardTransition = Rx.Observable.fromEvent(target, 'transitionend', { passive: true }).debounceTime(5)
     iframes.forEach(swapsrc)
-        // rearrange the dom tree
-    detailsele.forEach(ele => details.appendChild(ele))
-    dummyroot.appendChild(details)
-    card.appendChild(expand)
-    card.appendChild(dummyroot)
-        // register listeners for expansion
-    expand.addEventListener('click', () => {
-        card.classList.toggle('expanded')
-            // iframe switch
+    Object.assign($('.cardtitle', target), { textContent: h2.textContent, id: h2.id })
+    $('.thumbnail', target).appendChild(pimg.children[0])
+    $('.brief', target).textContent = brief.textContent
+    const detailsTarget = $('.details', target)
+    details.forEach(d => detailsTarget.appendChild(d))
+    $('.expand', target).addEventListener('click', () => {
         iframes.forEach(iframe => {
-            if (!mobile) {
-                swapsrc(iframe)
-                    // swap only if in dom tree
-            }
+            if (!mobile) swapsrc(iframe)
         })
-        h2.scrollIntoView({ behavior: "smooth" })
+        requestAnimationFrame(() => {
+            target.classList.toggle('expanded')
+            ObsCardTransition.first().observeOn(Rx.Scheduler.animationFrame).subscribe(() => {
+                console.log('fired transition end')
+                target.firstElementChild.scrollIntoView({ behavior: "smooth" })
+            })
+        })
     })
-    return card
+    return target
+}
+
+function parseHtml(info) {
+    // generate card element from info as html text
+    const dummyroot = document.createElement('div')
+    dummyroot.innerHTML = info
+    return dummyroot
 }
 
 function registerCard(card) {
@@ -133,14 +129,74 @@ function mdtohtml(md) {
     return converter.makeHtml(md)
 }
 
-function expandButton() {
-    const wrapper = document.createElement('div')
-    wrapper.innerHTML = `<i class="fa fa-expand" aria-hidden="true"></i>`
-    wrapper.className = "expand"
-    return wrapper
+
+function onUIChange(UIstore) {
+    const { nav } = UIstore.getState()
+    requestAnimationFrame(() => {
+        if (nav === toc.classList.contains('detached')) {
+            // need to update toc
+            toc.classList.toggle('detached')
+                // manipulate dom only on change        
+            if (nav) {
+                modalbg.classList.remove('detached')
+                document.body.classList.add('modalopen')
+                modalbg.onclick = ev => {
+                    ev.stopPropagation()
+                    UIstore.dispatch(Object.assign({}, actions.togglenav, { tobe: false }))
+                }
+            } else {
+                modalbg.classList.add('detached')
+                document.body.classList.remove('modalopen')
+                modalbg.onclick = null
+            }
+        }
+    })
 }
 
-fetch('cards/hellocon.md').then(res => res.text()).then(mdtohtml).then(generateCard).then(registerCard)
-fetch('cards/submit.md').then(res => res.text()).then(mdtohtml).then(generateCard).then(registerCard)
 
-console.log('scripted')
+function onDataChange(Datastore) {
+    const cardstore = Datastore.getState()
+    const contents = Array.from(toc.children)
+    const titles = contents.map(a => a.textContent)
+    Object.keys(cardstore).filter(title => !titles.includes(title)).forEach(title => {
+        // add new content items
+        const a = document.createElement('a')
+        Object.assign(a, {
+            textContent: title,
+            href: '#' + $('h2', cardstore[title]).id,
+            className: "navitem"
+        })
+        a.addEventListener('click', (ev) => {
+            UIstore.dispatch(actions.togglenav)
+        })
+        toc.appendChild(a)
+        cards.appendChild(cardstore[title])
+    })
+    contents.filter(({ textContent }) => !cardstore.hasOwnProperty(textContent)).forEach(item => item.parentNode.removeChild(item))
+        // remove old content items
+}
+
+function fetchCards(cardmds) {
+    return Promise.all(cardmds.map(card =>
+        fetch('cards/' + card).then(res => res.text()).then(mdtohtml).then(parseHtml).then(plugintemplate)
+    ))
+}
+
+async function main() {
+    $$('link[as="style"]:not([rel="stylesheet"])').forEach(link => link.rel = "stylesheet")
+    console.log('scripted')
+    Datastore.subscribe(() => onDataChange(Datastore))
+    UIstore.subscribe(() => onUIChange(UIstore))
+    requestAnimationFrame(() => reload.classList.add('active'))
+    const cardQueue = fetchCards(['hellocon.md', 'submit.md']).then(cards => cards.forEach(registerCard))
+    ham.addEventListener('click', () => UIstore.dispatch(actions.togglenav))
+        // prevent scrolling through body
+    modalbg.addEventListener('touchmove', ev => ev.preventDefault())
+    banner.addEventListener('touchmove', ev => ev.preventDefault())
+    scrollBanner.subscribe()
+    pullToRefresh.subscribe()
+    await cardQueue
+    requestAnimationFrame(() => reload.classList.remove('active'))
+}
+
+main()
