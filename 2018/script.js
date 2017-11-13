@@ -9,14 +9,12 @@ const ham = $('#ham', banner)
 const toc = $('#toc', container)
 const modalbg = $('.modalbg', container)
 const reload = $('#reload', container)
-let toreload = false
 const scrollthreshold = 4 * 16;
 const mobile = window.innerWidth <= 48 * 16
 
 const ObsWindowScroll = Rx.Observable.fromEvent(window, 'scroll', { passive: true })
 ObsWindowScroll
     .startWith(0)
-    .filter(() => !toreload)
     .map(() => splash.getBoundingClientRect().bottom - 48)
     // 48 depends on per rem size
     .do(location => {
@@ -27,33 +25,53 @@ ObsWindowScroll
             }
         })
     })
-    .do(() => {
-        const classList = reload.classList
-        if (scrollY < 0) {
-            if (classList.contains('detached')) {
-                // show the reload button if not already
-                classList.remove('detached')
-            } else if (scrollY < -scrollthreshold) {
-                // refresh when released
-                classList.add('activated')
-                toreload = true
-            }
-        } else {
-            if (!classList.contains('detached')) {
-                // hide the reload button
-                classList.add('detached')
-            }
-        }
-    })
     .subscribe()
 
-ObsWindowScroll.filter(() => toreload && scrollY >= -scrollthreshold).do(() => {
-    requestAnimationFrame(() => {
-        reload.classList.add('active')
-        requestAnimationFrame(() => window.location.reload())
-    })
-}).subscribe()
+const ObsSplashTouchStart = Rx.Observable.fromEvent(splash, 'touchstart', { passive: true })
+const ObsSplashTouchMove = Rx.Observable.fromEvent(splash, 'touchmove', { passive: true })
+const ObsSplashTouchEnd = Rx.Observable.fromEvent(splash, 'touchend', { passive: true })
 
+// ObsSplashTouchStart.subscribe((ev) => console.log('started', scrollY))
+// ObsSplashTouchMove.subscribe((ev) => console.log('moving', scrollY))
+// ObsSplashTouchEnd.subscribe((ev) => console.log('ended', scrollY))
+
+ObsSplashTouchStart.subscribe(() => {
+    const touchstart = ObsReloadWaiting.subscribe()
+        // when touch ended, unsubscript
+    const touchend = ObsReloadConfirm.subscribe(() => {
+        touchend.unsubscribe()
+        touchstart.unsubscribe()
+    })
+})
+
+const rlclassList = reload.classList
+const ObsReloadWaiting = ObsSplashTouchMove
+    .observeOn(Rx.Scheduler.animationFrame)
+    .do(() => {
+        if (scrollY < 0) {
+            rlclassList.remove('detached')
+            if (scrollY < -scrollthreshold) {
+                rlclassList.add('activated')
+            } else {
+                rlclassList.remove('activated')
+            }
+        } else {
+            rlclassList.add('detached')
+        }
+    })
+
+const ObsReloadConfirm = ObsSplashTouchEnd
+    .do(() => {
+        if (scrollY >= -scrollthreshold) {
+            // remove the refresh button if not triggered
+            rlclassList.add('detached')
+        } else {
+            requestAnimationFrame(() => {
+                rlclassList.add('active')
+                requestAnimationFrame(() => window.location.reload())
+            })
+        }
+    })
 
 function generateCard(info) {
     // generate card element from info as html text
