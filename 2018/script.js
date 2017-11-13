@@ -1,14 +1,19 @@
 // todo: make card looks right in both states
 import { $, $$ } from './helper.js'
 import { actions, UIstore, Datastore } from './ars.js'
+
 const container = document.body
 const splash = $('#splash', container)
 const banner = $('#banner', container)
-const cards = $('.cards', container)
 const ham = $('#ham', banner)
 const toc = $('#toc', container)
+const cards = $('.cards', container)
 const modalbg = $('.modalbg', container)
 const reload = $('#reload', container)
+const cardtemplate = $('.cardtem', container)
+
+window.cardtemplate = cardtemplate
+
 const scrollthreshold = 4 * 16;
 const mobile = window.innerWidth <= 48 * 16
 
@@ -73,41 +78,33 @@ const ObsReloadConfirm = ObsSplashTouchEnd
         }
     })
 
-function generateCard(info) {
-    // generate card element from info as html text
-    const card = document.createElement('div')
-    const dummyroot = document.createElement('div')
-    const details = document.createElement('div')
-    dummyroot.innerHTML = info
-    const [h2, brief, pimg, ...detailsele] = dummyroot.children
-    const iframes = $$('iframe', dummyroot)
-    const expand = expandButton()
-        // put the correct classnames in
-    card.classList.add('card', 'rounded')
-    dummyroot.classList.add('card-content')
-    h2.classList.add('cardtitle')
-    brief.classList.add('brief')
-    pimg.classList.add('thumbnail')
-    details.classList.add('details')
-        // put iframe src to # for lazy load
+function plugintemplate(root) {
+    const target = cardtemplate.content.children[0].cloneNode(true)
+    const [h2, brief, pimg, ...details] = root.children
+    const iframes = $$('iframe', root)
     iframes.forEach(swapsrc)
-        // rearrange the dom tree
-    detailsele.forEach(ele => details.appendChild(ele))
-    dummyroot.appendChild(details)
-    card.appendChild(expand)
-    card.appendChild(dummyroot)
-        // register listeners for expansion
-    expand.addEventListener('click', () => {
-        // iframe switch
+    Object.assign($('.cardtitle', target), { textContent: h2.textContent, id: h2.id })
+    $('.thumbnail', target).appendChild(pimg.children[0])
+    $('.brief', target).textContent = brief.textContent
+    const detailsTarget = $('.details', target)
+    details.forEach(d => detailsTarget.appendChild(d))
+    $('.expand', target).addEventListener('click', () => {
         iframes.forEach(iframe => {
             if (!mobile) swapsrc(iframe)
         })
         requestAnimationFrame(() => {
-            card.classList.toggle('expanded')
+            target.classList.toggle('expanded')
             requestAnimationFrame(() => h2.scrollIntoView({ behavior: "smooth" }))
         })
     })
-    return card
+    return target
+}
+
+function generateCard(info) {
+    // generate card element from info as html text
+    const dummyroot = document.createElement('div')
+    dummyroot.innerHTML = info
+    return plugintemplate(dummyroot)
 }
 
 function registerCard(card) {
@@ -131,13 +128,6 @@ function mdtohtml(md) {
     return converter.makeHtml(md)
 }
 
-function expandButton() {
-    const wrapper = document.createElement('div')
-    wrapper.innerHTML = `<i class="fa fa-expand" aria-hidden="true"></i>`
-    wrapper.className = "expand"
-    return wrapper
-}
-
 fetch('cards/hellocon.md').then(res => res.text()).then(mdtohtml).then(generateCard).then(registerCard)
 
 fetch('cards/submit.md').then(res => res.text()).then(mdtohtml).then(generateCard).then(registerCard)
@@ -151,6 +141,7 @@ banner.addEventListener('touchmove', ev => {
     ev.preventDefault()
         // console.log('moving banner')
 })
+
 UIstore.subscribe(() => {
     const { nav } = UIstore.getState()
     requestAnimationFrame(() => {
@@ -182,9 +173,11 @@ Datastore.subscribe(() => {
     Object.keys(cardstore).filter(title => !titles.includes(title)).forEach(title => {
         // add new content items
         const a = document.createElement('a')
-        a.textContent = title
-        a.href = '#' + $('h2', cardstore[title]).id
-        a.className = "navitem"
+        Object.assign(a, {
+            textContent: title,
+            href: '#' + $('h2', cardstore[title]).id,
+            className: "navitem"
+        })
         a.addEventListener('click', (ev) => {
             UIstore.dispatch(actions.togglenav)
         })
@@ -195,5 +188,5 @@ Datastore.subscribe(() => {
         // remove old content items
 })
 
-$$('link[as="style"]').forEach(link => link.rel = "stylesheet")
+$$('link[as="style"]:not([rel="stylesheet"])').forEach(link => link.rel = "stylesheet")
 console.log('scripted')

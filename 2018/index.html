@@ -8,9 +8,9 @@
     <meta name="mobile-web-app-capable" content="yes">
     <!-- IOS -->
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="HelloCon">
     <link rel="apple-touch-icon" href="icon.png">
     <link rel="apple-touch-startup-image" href="splash/small.jpeg">
-    <meta name="apple-mobile-web-app-title" content="HelloCon">
 
     <link rel="manifest" href="manifest.json">
     <title>Hello,Con!'18</title>
@@ -28,7 +28,6 @@
         <section id="info" class="rounded">
             <h1>Hello, Con!</h1>
             <p>A TED-talk style technology conference with a focus on the fun of programming.</p>
-            <!-- <i>&#xf065</i> -->
         </section>
         <div id="banner">
             <div id="socialmedia" class="rounded">
@@ -45,6 +44,19 @@
     <div class="modalbg detached"></div>
     <div class="cards"></div>
     <div id="reload" class="detached"><i class="fa fa-refresh" aria-hidden="true"></i></div>
+
+    <template class="cardtem">
+        <div class="card rounded">
+            <div class="expand"><i class="fa fa-expand" aria-hidden="true"></i></div>
+            <div class="card-content">
+                <h2 class="cardtitle"></h2>
+                <p class="thumbnail"></p>
+                <p class="brief"></p>
+                <div class="details"></div>
+            </div>
+        </div>
+    </template>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/3.7.2/redux.min.js" defer></script>
     <script src="https://unpkg.com/@reactivex/rxjs@5.0.0/dist/global/Rx.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.8.1/showdown.min.js" defer></script>
@@ -59,6 +71,7 @@
 </html>
 
 <!-- Todo
+    automate the css preload process
     pull to refresh, give cancel opportunity
     submission of new cards
     add cards in real time
