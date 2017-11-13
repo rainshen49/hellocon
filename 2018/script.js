@@ -2,34 +2,24 @@
 import { $, $$ } from './helper.js'
 import { actions, UIstore, Datastore } from './ars.js'
 const container = document.body
-const splash = $('.splash', container)
-const banner = $('.banner', container)
+const splash = $('#splash', container)
+const banner = $('#banner', container)
 const cards = $('.cards', container)
-const below = $('.below', splash)
-const ham = $('i', banner)
+const ham = $('#ham', banner)
 const toc = $('#toc', container)
 const modalbg = $('.modalbg', container)
-const socialmedia = $('.socialmedia', container)
 const mobile = window.innerWidth <= 48 * 16
 
 const ObsWindowScroll = Rx.Observable.fromEvent(window, 'scroll', { passive: true })
 ObsWindowScroll
     .startWith(0)
-    .debounceTime(10)
-    .map(() => splash.getBoundingClientRect().bottom)
+    .map(() => splash.getBoundingClientRect().bottom - 48)
+    // 48 depends on per rem size
     .observeOn(Rx.Scheduler.animationFrame)
-    .subscribe(bottom => {
-        const showbanner = bottom < 0
+    .subscribe(location => {
+        const showbanner = location < 0
         if (showbanner !== banner.classList.contains('ontop')) {
             banner.classList.toggle('ontop')
-            splash.classList.toggle('over')
-                // manipulate dom only on change
-            if (showbanner) {
-                // need to show banner as overlay
-                banner.insertBefore(socialmedia, ham)
-            } else {
-                splash.appendChild(socialmedia)
-            }
         }
     })
 
@@ -45,6 +35,7 @@ function generateCard(info) {
         // put the correct classnames in
     card.classList.add('card', 'rounded')
     dummyroot.classList.add('card-content')
+    h2.classList.add('cardtitle')
     brief.classList.add('brief')
     pimg.classList.add('thumbnail')
     details.classList.add('details')
@@ -100,10 +91,6 @@ function expandButton() {
 fetch('cards/hellocon.md').then(res => res.text()).then(mdtohtml).then(generateCard).then(registerCard)
 fetch('cards/submit.md').then(res => res.text()).then(mdtohtml).then(generateCard).then(registerCard)
 
-ObsWindowScroll
-    .observeOn(Rx.Scheduler.animationFrame)
-    .first().subscribe(() => below.classList.add('detached'))
-
 ham.addEventListener('click', () => UIstore.dispatch(actions.togglenav))
 
 UIstore.subscribe(() => {
@@ -137,6 +124,7 @@ Datastore.subscribe(() => {
         const a = document.createElement('a')
         a.textContent = title
         a.href = '#' + $('h2', cardstore[title]).id
+        a.className = "navitem"
         a.addEventListener('click', (ev) => {
             UIstore.dispatch(actions.togglenav)
         })
