@@ -3,6 +3,6 @@
 - check grammar
 - image size optimize
 - check all cases
-- unicode icon optimization
+- icon optimization (use unicode, try to construct using css)
 - minimize scripts
 - load criticl css first

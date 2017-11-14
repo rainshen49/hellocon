@@ -11,6 +11,7 @@ const cards = $('.cards', container)
 const modalbg = $('.modalbg', container)
 const reload = $('#reload', container)
 const cardtemplate = $('.cardtem', container)
+const newcardmock = $('.new.card', container)
 
 const scrollthreshold = 4 * 16;
 const mobile = window.innerWidth <= 48 * 16
@@ -75,61 +76,6 @@ const ObsReloadConfirm = ObsSplashTouchEnd
         }
     })
 
-function plugintemplate(root) {
-    const target = cardtemplate.content.children[0].cloneNode(true)
-    const [h2, brief, pimg, ...details] = root.children
-    const iframes = $$('iframe', root)
-    const ObsCardTransition = Rx.Observable.fromEvent(target, 'transitionend', { passive: true }).debounceTime(5)
-    iframes.forEach(swapsrc)
-    Object.assign($('.cardtitle', target), { textContent: h2.textContent, id: h2.id })
-    $('.thumbnail', target).appendChild(pimg.children[0])
-    $('.brief', target).textContent = brief.textContent
-    const detailsTarget = $('.details', target)
-    details.forEach(d => detailsTarget.appendChild(d))
-    $('.expand', target).addEventListener('click', () => {
-        iframes.forEach(iframe => {
-            if (!mobile) swapsrc(iframe)
-        })
-        requestAnimationFrame(() => {
-            target.classList.toggle('expanded')
-            ObsCardTransition.first().observeOn(Rx.Scheduler.animationFrame).subscribe(() => {
-                console.log('fired transition end')
-                target.firstElementChild.scrollIntoView({ behavior: "smooth" })
-            })
-        })
-    })
-    return target
-}
-
-function parseHtml(info) {
-    // generate card element from info as html text
-    const dummyroot = document.createElement('div')
-    dummyroot.innerHTML = info
-    return dummyroot
-}
-
-function registerCard(card) {
-    const action = Object.assign({}, actions.addcard, { title: $('h2', card).textContent, dom: card })
-    UIstore.dispatch(action)
-    Datastore.dispatch(action)
-}
-
-function swapsrc(iframe) {
-    const { src } = iframe
-    const datasrc = iframe.dataset.src || "//#"
-    const temp = src
-    iframe.setAttribute('src', datasrc)
-    iframe.dataset.src = src
-}
-
-const converter = new showdown.Converter()
-
-function mdtohtml(md) {
-    // markdown text to html, not used in production
-    return converter.makeHtml(md)
-}
-
-
 function onUIChange(UIstore) {
     const { nav } = UIstore.getState()
     requestAnimationFrame(() => {
@@ -182,6 +128,67 @@ function fetchCards(cardmds) {
     ))
 }
 
+
+function plugintemplate(root) {
+    const target = cardtemplate.content.children[0].cloneNode(true)
+    const [h2, brief, pimg, ...details] = root.children
+    const iframes = $$('iframe', root)
+    iframes.forEach(swapsrc)
+    Object.assign($('.cardtitle', target), { textContent: h2.textContent, id: h2.id })
+    $('.thumbnail', target).appendChild(pimg.children[0])
+    $('.brief', target).textContent = brief.textContent
+    const detailsTarget = $('.details', target)
+    details.forEach(d => detailsTarget.appendChild(d))
+    listenExpandcard(target)
+    return target
+}
+
+function listenExpandcard(card) {
+    const expand = card.firstElementChild
+    const ObsCardTransition = Rx.Observable.fromEvent(card, 'transitionend', { passive: true }).debounceTime(5)
+    const iframes = $$('iframe', card)
+    expand.addEventListener('click', (ev) => {
+        iframes.forEach(iframe => {
+            if (!mobile) swapsrc(iframe)
+        })
+        requestAnimationFrame(() => {
+            card.classList.toggle('expanded')
+            if (!mobile) ObsCardTransition.first().observeOn(Rx.Scheduler.animationFrame).subscribe(() => {
+                // console.log('fired transition end')
+                ev.target.scrollIntoView({ behavior: "smooth" })
+            })
+        })
+    })
+}
+
+function parseHtml(info) {
+    // generate card element from info as html text
+    const dummyroot = document.createElement('div')
+    dummyroot.innerHTML = info
+    return dummyroot
+}
+
+function registerCard(card) {
+    const action = Object.assign({}, actions.addcard, { title: $('h2', card).textContent, dom: card })
+    UIstore.dispatch(action)
+    Datastore.dispatch(action)
+}
+
+function swapsrc(iframe) {
+    const { src } = iframe
+    const datasrc = iframe.dataset.src || "//#"
+    const temp = src
+    iframe.setAttribute('src', datasrc)
+    iframe.dataset.src = src
+}
+
+const converter = new showdown.Converter()
+
+function mdtohtml(md) {
+    // markdown text to html, not used in production
+    return converter.makeHtml(md)
+}
+
 async function main() {
     $$('link[as="style"]:not([rel="stylesheet"])').forEach(link => link.rel = "stylesheet")
     console.log('scripted')
@@ -195,8 +202,22 @@ async function main() {
     banner.addEventListener('touchmove', ev => ev.preventDefault())
     scrollBanner.subscribe()
     pullToRefresh.subscribe()
+    listenExpandcard(newcardmock)
+    newcardmock.onclick = async() => {
+        newcardmock.onclick = null
+        const backupcard = newcard.cloneNode(true)
+        await editingmode(newcardmock)
+            // when editing is done, do some task here
+    }
     await cardQueue
     requestAnimationFrame(() => reload.classList.remove('active'))
 }
 
+async function editingmode(newcard) {
+    const actions = $('.actions', newcard)
+    console.log('entering editing mode', newcard)
+    requestAnimationFrame(() => actions.classList.remove('detached'))
+}
+
+window.main = main
 main()
