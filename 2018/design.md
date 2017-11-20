@@ -1,44 +1,56 @@
-# Global:
-- index.html
-    - splash image, become a top banner info when scrolled down
-        - Intro, date, location, social media/contact buttons
-    - FAB Table of Content + Banner
-        - Social media buttons
-        - Cards related
-    - Cards
-        - Title
-        - Brief/Detail
-        - Image
+#Workflow
+- Landing page, just enough styles and scripts to display it, lazy loading the cards
+- cards section with direct entry ability, styles for the cards, lazy load edit card component
+- edit card section, styles and scripts for edit card related activity
 
-- style.css
-    - box-sizing, touch scrolling
-    - preset animations
-        - appearing, disappearing
-        - highlighting
-        - sizing
-    - global styles
-        - font, action elements, colors
-
-- helper.js
-    - some common helper functions
-
-- script.js
-    - handling splashing transition
-    - loading cards and corresponding titles into TOC
-
-- common dependencies
-    - icons
-    - redux
-    - rxjs
-- Redux design
-    - actions
-        - nav toggle
-        - splash toggle
-    - reducers
-        - change nav state
-        - change banner state
-        - change card state
-        - load cards & manage duplicates
-    - store
-        - UI states
-        - Data states
+#Components overview
+## Global
+- html(index): minimal container
+    - layout
+        - banner/splash
+        - content/cards
+    - shared elements
+        - reload
+        - navbar+toc
+        - modal
+        - social media
+    - web app metas + manifest
+- script: dependencies + global handler
+    - Rx.js
+    - script.js
+        - lazy loading component based on url
+        - shared element hooks/handlers
+        - helper functions
+- style:
+    - box sizing, touch scrolling, font, colors, global variables etc.
+    - layout
+    - common elements styles
+    - (lazy) icons
+    - (lazy) animations
+## Cards
+- cards.html:
+    - a card template
+    - a sample new card
+- cards.js
+    - load showdown.js for rendering md cards
+    - fetching cards info
+    - load the html template, render into the page
+    - listeners to load/call edit card function
+- cards.css
+    - cards container
+    - a card & within
+## Edit Card
+- editcard.html
+    - imgupload component
+    - template for changed card
+    - message explaining the review process
+- editcard.js
+    - enter edit mode for a card
+    - handle img upload
+    - finish edit mode
+    - display messages
+    - generating markdown for changed card
+- editcard.css
+    - img upload widget
+    - edited card
+    - message box
