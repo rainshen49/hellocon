@@ -1,5 +1,5 @@
 // todo: make card looks right in both states
-import { $, $$ } from './helper.js'
+import { $, $$, imgblobtoUrl, swapsrc, applypreloadedstyles } from './helper.js'
 import { actions, UIstore, Datastore } from './ars.js'
 
 const container = document.body
@@ -13,13 +13,15 @@ const reload = $('#reload', container)
 const cardtemplate = $('.cardtem', container)
 const newcardmock = $('.new.card', container)
 
-const scrollthreshold = 4 * 16;
-const mobile = window.innerWidth <= 48 * 16
+
+const scrollthreshold = parseInt(reload.getBoundingClientRect().height / 2, 10);
+const bannerheight = banner.getBoundingClientRect().height
+const mobile = window.innerWidth <= 768
 
 const ObsWindowScroll = Rx.Observable.fromEvent(window, 'scroll', { passive: true })
 const scrollBanner = ObsWindowScroll
     .startWith(0)
-    .map(() => splash.getBoundingClientRect().bottom - 48)
+    .map(() => splash.getBoundingClientRect().bottom - bannerheight)
     // 48 depends on per rem size
     .do(location => {
         const showbanner = location < 0
@@ -128,7 +130,6 @@ function fetchCards(cardmds) {
     ))
 }
 
-
 function plugintemplate(root) {
     const target = cardtemplate.content.children[0].cloneNode(true)
     const [h2, brief, pimg, ...details] = root.children
@@ -174,14 +175,6 @@ function registerCard(card) {
     Datastore.dispatch(action)
 }
 
-function swapsrc(iframe) {
-    const { src } = iframe
-    const datasrc = iframe.dataset.src || "//#"
-    const temp = src
-    iframe.setAttribute('src', datasrc)
-    iframe.dataset.src = src
-}
-
 const converter = new showdown.Converter()
 
 function mdtohtml(md) {
@@ -190,11 +183,9 @@ function mdtohtml(md) {
 }
 
 async function main() {
-    $$('link[as="style"]:not([rel="stylesheet"])').forEach(link => link.rel = "stylesheet")
-    console.log('scripted')
+    applypreloadedstyles()
     Datastore.subscribe(() => onDataChange(Datastore))
     UIstore.subscribe(() => onUIChange(UIstore))
-    requestAnimationFrame(() => reload.classList.add('active'))
     const cardQueue = fetchCards(['hellocon.md', 'submit.md']).then(cards => cards.forEach(registerCard))
     ham.addEventListener('click', () => UIstore.dispatch(actions.togglenav))
         // prevent scrolling through body
@@ -205,18 +196,59 @@ async function main() {
     listenExpandcard(newcardmock)
     newcardmock.onclick = async() => {
         newcardmock.onclick = null
-        const backupcard = newcard.cloneNode(true)
+        const backupcard = newcardmock.cloneNode(true)
         await editingmode(newcardmock)
             // when editing is done, do some task here
     }
     await cardQueue
-    requestAnimationFrame(() => reload.classList.remove('active'))
+    requestAnimationFrame(() => {
+        reload.classList.remove('active')
+        reload.classList.add('detached')
+    })
 }
 
 async function editingmode(newcard) {
     const actions = $('.actions', newcard)
+    const imgcontainer = $('.thumbnail', newcard)
+    const addimg = $('i', imgcontainer)
+    let thumbnailurl = ""
     console.log('entering editing mode', newcard)
     requestAnimationFrame(() => actions.classList.remove('detached'))
+    addimg.addEventListener('dragenter', ev => {
+        ev.preventDefault()
+        console.log('dragenter')
+        requestAnimationFrame(() => addimg.classList.add('dragover'))
+    })
+    addimg.addEventListener('dragleave', ev => {
+        ev.preventDefault()
+        console.log('dragleave')
+        requestAnimationFrame(() => addimg.classList.remove('dragover'))
+    })
+    addimg.addEventListener('dragover', ev => ev.preventDefault())
+    addimg.addEventListener('drop', async ev => {
+        ev.preventDefault()
+            // URL.createObjectURL(files[0])
+            // or use filereader
+            // we can use fetch to convert blob
+        debugger
+        const type = ev.dataTransfer.types[0]
+        if (type === "file") {
+
+            const file = ev.dataTransfer.files[0]
+                // todo: check filesize, filename, makesure it is an image
+            thumbnailurl = await imgblobtoUrl(file)
+            console.log(file, 'dropped')
+            imgcontainer.style.backgroundImage = `url(${thumbnailurl})`
+            requestAnimationFrame(() => {
+                addimg.classList.add('filled')
+            })
+        } else if (type.includes("text")) {
+            // text link
+            debugger
+        }
+        requestAnimationFrame(() => addimg.classList.remove('dragover'))
+    })
+
 }
 
 window.main = main

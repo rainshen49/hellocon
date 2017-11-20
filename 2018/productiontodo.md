@@ -1,8 +1,13 @@
-- check all card links
-- check all social media links
+- check all links valid
 - check grammar
-- image size optimize
-- check all cases
+- Test cases
+    - Normal Visitor
+    - Speaker specific
+    - Sponsor Specific
+    - Day-of
+    - iOS
+    - Android
+    - Cross Browsers
 - icon optimization (use unicode, try to construct using css)
-- minimize scripts
-- load criticl css first
+- Pagespeed insights
+- css vendor prefixes

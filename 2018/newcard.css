@@ -11,11 +11,15 @@
     transition: all 0.3s ease;
 }
 
-.new .cardtitle:hover:not(:focus) {
+.new .cardtitle:hover:not(:focus),
+.new .brief:hover:not(:focus),
+.new .details:hover:not(:focus) {
     outline: 1px solid var(--color5);
 }
 
-.new .cardtitle:focus {
+.new .cardtitle:focus,
+.new .brief:focus,
+.new .details:focus {
     box-shadow: 0 0 0.1rem 0 var(--color5);
 }
 
@@ -26,12 +30,24 @@
     color: var(--color2);
     transition: all 0.2s ease;
     cursor: pointer;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
     /* padding: 0; */
     /* margin: 0; */
 }
 
-.new .thumbnail:hover:not(:active) {
-    transform: scale(0.8);
+.new .thumbnail:hover:not(:active),
+.dragover {
+    transform: scale(1.1);
+}
+
+.thumbnail .dragover {
+    color: var(--color3);
+}
+
+.thumbnail .filled:not(:hover):not(.dragover) {
+    opacity: 0.3;
 }
 
 .new .actions:not(.detached) {

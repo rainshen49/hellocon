@@ -21,16 +21,16 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- preload assets -->
-    <link rel="preload" href="splash/big.jpeg" as="image" media="(min-width: 769px)">
-    <link rel="preload" href="splash/small.jpeg" as="image" media="(max-width: 768px)">
+    <!-- <link rel="preload" href="splash/big.jpg" as="image" media="(min-width: 769px)">
+    <link rel="preload" href="splash/small.jpg" as="image" media="(max-width: 768px)"> -->
 
 </head>
 
 <body>
     <div id="splash">
         <section id="info" class="rounded">
-            <h1>Hello, Con!</h1>
-            <p>A TED-talk style technology conference with a focus on the fun of programming.</p>
+            <!-- <h1>Hello, Con!</h1> -->
+            <!-- <p>A TED-talk style technology conference with a focus on the fun of programming.</p> -->
         </section>
         <div id="banner">
             <div id="socialmedia" class="rounded">
@@ -66,7 +66,7 @@
     </div>
 
 
-    <div id="reload" class="detached"><i class="fa fa-refresh" aria-hidden="true"></i></div>
+    <div id="reload" class="active"><i class="fa fa-refresh" aria-hidden="true"></i></div>
 
     <template class="cardtem">
         <div class="card rounded">
@@ -94,9 +94,16 @@
 </html>
 
 <!-- Todo
+    img crop & rotate & compression
     automate the css preload process
-    pull to refresh, give cancel opportunity
+    sharing a particular card
+    iOS splash screen multiple image sizez
     submission of new cards
-    add cards in real time
+        - add profile image
+        less hardcoded size values
+    edit of cards under review
     service workers & notification
+    search a card (tags)
+    banner on top in the beginning?
+    first time visitors vs return visitors
 -->

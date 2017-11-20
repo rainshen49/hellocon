@@ -201,7 +201,8 @@ body.modalopen {
 @media screen and (min-width: 769px) {
     /* apply only to large screen */
     #splash {
-        background-image: url("splash/big.jpeg");
+        /* background-image: url("splash/big.jpg"); */
+        background-image: url("splash/big.png");
     }
     .mobileonly {
         display: none;
@@ -211,7 +212,8 @@ body.modalopen {
 @media screen and (max-width: 768px) {
     /* apply only to small screen */
     #splash {
-        background-image: url("splash/small.jpeg");
+        /* background-image: url("splash/small.jpg"); */
+        background-image: url("splash/small.png");
     }
     .desktoponly {
         display: none;
