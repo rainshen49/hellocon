@@ -8,11 +8,11 @@ export function $$(selector, container = document) {
 
 const fReader = new FileReader()
 
-export function imgblobtoUrl(blob) {
+export function blobtoUrl(blob) {
     return URL.createObjectURL(blob)
 }
 
-export function imgblobtoDataUrl(blob) {
+export function blobtoDataUrl(blob) {
     fReader.readAsDataURL(blob)
     return new Promise((yes, no) => {
         fReader.onload = () => yes(fReader.result)
@@ -21,14 +21,14 @@ export function imgblobtoDataUrl(blob) {
 }
 
 export function UrltoDataUrl(url) {
-    return URLtoimgblob(url).then(imgblobtoDataUrl)
+    return URLtoblob(url).then(blobtoDataUrl)
 }
 
-export function DataUrltoImg(dataurl) {
-    return URLtoimgblob(dataurl).then(imgblobtoUrl)
+export function DataUrltoURL(dataurl) {
+    return URLtoblob(dataurl).then(blobtoUrl)
 }
 
-export function URLtoimgblob(url) {
+export function URLtoblob(url) {
     return fetch(url).then(res => res.blob())
 }
 

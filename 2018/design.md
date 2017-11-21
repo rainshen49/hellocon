@@ -2,7 +2,8 @@
 - Landing page, just enough styles and scripts to display it, lazy loading the cards
 - cards section with direct entry ability, styles for the cards, lazy load edit card component
 - edit card section, styles and scripts for edit card related activity
-
+#Loading method
+- load js first, which will in turn load html and css
 #Components overview
 ## Global
 - html(index): minimal container
@@ -17,10 +18,11 @@
     - web app metas + manifest
 - script: dependencies + global handler
     - Rx.js
+    - helper.js
+        - versatile functions
     - script.js
-        - lazy loading component based on url
+        - lazy load additional assets
         - shared element hooks/handlers
-        - helper functions
 - style:
     - box sizing, touch scrolling, font, colors, global variables etc.
     - layout
@@ -29,6 +31,7 @@
     - (lazy) animations
 ## Cards
 - cards.html:
+    <!-- here -->
     - a card template
     - a sample new card
 - cards.js
