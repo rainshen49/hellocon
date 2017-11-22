@@ -210,6 +210,15 @@ a {
     }
 }
 
+.content{
+    transition: all 0.2s ease;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-content: flex-start;
+    align-items: stretch;
+}
+
 @media screen and (max-width: 768px) {
     /* apply only to small screen */
     #splash {
@@ -229,18 +238,6 @@ a {
 
 .detached {
     display: none;
-}
-
-.hidden {
-    visibility: hidden;
-}
-
-.fillwidth {
-    width: 100%;
-}
-
-.fillheight {
-    height: 100%;
 }
 
 .rounded {

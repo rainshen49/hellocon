@@ -31,13 +31,14 @@
     - (lazy) animations
 ## Cards
 - cards.html:
-    <!-- here -->
     - a card template
     - a sample new card
 - cards.js
     - load showdown.js for rendering md cards
     - fetching cards info
     - load the html template, render into the page
+    <!-- here -->
+    - handler expand procedure
     - listeners to load/call edit card function
 - cards.css
     - cards container

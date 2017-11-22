@@ -1,21 +1,3 @@
-.cards {
-    transition: all 0.2s ease;
-    /* grid version */
-    /* padding: var(--default-margin); */
-    /* display: grid; */
-    /* columns specified responsively */
-    /* grid-column-gap: 1rem; */
-    /* grid-row-gap: var(--default-margin); */
-    /* rowgap specified responsively */
-    /* justify-content: center; */
-    /* flex version */
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    align-content: flex-start;
-    align-items: stretch;
-}
-
 @media screen and (min-width: 769px) {
     /* apply only to large screen */
 }
@@ -26,6 +8,11 @@
         flex-direction: column;
     }
 }
+
+
+/* card will have three mode: normal(no class), reviewing, editing */
+
+/* non-editing card */
 
 .card {
     transition: all 0.2s ease;
@@ -39,6 +26,7 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: stretch;
+    position: relative;
 }
 
 .expanded {
@@ -57,6 +45,15 @@
     color: white;
     padding: 0.5rem;
     cursor: pointer;
+}
+
+.card.reviewing .draft {
+    display: static;
+}
+
+.draft {
+    display: none;
+    position: absolute;
 }
 
 .card-content {
@@ -160,4 +157,11 @@
         --default-margin: 0.6rem;
         --thumbnail-size: 6rem;
     }
+}
+
+
+/* editing card classes */
+
+.editonly{
+    display: none;
 }
