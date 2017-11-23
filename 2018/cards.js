@@ -1,3 +1,4 @@
+/* global showdown:false, Rx:false */
 import {
     $,
     $$,
@@ -7,7 +8,11 @@ import {
     parseHtml,
     Promises,
     swapsrc,
-    removeAllChildren
+    removeAllChildren,
+    makeeditable,
+    makenoneditable,
+    blobtoUrl,
+    Awaiter
 } from './helper.js'
 import {
     globalHandler,
@@ -28,7 +33,8 @@ async function main() {
         // markdown text to html, not used in production
         return converter.makeHtml(md)
     }
-    const mastercard = $('.mastercard', await toBehtml)
+    const cardtemplates = await toBehtml
+    const mastercard = $('.mastercard', cardtemplates).content.children[0]
 
     const loadingcards = fetchCards(cards)
         .map(mdtohtml)
@@ -37,10 +43,19 @@ async function main() {
         .forEach(listenExpandcard)
         .forEach(globalHandler.addTOC)
         .forEach(globalHandler.addcard)
-
+    await loadingcards
+    attachnewcard(mastercard)
 }
 
 main()
+
+function attachnewcard(mastercard) {
+    const newcardmodel = mastercard.cloneNode(true)
+    cardeditable(newcardmodel,mastercard)
+    listenExpandcard(newcardmodel)
+    globalHandler.addTOC(newcardmodel)
+    globalHandler.addcard(newcardmodel)
+}
 
 function fetchCards(cardmds) {
     return new Promises(cardmds.map(card =>
@@ -51,7 +66,7 @@ function fetchCards(cardmds) {
 function plugintemplate(card, mastercard) {
     // render card according to mastercard
     // output card
-    const target = mastercard.content.children[0].cloneNode(true)
+    const target = mastercard.cloneNode(true)
     const [h2, brief, pimg, ...details] = card.children
     const iframes = $$('iframe', card)
     iframes.forEach(swapsrc)
@@ -72,75 +87,175 @@ function listenExpandcard(card) {
     const ObsCardTransition = Rx.Observable.fromEvent(card, 'transitionend', {
         passive: true
     }).debounceTime(5)
-    const iframes = $$('iframe', card)
     expand.addEventListener('click', (ev) => {
-        if (!mobile)iframes.forEach(swapsrc)
+        const iframes = $$('iframe', card)
+        if (!mobile) iframes.forEach(swapsrc)
         requestAnimationFrame(() => {
             card.classList.toggle('expanded')
             if (!mobile) ObsCardTransition.first().observeOn(Rx.Scheduler.animationFrame).subscribe(() => {
                 // console.log('fired transition end')
                 ev.target.scrollIntoView({
-                    behavior: "smooth"
+                    behavior: 'smooth'
                 })
             })
         })
     })
 }
 
-function makeeditable(card){
+function cardeditable(card, mastercard) {
     // make a card editable
     // add contenteditable attributes
-    // add listeners for entering editing mode
-    // load editing assets if not loaded yet
+    const title = $('.cardtitle', card)
+    const brief = $('.brief', card)
+    const details = $('.details', card)
+    makeeditable(title, brief, details)
+    card.onclick = () => {
+        if (!card.classList.contains('editing')) {
+            return requestAnimationFrame(async() => {
+                const edited = await enterediting(card)
+                if (edited) {
+                    // todo, handle further edits
+                    console.log(edited)//see the data
+                    requestAnimationFrame(() => {
+                        card.classList.remove('editing')
+                        card.classList.add('reviewing')
+                    })
+                    makenoneditable(title, brief, details)
+                    attachnewcard(mastercard)
+                } else {
+                    // not edited
+                    requestAnimationFrame(() =>
+                        card.classList.remove('editing')
+                    )
+                    // reapply the listeners
+                    cardeditable(card,mastercard)
+                }
+            })
+        }
+    }
+    title.classList.add('editable')
 }
 
-async function editingmode(newcard) {
-    const actions = $('.actions', newcard)
-    const imgcontainer = $('.thumbnail', newcard)
-    const addimg = $('i', imgcontainer)
-    let thumbnailurl = ""
-    console.log('entering editing mode', newcard)
-    requestAnimationFrame(() => actions.classList.remove('detached'))
-    addimg.addEventListener('dragenter', ev => {
+async function enterediting(card) {
+    const doneEditingflag = new Awaiter()
+    console.log('entering editing mode', card)
+    card.classList.add('editing')
+    const cardcontent = $('.card-content', card)
+    const cardbackup = cardcontent.cloneNode(true)
+    const imglinkinput = $('input[name="imglink"]', cardcontent)
+    const done = $('.done', card)
+    const cancel = $('.cancel', card)
+    const imgcontainer = $('.thumbnail', cardcontent)
+    let thumbnailurl = "" //will contain the latest url for thumbnail
+
+    function changeThumbnail(url) {
+        thumbnailurl = url
+        requestAnimationFrame(() => {
+            imgcontainer.style.backgroundImage = `url(${url})`
+            // confirm relevant UI are hidden
+            imgcontainer.classList.add('dragover')
+        })
+    }
+    // a bunch of listeners
+    // imgupload drop handlers
+    imgcontainer.addEventListener('dragenter', ev => {
         ev.preventDefault()
         console.log('dragenter')
-        requestAnimationFrame(() => addimg.classList.add('dragover'))
-    })
-    addimg.addEventListener('dragleave', ev => {
-        ev.preventDefault()
-        console.log('dragleave')
-        requestAnimationFrame(() => addimg.classList.remove('dragover'))
-    })
-    addimg.addEventListener('dragover', ev => ev.preventDefault())
-    addimg.addEventListener('drop', async ev => {
-        ev.preventDefault()
-        // URL.createObjectURL(files[0])
-        // or use filereader
-        // we can use fetch to convert blob
-        debugger
-        const type = ev.dataTransfer.types[0]
-        if (type === "file") {
+        requestAnimationFrame(() => {
+            imgcontainer.classList.add('dragover')
+            setTimeout(() => {
+                imgcontainer.ondragleave = ev => {
+                    console.log('dragleave')
 
-            const file = ev.dataTransfer.files[0]
-            // todo: check filesize, filename, makesure it is an image
-            thumbnailurl = await imgblobtoUrl(file)
-            console.log(file, 'dropped')
-            imgcontainer.style.backgroundImage = `url(${thumbnailurl})`
-            requestAnimationFrame(() => {
-                addimg.classList.add('filled')
-            })
-        } else if (type.includes("text")) {
-            // text link
-            debugger
+                    ev.preventDefault()
+                    requestAnimationFrame(() => {
+                        imgcontainer.classList.remove('dragover')
+                        imgcontainer.ondragleave = null
+                    })
+                }
+            }, 100)
+        })
+    })
+    imgcontainer.addEventListener('dragover', ev => ev.preventDefault())
+    imgcontainer.addEventListener('drop', async ev => {
+        ev.preventDefault()
+        const imgurl = await processimginput(ev.dataTransfer)
+        if (imgurl) {
+            changeThumbnail(imgurl)
         }
-        requestAnimationFrame(() => addimg.classList.remove('dragover'))
+        // requestAnimationFrame(() => imgcontainer.classList.remove('dragover'))
     })
-
+    imgcontainer.addEventListener('click', ev => {
+        // show the upload instruction again when clicked
+        imgcontainer.classList.remove('dragover')
+    })
+    // link/filepicker handlers
+    const filelistener = globalHandler.listenFileChooser(async ev => {
+        const file = ev.target.files[0] //pick the first file
+        if (isImgfile(file)) {
+            changeThumbnail(await blobtoUrl(file))
+        }
+    })
+    imglinkinput.addEventListener('input', async ev => {
+        const link = ev.target.value
+        // console.log(await isImgLinkValid(link))
+        if (await isImgLinkValid(link)) {
+            changeThumbnail(link)
+        }
+    })
+    // when finish is clicked, save changes, exit editing mode
+    done.onclick = ev => {
+        ev.stopPropagation()
+        done.onclick = null
+        filelistener.cancel()
+        // render and upload data
+        const carddata = {
+            title: $('h2', cardcontent).textContent,
+            brief: $('.brief',cardcontent).textContent,
+            details: $('.details',cardcontent).innerHTML,
+            thumbnailurl
+        }
+        doneEditingflag.done(carddata)
+    }
+    // when cancel is changed restore to before, exit editing mode
+    cancel.onclick = (ev) => {
+        ev.stopPropagation()
+        cancel.onclick = null
+        filelistener.cancel()
+        card.replaceChild(cardbackup, cardcontent)
+        doneEditingflag.done(false)
+    }
+    return doneEditingflag.promise
 }
-// const cardQueue = fetchCards(['hellocon.md', 'submit.md']).then(cards => cards.forEach(registerCard))
-// newcardmock.onclick = async() => {
-//     newcardmock.onclick = null
-//     const backupcard = newcardmock.cloneNode(true)
-//     await editingmode(newcardmock)
-//     // when editing is done, do some task here
-// }
+
+async function processimginput(dataTransfer) {
+    // input might be a link or a file, return a url
+    const types = dataTransfer.types
+    console.log(types)
+    if (types.includes('Files')) {
+        const file = dataTransfer.files[0]
+        if (isImgfile(file)) {
+            return await blobtoUrl(file)
+        } else {
+            return null
+        }
+    } else if (types.includes('text/uri-list')) {
+        const link = dataTransfer.getData('text/uri-list')
+        if (await isImgLinkValid(link)) {
+            return link
+        } else {
+            return null
+        }
+    } else {
+        return null
+    }
+}
+
+function isImgfile(file) {
+    return file.type.includes('image')
+}
+
+function isImgLinkValid(url) {
+    // return the link if the img link is valid
+    return url.length > 10 && fetch(url).then(res => res.ok).catch(() => false)
+}

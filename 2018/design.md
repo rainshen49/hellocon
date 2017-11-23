@@ -33,6 +33,8 @@
 - cards.html:
     - a card template
     - a sample new card
+    - imgupload component    
+    - message explaining the review process
 - cards.js
     - load showdown.js for rendering md cards
     - fetching cards info
@@ -40,21 +42,15 @@
     <!-- here -->
     - handler expand procedure
     - listeners to load/call edit card function
+    - edit mode for a card
+    - generating markdown for changed card
 - cards.css
     - cards container
     - a card & within
-## Edit Card
-- editcard.html
-    - imgupload component
-    - template for changed card
-    - message explaining the review process
-- editcard.js
-    - enter edit mode for a card
-    - handle img upload
-    - finish edit mode
-    - display messages
-    - generating markdown for changed card
-- editcard.css
-    - img upload widget
     - edited card
     - message box
+## Imgupload
+- imgupload.js
+    - handle img upload/compress etc
+- imgupload.css
+    - img upload widget

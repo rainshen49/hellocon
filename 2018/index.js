@@ -6,7 +6,7 @@ import {
     loadscript
 } from './helper.js'
 // configs & global flags
-export const mobile=window.innerWidth <= 768
+export const mobile = window.innerWidth <= 768
 
 function getSharedElements(container = document.body) {
     // keep all selectors in here, the rest is HTML agnostic
@@ -18,6 +18,7 @@ function getSharedElements(container = document.body) {
     const toc = $('#toc', container)
     const modalbg = $('.modalbg', container)
     const socialmedia = $('#socialmedia', container)
+    const filechooser = $('#filechooser', container)
     return {
         splash,
         content,
@@ -26,7 +27,8 @@ function getSharedElements(container = document.body) {
         ham,
         toc,
         modalbg,
-        socialmedia
+        socialmedia,
+        filechooser
     }
 }
 
@@ -81,14 +83,23 @@ function getContainerActions(DOM) {
         })
     }
 
-    function addcard(card){
+    function addcard(card) {
         DOM.content.appendChild(card)
     }
 
+    function listenFileChooser(ftn) {
+        DOM.filechooser.addEventListener('change', ftn)
+        return {
+            cancel: () => {
+                DOM.filechooser.removeEventListener('change', ftn)
+            }
+        }
+    }
     return {
         addTOC,
         setModal,
-        addcard
+        addcard,
+        listenFileChooser
     }
 }
 
@@ -178,7 +189,7 @@ function initializeReload(DOM) {
 
 async function main() {
     applypreloadedstyles()
-    const loadcards = loadscript('cards.js',true) //will be awaited later
+    const loadcards = loadscript('cards.js', true) //will be awaited later
     // prevent scrolling through body
     await loadcards
     requestAnimationFrame(() => {

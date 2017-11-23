@@ -6,9 +6,9 @@ export function $$(selector, container = document) {
     return Array.from(container.querySelectorAll(selector))
 }
 
-export function removeAllChildren(parent){
+export function removeAllChildren(parent) {
     let children
-    while(children = parent.lastChild ){
+    while (children = parent.lastChild) {
         parent.removeChild(children)
     }
 }
@@ -90,10 +90,10 @@ export function applypreloadedstyles() {
 export class Promises extends Promise {
     constructor(promises) {
         if (Array.isArray(promises))
-        super((yes, no) => {
-            Promise.all(promises).then(yes).catch(no)
-        })
-        else{
+            super((yes, no) => {
+                Promise.all(promises).then(yes).catch(no)
+            })
+        else {
             // calling .then() will call this constructor again, which will branch to here
             super(promises)
         }
@@ -108,5 +108,21 @@ export class Promises extends Promise {
         })))
     }
 }
+
+export function makeeditable(...elements) {
+    elements.forEach(element => element.setAttribute('contenteditable', 'true'))
+}
+
+export function makenoneditable(...elements) {
+    elements.forEach(element => element.setAttribute('contenteditable', 'false'))
+}
+
+export function Awaiter() {
+    this.promise = new Promise((yes, no) => {
+        this.done = yes
+        this.fail = no
+    })
+}
+
 window.Promises = Promises
 console.log('loaded helper')
