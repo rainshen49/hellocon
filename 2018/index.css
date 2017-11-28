@@ -1,8 +1,8 @@
 /* z index
 highest 10: nav
 6 refresh
-5 modalbg
-3 nav
+5 nav
+3 modalbg
 2 add card button, expand button
  0: default
  -1 card title
@@ -76,8 +76,9 @@ a {
     top: 0;
     left: 0;
     right: 0;
-    z-index: 3;
+    z-index: 5;
 }
+
 
 #nav:not(.ontop) #header {
     display: none;
@@ -145,7 +146,7 @@ a {
 }
 
 .navitem:last-child {
-    margin: 0 0 0 1rem;
+    margin: 0 0 1rem 0;
 }
 
 .navitem:hover:not(:active) {
@@ -162,7 +163,7 @@ a {
     right: 0;
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.3);
-    z-index: 5;
+    z-index: 3;
 }
 
 #reload {
@@ -216,7 +217,7 @@ a {
     flex-wrap: wrap;
     justify-content: space-around;
     align-content: flex-start;
-    align-items: stretch;
+    align-items: flex-start;
 }
 
 @media screen and (max-width: 768px) {
@@ -228,7 +229,7 @@ a {
     .desktoponly {
         display: none;
     }
-    #banner.ontop {
+    #nav.ontop {
         grid-template-columns: auto auto auto;
     }
 }

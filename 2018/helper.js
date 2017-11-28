@@ -124,5 +124,16 @@ export function Awaiter() {
     })
 }
 
-window.Promises = Promises
+Object.assign(EventTarget.prototype,{
+    subscribe(event,ftn){
+        const self = this
+        this.addEventListener(event,ftn)
+        return {
+            unsubscribe(){
+                self.removeEventListener(event,ftn)
+            }
+        }
+    }
+})
+
 console.log('loaded helper')

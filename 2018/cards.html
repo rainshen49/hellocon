@@ -3,15 +3,16 @@
     <!-- will use javascript to toggle contenteditable for particular elements -->
     <div class="card rounded">
         <div class="expand">
+            <div class="draft">edited</div>
             <i class="fa fa-expand" aria-hidden="true"></i>
         </div>
-        <div class="draft">pending</div>
         <div class="card-content">
             <h2 class="cardtitle">Click to Add Card</h2>
             <p class="thumbnail">
-                <label for="filechooser" class="editonly">
+                <label class="editonly">
                     Drop or click for image
                 </label>
+                <input type="file" class="detached" accept="image/*">
                 <input type="text" name="imglink" placeholder="Or paste link" class="editonly">
             </p>
             <p class="brief">2-sentence description</p>

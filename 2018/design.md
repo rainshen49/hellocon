@@ -39,10 +39,10 @@
     - load showdown.js for rendering md cards
     - fetching cards info
     - load the html template, render into the page
-    <!-- here -->
     - handler expand procedure
     - listeners to load/call edit card function
     - edit mode for a card
+    <!-- here -->
     - generating markdown for changed card
 - cards.css
     - cards container

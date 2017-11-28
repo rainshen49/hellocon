@@ -1,7 +1,7 @@
+/* global Rx */
 import {
     $,
     $$,
-    swapsrc,
     applypreloadedstyles,
     loadscript
 } from './helper.js'
@@ -49,7 +49,7 @@ function getContainerActions(DOM) {
             // all markdown compiled headings automatically contains an id attribute
             className: "navitem"
         })
-        a.addEventListener('click', (ev) => hideTOC())
+        a.subscribe('click', (ev) => toggleTOC(false))
         DOM.toc.appendChild(a)
     }
 
@@ -69,7 +69,7 @@ function getContainerActions(DOM) {
         })
     }
 
-    DOM.modalbg.addEventListener('touchmove', ev => ev.preventDefault())
+    DOM.modalbg.subscribe('touchmove', ev => ev.preventDefault())
 
     function setModal(on = false) {
         requestAnimationFrame(() => {
@@ -87,25 +87,16 @@ function getContainerActions(DOM) {
         DOM.content.appendChild(card)
     }
 
-    function listenFileChooser(ftn) {
-        DOM.filechooser.addEventListener('change', ftn)
-        return {
-            cancel: () => {
-                DOM.filechooser.removeEventListener('change', ftn)
-            }
-        }
-    }
     return {
         addTOC,
         setModal,
-        addcard,
-        listenFileChooser
+        addcard
     }
 }
 
-function initializeTOC(DOM, toggleTOC, hideTOC) {
-    DOM.modalbg.addEventListener('click', () => toggleTOC(false)) //force close
-    DOM.ham.addEventListener('click', toggleTOC)
+function initializeTOC(DOM, toggleTOC) {
+    DOM.modalbg.subscribe('click', () => toggleTOC(false)) //force close
+    DOM.ham.subscribe('click', toggleTOC)
 }
 
 function initializeNav(DOM) {
@@ -119,22 +110,21 @@ function initializeNav(DOM) {
     })
     const scrollNav = ObsWindowScroll
         .startWith(0)
-        .debounceTime(10)
         .map(() => splash.getBoundingClientRect().bottom - navheight)
+        .observeOn(Rx.Scheduler.animationFrame)
         .do(location => {
             const showbanner = location < 0
-            requestAnimationFrame(() => {
-                if (showbanner !== nav.classList.contains('ontop'))
-                    nav.classList.toggle('ontop')
-            })
+            if (showbanner !== nav.classList.contains('ontop'))
+                nav.classList.toggle('ontop')
         }).subscribe()
     // prevent scroll through in modal
-    nav.addEventListener('touchmove', ev => ev.preventDefault())
+    nav.subscribe('touchmove', ev => ev.preventDefault())
 }
 
 function initializeReload(DOM) {
     const {
-        reload
+        reload,
+        splash
     } = DOM
     const scrollthreshold = Math.floor(reload.getBoundingClientRect().bottom)
     // console.log(scrollthreshold)
@@ -174,15 +164,14 @@ function initializeReload(DOM) {
             }
         })
     const ObsReloadConfirm = ObsSplashTouchEnd
+        .observeOn(Rx.Scheduler.animationFrame)
         .do(() => {
             if (scrollY >= -scrollthreshold) {
                 // remove the refresh button if not triggered
                 rlclassList.add('detached')
             } else {
-                requestAnimationFrame(() => {
-                    rlclassList.add('active')
-                    requestAnimationFrame(() => window.location.reload())
-                })
+                rlclassList.add('active')
+                requestAnimationFrame(() => window.location.reload())
             }
         })
 }

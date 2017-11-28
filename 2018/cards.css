@@ -6,6 +6,7 @@
     /* apply only to small screen */
     .content {
         flex-direction: column;
+        align-items: stretch;
     }
 }
 
@@ -48,12 +49,22 @@
 }
 
 .card.reviewing .draft {
-    display: static;
+    display: block;
 }
 
 .draft {
     display: none;
     position: absolute;
+    background-color: white;
+    color: black;
+    opacity: 0.6;
+    padding: 0.2rem 0.2rem 0.2rem 0.3rem;
+    margin: 0 0 0 -2px;
+    font-size: 1rem;
+    line-height: 1.6rem;
+    height: 2rem;
+    left: 0;
+    top: 0;
 }
 
 .card-content {
@@ -87,10 +98,6 @@
     text-align: center;
     align-self: center;
     grid-area: 1/1/2/3;
-    /* ensure anchor puts heading at a confortable place */
-    margin: -7rem 0 0 0;
-    padding: 7rem 0 0 0;
-    z-index: -1;
 }
 
 .expanded .cardtitle {
@@ -198,12 +205,6 @@
 .thumbnail.dragover label,.thumbnail.dragover input{
     /* hide all children when dragging over */
     display: none;
-}
-
-.cardtitle.editable {
-    margin: 0;
-    padding: 0;
-    z-index: 0;
 }
 
 .actions:not(.detached) {
