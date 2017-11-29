@@ -39,13 +39,15 @@ export function URLtoblob(url) {
     return fetch(url).then(res => res.blob())
 }
 
-export function loadscript(url, module = false) {
+export function loadscript(url, name = "", ismodule = false) {
     const script = document.createElement('script')
     script.src = url
-    if (module) script.type = "module"
+    if (ismodule) script.type = "module"
     document.head.appendChild(script)
     return new Promise((yes, no) => {
-        script.onload = yes
+        script.onload = () => {
+            name === "" ? yes() : yes(window[name])
+        }
         script.onerror = no
     })
 }
@@ -124,13 +126,13 @@ export function Awaiter() {
     })
 }
 
-Object.assign(EventTarget.prototype,{
-    subscribe(event,ftn){
+Object.assign(EventTarget.prototype, {
+    subscribe(event, ftn) {
         const self = this
-        this.addEventListener(event,ftn)
+        this.addEventListener(event, ftn)
         return {
-            unsubscribe(){
-                self.removeEventListener(event,ftn)
+            unsubscribe() {
+                self.removeEventListener(event, ftn)
             }
         }
     }

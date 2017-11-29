@@ -1,4 +1,4 @@
-/* global showdown:false, Rx:false,RGBaster:false */
+/* global Rx:false */
 import {
     $,
     $$,
@@ -18,31 +18,40 @@ import {
     mobile
 } from './index.js'
 const cards = ['hellocon.md', 'submit.md']
-let rgbaster
+
+// loading dependencies
+
+let showdown = loadscript('https://cdnjs.cloudflare.com/ajax/libs/showdown/1.8.1/showdown.min.js', 'showdown').then(sd => {
+    showdown = Promise.resolve(sd)
+    return sd
+})
+
+const converter = showdown.then(sd => new sd.Converter())
+
+let vibrant = loadscript('https://jariz.github.io/vibrant.js/dist/Vibrant.min.js', 'Vibrant').then(vb => {
+    vibrant = Promise.resolve(vb)
+    return vb
+})
+
+async function mdtohtml(md) {
+    // markdown text to html, not used in production
+    return (await converter).makeHtml(md)
+}
 
 async function main() {
     // load all assets, load cards
     // listen to add new card or edit request, and load correspondingly
 
-    const toBeconverter = loadscript('https://cdnjs.cloudflare.com/ajax/libs/showdown/1.8.1/showdown.min.js').then(() => new showdown.Converter())
-    const tobergbaster = loadscript('rgbaster.min.js').then(() => rgbaster = RGBaster)
     const toBestyle = loadcss('cards.css')
     const toBehtml = importhtml('cards.html')
-    const converter = await toBeconverter
-
-    function mdtohtml(md) {
-        // markdown text to html, not used in production
-        return converter.makeHtml(md)
-    }
     const cardtemplates = await toBehtml
     const mastercard = $('.mastercard', cardtemplates).content.children[0]
-    await tobergbaster
 
     const loadingcards = fetchCards(cards)
         .map(mdtohtml)
         .map(parseHtml)
         .map(card => plugintemplate(card, mastercard))
-        .forEach(detectcolorchange)
+        .forEach(matchColor)
         .forEach(card => listenExpandcard(card))
         .forEach(globalHandler.addTOC)
         .forEach(globalHandler.addcard)
@@ -70,13 +79,15 @@ function plugintemplate(card, mastercard) {
     // output card
     const target = mastercard.cloneNode(true)
     const [h2, brief, pimg, ...details] = card.children
+    const thum = pimg.firstElementChild
     const iframes = $$('iframe', card)
     iframes.forEach(swapsrc)
     Object.assign($('.cardtitle', target), {
         textContent: h2.textContent,
         id: h2.id
     })
-    $('.thumbnail', target).appendChild(pimg.children[0])
+    thum.setAttribute('crossOrigin', "anonymous")
+    $('.thumbnail', target).appendChild(thum)
     $('.brief', target).textContent = brief.textContent
     const detailsTarget = $('.details', target)
     removeAllChildren(detailsTarget)
@@ -105,31 +116,30 @@ function listenExpandcard(card) {
     })
 }
 
-function detectcolorchange(card) {
-    console.log("detect color change",card)
+function matchColor(card) {
+    console.log("detect color change", card)
     const expand = card.firstElementChild
-    let img = $('.thumbnail img', card)
-    if (!img) {
-        const url = $('.thumbnail', card).style.backgroundImage
-        // .split("(")[1].slice(")")[0]
-        img = url===""?undefined:url.split("(")[1].split(")")[0].replace(/"/g,"")
-    }
-    // performance issue, dont change color for now
-    return
+    const img = $('.thumbnail img', card)
     // console.log($('.thumbnail', card).style.backgroundImage.slice(5, -2), 'and', img)
-    if (img)
-        rgbaster.colors(img, {
-            success: ({
-                dominant
-            }) => {
-                const rgb = dominant.slice(4, -1).split(",").map(each => parseInt(each, 10))
-                const ifblack = rgb.reduce((prev, curr) => prev + curr, 0) > 255 * 2 // if too light, use gray as the arrow color
+    if (img) {
+        img.subscribe('load', async ev => {
+            const vb = new(await vibrant)(img)
+            const swatches = vb.swatches()
+            console.log(swatches)
+            const accent = swatches["Vibrant"].getRgb()
+            if (accent.reduce((prev, curr) => prev + curr, 0) < 255 * 2) {
+                // if very dark, use it as background
                 requestAnimationFrame(() => {
-                    expand.style.color = ifblack ? `black` : "white"
-                    expand.style.backgroundColor = dominant
+                    expand.style.backgroundColor = swatches["Vibrant"].getHex()
+                })
+            } else {
+                // use as other darker colors
+                requestAnimationFrame(() => {
+                    expand.style.backgroundColor = (swatches["DarkVibrant"] || swatches["DarkMuted"]).getHex()
                 })
             }
         })
+    }
 }
 
 function cardeditable(card, mastercard) {
@@ -139,7 +149,7 @@ function cardeditable(card, mastercard) {
     const brief = $('.brief', card)
     const details = $('.details', card)
     const thumbnail = $('.thumbnail', card)
-    const cardcontent = $('.card-content',card)
+    const cardcontent = $('.card-content', card)
     thumbnail.dataset.url = $('img', thumbnail) ? $('img', thumbnail).src : ""
     makeeditable(title, brief, details)
     cardcontent.onclick = async() => {
@@ -147,10 +157,18 @@ function cardeditable(card, mastercard) {
             const edited = await enterediting(card)
             if (edited) {
                 console.log(edited) //see the data
-                if (!card.classList.contains('reviewing')) attachnewcard(mastercard)
+                if (!card.classList.contains('reviewing')) {
+                    requestAnimationFrame(() => {
+                        requestAnimationFrame(() => {
+                            alert('Thank you! We will review your card, but you can preview it in place now.')
+                        })
+                    })
+                    // todo change id of title
+                    globalHandler.addTOC(card)
+                    attachnewcard(mastercard)
+                }
                 requestAnimationFrame(() => {
                     card.classList.add('reviewing')
-                    detectcolorchange(card)
                 })
             } else {
                 // not edited

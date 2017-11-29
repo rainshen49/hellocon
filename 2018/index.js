@@ -178,7 +178,7 @@ function initializeReload(DOM) {
 
 async function main() {
     applypreloadedstyles()
-    const loadcards = loadscript('cards.js', true) //will be awaited later
+    const loadcards = loadscript('cards.js', "", true) //will be awaited later
     // prevent scrolling through body
     await loadcards
     requestAnimationFrame(() => {
