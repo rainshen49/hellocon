@@ -1,7 +1,8 @@
 /* z index
 highest 10: nav
 6 refresh
-5 banner
+5 nav
+3 modalbg
 2 add card button, expand button
  0: default
  -1 card title
@@ -38,11 +39,16 @@ body.modalopen {
     overflow: hidden;
 }
 
+a {
+    /* touchabble area */
+    padding: 0.5rem;
+}
 
-/* Splash page & Banner */
+
+/* Splash page & Nav */
 
 #splash {
-    position: relative;
+    /* position: relative; */
     display: flex;
     flex-direction: column-reverse;
     width: 100%;
@@ -53,19 +59,7 @@ body.modalopen {
     background-size: cover;
 }
 
-#info {
-    /* inside splash */
-    position: absolute;
-    padding: 0 var(--default-margin);
-    bottom: 8rem;
-    right: 0;
-    width: 61%;
-    max-height: 60%;
-    overflow-y: auto;
-    background-color: rgba(255, 255, 255, 0.8);
-}
-
-#banner {
+#nav {
     background-color: rgba(255, 255, 255, 0.4);
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -74,7 +68,7 @@ body.modalopen {
     height: 3rem;
 }
 
-#banner.ontop {
+#nav.ontop {
     grid-template-columns: 1fr 1fr 1fr;
     color: white;
     background-color: var(--color5);
@@ -83,11 +77,15 @@ body.modalopen {
     left: 0;
     right: 0;
     z-index: 5;
-    animation: fadein 0.3s ease;
 }
 
-#banner:not(.ontop) #header {
+
+#nav:not(.ontop) #header {
     display: none;
+}
+
+#nav .fa {
+    font-size: 1.5rem;
 }
 
 #header {
@@ -103,9 +101,6 @@ body.modalopen {
 }
 
 #socialmedia a {
-    padding: 0.5rem;
-    font-size: 1.8rem;
-    animation: fadein 0.5s ease;
     color: black;
 }
 
@@ -123,7 +118,7 @@ body.modalopen {
 
 #ham {
     cursor: pointer;
-    padding: 0.5rem calc(1rem + var(--default-margin)) 0.5rem 0.5rem;
+    padding: 0.5rem;
     justify-self: end;
     align-self: center;
 }
@@ -150,6 +145,10 @@ body.modalopen {
     margin: 1rem 0 0 0;
 }
 
+.navitem:last-child {
+    margin: 0 0 1rem 0;
+}
+
 .navitem:hover:not(:active) {
     background-color: var(--color2);
 }
@@ -164,7 +163,7 @@ body.modalopen {
     right: 0;
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.3);
-    z-index: 1;
+    z-index: 3;
 }
 
 #reload {
@@ -204,9 +203,21 @@ body.modalopen {
         /* background-image: url("splash/big.jpg"); */
         background-image: url("splash/big.png");
     }
+    #nav {
+        padding: 0 1rem;
+    }
     .mobileonly {
         display: none;
     }
+}
+
+.content{
+    transition: all 0.2s ease;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-content: flex-start;
+    align-items: flex-start;
 }
 
 @media screen and (max-width: 768px) {
@@ -218,7 +229,7 @@ body.modalopen {
     .desktoponly {
         display: none;
     }
-    #banner.ontop {
+    #nav.ontop {
         grid-template-columns: auto auto auto;
     }
 }
@@ -228,18 +239,6 @@ body.modalopen {
 
 .detached {
     display: none;
-}
-
-.hidden {
-    visibility: hidden;
-}
-
-.fillwidth {
-    width: 100%;
-}
-
-.fillheight {
-    height: 100%;
 }
 
 .rounded {

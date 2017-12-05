@@ -14,11 +14,9 @@
 
     <link rel="manifest" href="manifest.json">
     <title>Hello,Con!'18</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="animations.css">
-    <link rel="stylesheet" href="cards.css">
-    <link rel="stylesheet" href="newcard.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="index.css">
+    <link onload="this.rel='stylesheet'" as="style" rel="preload" href="animations.css">
+    <link onload="this.rel='stylesheet'" as="style" rel="preload" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- preload assets -->
     <!-- <link rel="preload" href="splash/big.jpg" as="image" media="(min-width: 769px)">
@@ -28,82 +26,43 @@
 
 <body>
     <div id="splash">
-        <section id="info" class="rounded">
-            <!-- <h1>Hello, Con!</h1> -->
-            <!-- <p>A TED-talk style technology conference with a focus on the fun of programming.</p> -->
-        </section>
-        <div id="banner">
+        <!-- <section id="info" class="rounded">
+            <h1>Hello, Con!</h1>
+            <p>A TED-talk style technology conference with a focus on the fun of programming.</p>
+        </section> -->
+        <nav id="nav">
             <div id="socialmedia" class="rounded">
                 <a href="mailto:ieeeutstudentbranch@gmail.com"><i class="fa fa-envelope" aria-hidden="true"></i></a>
                 <a href="https://www.facebook.com/events/758938007586723/" rel="noopener noreferrer" target="_blank"><i class="fa fa-facebook-official" aria-hidden="true"></i></a>
                 <a href="https://twitter.com/helloconTO" rel="noopener noreferrer" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
             </div>
             <h3 id="header">HelloCon</h3>
-            <i class="fa fa-bars" id="ham" aria-hidden="true"></i>
-            <nav id="toc" class="detached rounded">
+            <i class="fa fa-bars detached" id="ham" aria-hidden="true"></i>
+            <!-- will attach once script is loaded -->
+            <nav id="toc" class="detached">
             </nav>
-        </div>
+        </nav>
     </div>
     <div class="modalbg detached"></div>
 
-
-    <div class="cards">
-        <div class="new card rounded">
-            <div class="expand"><i class="fa fa-expand" aria-hidden="true"></i></div>
-            <div class="card-content">
-                <h2 class="cardtitle" contenteditable="true">Click to Add Card</h2>
-                <p class="thumbnail">
-                    <i class="fa fa-plus-square" aria-hidden="true"></i>
-                </p>
-                <p class="brief" contenteditable="true">Brief Description</p>
-                <div class="details" contenteditable="true">Detailed description, markdown supported</div>
-            </div>
-            <div class="actions detached">
-                <div class="done"><i class="fa fa-check" aria-hidden="true"></i></div>
-                <div class="cancel"><i class="fa fa-times" aria-hidden="true"></i></div>
-            </div>
-        </div>
+    <div class="content">
     </div>
 
-
     <div id="reload" class="active"><i class="fa fa-refresh" aria-hidden="true"></i></div>
-
-    <template class="cardtem">
-        <div class="card rounded">
-            <div class="expand"><i class="fa fa-expand" aria-hidden="true"></i></div>
-            <div class="card-content">
-                <h2 class="cardtitle"></h2>
-                <p class="thumbnail"></p>
-                <p class="brief"></p>
-                <div class="details"></div>
-            </div>
-        </div>
-    </template>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/3.7.2/redux.min.js" defer></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/3.7.2/redux.min.js" defer></script> -->
     <script src="https://unpkg.com/@reactivex/rxjs@5.0.0/dist/global/Rx.min.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.8.1/showdown.min.js" defer></script>
-    <script type="module" src="ars.js" defer></script>
     <script type="module" src="helper.js" defer></script>
-    <script type="module" src="script.js" defer></script>
-    <noscript>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">    
-    </noscript>
+    <script type="module" src="index.js" defer></script>
 </body>
 
 </html>
 
 <!-- Todo
     img crop & rotate & compression
-    automate the css preload process
     sharing a particular card
     iOS splash screen multiple image sizez
-    submission of new cards
-        - add profile image
-        less hardcoded size values
-    edit of cards under review
+    submission of new cards into database
     service workers & notification
     search a card (tags)
-    banner on top in the beginning?
     first time visitors vs return visitors
 -->
