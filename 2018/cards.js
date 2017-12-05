@@ -32,6 +32,11 @@ let vibrant = loadscript('https://jariz.github.io/vibrant.js/dist/Vibrant.min.js
     vibrant = Promise.resolve(vb)
     return vb
 })
+// here
+let loadImg = loadscript("./load-image.all.min.js", "loadImage").then(li => {
+    loadImg = Promise.resolve(li)
+    return li
+})
 
 async function mdtohtml(md) {
     // markdown text to html, not used in production
@@ -79,15 +84,17 @@ function plugintemplate(card, mastercard) {
     // output card
     const target = mastercard.cloneNode(true)
     const [h2, brief, pimg, ...details] = card.children
-    const thum = pimg.firstElementChild
+    const img = pimg.firstElementChild
+    const thumb = $('.thumbnail', target)
     const iframes = $$('iframe', card)
     iframes.forEach(swapsrc)
     Object.assign($('.cardtitle', target), {
         textContent: h2.textContent,
         id: h2.id
     })
-    thum.setAttribute('crossOrigin', "anonymous")
-    $('.thumbnail', target).appendChild(thum)
+    removeAllChildren(thumb)
+    img.setAttribute('crossOrigin', "anonymous")
+    thumb.appendChild(img)
     $('.brief', target).textContent = brief.textContent
     const detailsTarget = $('.details', target)
     removeAllChildren(detailsTarget)
@@ -96,7 +103,6 @@ function plugintemplate(card, mastercard) {
 }
 
 function listenExpandcard(card) {
-    // todo set vibrant color listener
     const expand = card.firstElementChild
     const ObsCardTransition = Rx.Observable.fromEvent(card, 'transitionend', {
         passive: true
@@ -125,7 +131,7 @@ function matchColor(card) {
         img.subscribe('load', async ev => {
             const vb = new(await vibrant)(img)
             const swatches = vb.swatches()
-            console.log(swatches)
+            // console.log(swatches)
             const accent = swatches["Vibrant"].getRgb()
             if (accent.reduce((prev, curr) => prev + curr, 0) < 255 * 2) {
                 // if very dark, use it as background
@@ -152,21 +158,27 @@ function cardeditable(card, mastercard) {
     const cardcontent = $('.card-content', card)
     thumbnail.dataset.url = $('img', thumbnail) ? $('img', thumbnail).src : ""
     makeeditable(title, brief, details)
+    let previd = titletoid(title.textContent)
     cardcontent.onclick = async() => {
         if (!card.classList.contains('editing')) {
             const edited = await enterediting(card)
             if (edited) {
                 console.log(edited) //see the data
+                // render the markdown
                 if (!card.classList.contains('reviewing')) {
+                    // new card
                     requestAnimationFrame(() => {
                         requestAnimationFrame(() => {
                             alert('Thank you! We will review your card, but you can preview it in place now.')
                         })
                     })
-                    // todo change id of title
                     globalHandler.addTOC(card)
                     attachnewcard(mastercard)
+                } else {
+                    // just change the id for the new heading of existing cards
+                    globalHandler.redirectTOC(previd, card)
                 }
+                previd = title.id
                 requestAnimationFrame(() => {
                     card.classList.add('reviewing')
                 })
@@ -179,12 +191,19 @@ function cardeditable(card, mastercard) {
     }
 }
 
+function titletoid(title) {
+    return title.toLowerCase().replace(/\s/g, "")
+}
+
 async function enterediting(card) {
     // return false and restore card content if cancelled,otherwise return the card data and keep the card as is
     // suitable for both new cards and editing existing cards
+    // todo, use the img element instead
     const doneEditingflag = new Awaiter()
     console.log('entering editing mode', card)
+    // todo, change img href instead
     requestAnimationFrame(() => card.classList.add('editing'))
+    const cardtitle = $('.cardtitle', card)
     const cardcontent = $('.card-content', card)
     const cardbackup = cardcontent.cloneNode(true)
     const label = $('label', cardcontent)
@@ -269,6 +288,7 @@ async function enterediting(card) {
             details: $('.details', cardcontent).textContent,
             thumbnailurl
         }
+        cardtitle.id = titletoid(cardtitle.textContent)
         doneEditingflag.done(carddata)
     }
     // when cancel is changed restore to before, exit editing mode

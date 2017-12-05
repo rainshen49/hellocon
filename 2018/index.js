@@ -69,6 +69,14 @@ function getContainerActions(DOM) {
         })
     }
 
+    function redirectTOC(oldid, target) {
+        const h2 = $('h2', target)
+        const a = $('a[href="#' + oldid + '"]',DOM.toc)
+        a.href = "#" + h2.id
+        a.textContent = h2.textContent
+        console.log('changing', oldid, 'to', h2.id)
+    }
+
     DOM.modalbg.subscribe('touchmove', ev => ev.preventDefault())
 
     function setModal(on = false) {
@@ -90,7 +98,8 @@ function getContainerActions(DOM) {
     return {
         addTOC,
         setModal,
-        addcard
+        addcard,
+        redirectTOC
     }
 }
 
