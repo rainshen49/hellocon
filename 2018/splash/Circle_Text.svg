@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460.27 214.94">
+    <defs>
+        <style>
+            .cls-1 {
+                font-size: 51px;
+            }
+
+            .cls-1,
+            .cls-2,
+            .cls-3,
+            .cls-7 {
+                fill: #231f20;
+                font-family: Courier-Bold, Courier;
+            }
+
+            .cls-1,
+            .cls-2,
+            .cls-4,
+            .cls-5,
+            .cls-7 {
+                font-weight: 700;
+            }
+
+            .cls-2,
+            .cls-5 {
+                font-size: 30px;
+            }
+
+            .cls-3 {
+                font-size: 36px;
+            }
+
+            .cls-6 {
+                font-family: Courier, Courier;
+            }
+
+            .cls-7 {
+                font-size: 21px;
+            }
+        </style>
+    </defs>
+    <title>Circle_Text</title>
+    <g id="Layer_2" data-name="Layer 2">
+        <g id="Layer_1-2" data-name="Layer 1">
+            <text class="cls-1" transform="translate(73.65 40.26)">Hello Con!</text>
+            <text class="cls-7" transform="translate(37.39 74.79)">Software Technology Conference</text>
+            <text class="cls-3" transform="translate(0 138.25)">
+                <tspan class="cls-4">University of Toronto</tspan>
+            </text>
+            <text class="cls-2" transform="translate(83.44 202.84)">January 27, 2018</text>
+        </g>
+    </g>
+</svg>
