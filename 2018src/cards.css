@@ -1,0 +1,236 @@
+@media screen and (min-width: 769px) {
+    /* apply only to large screen */
+}
+
+@media screen and (max-width: 768px) {
+    /* apply only to small screen */
+    .content {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+
+
+/* card will have three mode: normal(no class), reviewing, editing */
+
+/* non-editing card */
+
+.card {
+    transition: all 0.2s ease;
+    box-shadow: var(--black-shadow);
+    overflow-x: hidden;
+    flex: 1 1 30%;
+    margin: var(--default-margin);
+    display: flex;
+    transition: all 0.3s ease;
+    /* height of the expand button */
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+    position: relative;
+}
+
+.expanded {
+    /* only apply to card */
+    box-shadow: var(--big-black-shadow);
+    flex: 2 1 99%;
+}
+
+.expand {
+    /* the expand button in card */
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color5);
+    color: white;
+    padding: 0.5rem;
+    cursor: pointer;
+}
+
+.card.reviewing .draft {
+    display: block;
+}
+
+.draft {
+    display: none;
+    position: absolute;
+    background-color: white;
+    color: black;
+    opacity: 0.6;
+    padding: 0.2rem 0.2rem 0.2rem 0.3rem;
+    margin: 0 0 0 -2px;
+    font-size: 1rem;
+    line-height: 1.6rem;
+    height: 2rem;
+    left: 0;
+    top: 0;
+}
+
+.card-content {
+    flex: 1 1 auto;
+    transition: all 0.2s ease;
+    display: grid;
+    padding: var(--default-margin);
+    /* as a grid container */
+    grid-template-rows: auto var(--thumbnail-size);
+    grid-template-columns: auto var(--thumbnail-size);
+    grid-row-gap: calc(var(--default-margin) / 2);
+    grid-column-gap: calc(var(--default-margin) / 2);
+    justify-content: stretch;
+}
+
+.expanded .card-content {
+    /* one more auto row for the details */
+    grid-template-rows: var(--thumbnail-size) auto auto;
+    /* grid-template-columns: auto 10rem; */
+    grid-row-gap: var(--default-margin);
+    grid-column-gap: var(--default-margin);
+    /* column gap set responsively */
+    overflow-y: auto;
+}
+
+.card:not(.expanded) .details {
+    display: none;
+}
+
+.cardtitle {
+    text-align: center;
+    align-self: center;
+    grid-area: 1/1/2/3;
+}
+
+.expanded .cardtitle {
+    grid-area: 1/1/2/2;
+}
+
+.thumbnail {
+    /* in card content only */
+    position: relative;
+    min-height: 0;
+    min-width: 0;
+    transition: all 0.3s ease;
+    grid-area: 2/2/3/3;
+    margin: 0;
+}
+
+.expanded .thumbnail {
+    grid-area: 1/2/2/3;
+}
+
+.expanded .thumbnail img {
+    border-radius: 50%;
+}
+
+.thumbnail img {
+    position: absolute;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.brief {
+    /* in card only */
+    grid-area: 2/1/3/2;
+    margin: 0;
+}
+
+.expanded .brief {
+    grid-area: 2/1/3/3;
+}
+
+.card:not(.expanded) .brief {
+    overflow-y: auto;
+}
+
+.details {
+    grid-column: span 2;
+}
+
+.details iframe {
+    width: 100%;
+    min-height: 30rem;
+}
+
+@media screen and (min-width: 769px) {
+    /* apply only to large screen */
+     :root {
+        --default-margin: 1rem;
+        --thumbnail-size: 10rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    /* apply only to small screen */
+     :root {
+        --default-margin: 0.6rem;
+        --thumbnail-size: 6rem;
+    }
+}
+
+
+/* editing card classes */
+
+.card:not(.editing) .editonly{
+    display: none;
+}
+
+.thumbnail{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.thumbnail label{
+    cursor: pointer;
+    padding: var(--default-margin);    
+    background-color: rgba(255,255,255,0.7);
+}
+
+.thumbnail input{
+    max-width: 98%;
+}
+.thumbnail.dragover{
+    cursor: pointer;    
+}
+
+.thumbnail.dragover label,.thumbnail.dragover input{
+    /* hide all children when dragging over */
+    display: none;
+}
+
+.actions:not(.detached) {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+}
+.actions {
+    animation: bottomin 0.3s ease;
+}
+
+.done,
+.cancel {
+    flex: 1 1 49%;
+    margin: 0;
+    font-size: 1rem;
+    padding: var(--default-margin);
+    text-align: center;
+    color: white;
+    cursor: pointer;
+}
+
+.done {
+    background-color: var(--color4);
+}
+
+.cancel {
+    background-color: lightcoral;
+}
+
+
+p[contentEditable="true"] div {
+    display: inline-block;
+}
