@@ -33,10 +33,6 @@ let vibrant = loadscript('https://jariz.github.io/vibrant.js/dist/Vibrant.min.js
     return vb
 })
 // here
-let loadImg = loadscript("./load-image.all.min.js", "loadImage").then(li => {
-    loadImg = Promise.resolve(li)
-    return li
-})
 
 async function mdtohtml(md) {
     // markdown text to html, not used in production
@@ -61,7 +57,7 @@ async function main() {
         .forEach(globalHandler.addTOC)
         .forEach(globalHandler.addcard)
     await loadingcards
-    attachnewcard(mastercard)
+    // attachnewcard(mastercard)
 }
 
 main()
