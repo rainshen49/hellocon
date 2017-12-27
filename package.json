@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "initeslint":"eslint --init"
+        "initeslint": "eslint --init"
     },
     "repository": {
         "type": "git",
@@ -17,7 +17,9 @@
     },
     "homepage": "https://github.com/rainshen49/hellocon/",
     "devDependencies": {
+        "autoprefixer": "^7.2.3",
         "eslint": "^4.11.0",
+        "postcss": "^6.0.14",
         "showdown": "^1.8.1"
     },
     "dependencies": {

@@ -50,7 +50,9 @@ a {
 #splash {
     /* position: relative; */
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
     width: 100%;
     /* height: 20%; */
     height: 100%;
@@ -59,7 +61,48 @@ a {
     background-size: cover;
 }
 
+.ieee {
+    height: 3rem;
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+}
+
+.whitecircle {
+    width: 25rem;
+    height: 25rem;
+    margin: var(--default-margin);
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    background-color: white;
+    opacity: 0.8;
+    border-radius: 50%;
+}
+
+@media screen and (max-width: 767px) {
+    .whitecircle {
+        width: 20rem;
+        height: 20rem;
+    }
+}
+
+.points {
+    display: flex;
+    flex-wrap: wrap;
+    max-height: 6rem;
+    margin: 0 0 1rem 0;
+    align-content: flex-end;
+    width: 100%;
+}
+
+object {
+    flex: 1 1 auto;
+    margin: 1rem;
+}
+
 #nav {
+    width: 100%;
     background-color: rgba(255, 255, 255, 0.4);
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -78,7 +121,6 @@ a {
     right: 0;
     z-index: 5;
 }
-
 
 #nav:not(.ontop) #header {
     display: none;
@@ -200,8 +242,7 @@ a {
 @media screen and (min-width: 769px) {
     /* apply only to large screen */
     #splash {
-        /* background-image: url("splash/big.jpg"); */
-        background-image: url("splash/big.png");
+        background-image: url("splash/bg_landscape.png");
     }
     #nav {
         padding: 0 1rem;
@@ -211,7 +252,7 @@ a {
     }
 }
 
-.content{
+.content {
     transition: all 0.2s ease;
     display: flex;
     flex-wrap: wrap;
@@ -223,8 +264,7 @@ a {
 @media screen and (max-width: 768px) {
     /* apply only to small screen */
     #splash {
-        /* background-image: url("splash/small.jpg"); */
-        background-image: url("splash/small.png");
+        background-image: url("splash/bg_por.png");
     }
     .desktoponly {
         display: none;
