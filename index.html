@@ -17,7 +17,7 @@
     <title>Hello,Con!'18</title>
     <link rel="stylesheet" href="index.css">
     <link onload="this.rel='stylesheet'" as="style" rel="preload" href="animations.css">
-    <link onload="this.rel='stylesheet'" as="style" rel="preload" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- <link onload="this.rel='stylesheet'" as="style" rel="preload" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
 
     <!-- preload assets -->
     <!-- <link rel="preload" href="splash/big.jpg" as="image" media="(min-width: 769px)">
@@ -31,29 +31,31 @@
             <h1>Hello, Con!</h1>
             <p>A TED-talk style technology conference with a focus on the fun of programming.</p>
         </section> -->
-        <object type="image/svg+xml" data="splash/IEEE.svg" class="ieee"></object>
+        <img src="splash/IEEE.svg" class="ieee"></img>
         <div class="whitecircle">
-            <object type="image/svg+xml" data="splash/Circle_Text.svg"></object>
+            <img src="splash/Circle_Text.svg"></img>
         </div>
         <section class="desktoponly points">
-            <object type="image/svg+xml" data="splash/Connectw_Pros.svg"></object>
-            <object type="image/svg+xml" data="splash/Share_Ideas.svg"></object>
-            <object type="image/svg+xml" data="splash/Code_Passion.svg"></object>
+            <img src="splash/Connectw_Pros.svg"></img>
+            <img src="splash/Share_Ideas.svg"></img>
+            <img src="splash/Code_Passion.svg"></img>
         </section>
         <nav id="nav">
             <div id="socialmedia" class="rounded">
                 <a href="mailto:ieeeutstudentbranch@gmail.com">
-                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                    <i class="fas fa-envelope"></i>
                 </a>
                 <a href="https://www.facebook.com/events/758938007586723/" rel="noopener noreferrer" target="_blank">
-                    <i class="fa fa-facebook-official" aria-hidden="true"></i>
+                    <i class="fab fa-facebook"></i>
                 </a>
                 <a href="https://twitter.com/helloconTO" rel="noopener noreferrer" target="_blank">
-                    <i class="fa fa-twitter" aria-hidden="true"></i>
+                    <i class="fab fa-twitter"></i>
                 </a>
             </div>
             <h3 id="header">HelloCon</h3>
-            <i class="fa fa-bars detached" id="ham" aria-hidden="true"></i>
+            <span id="ham">
+                <i class="fas fa-bars"></i>
+            </span>
             <!-- will attach once script is loaded -->
             <nav id="toc" class="detached">
             </nav>
@@ -65,9 +67,10 @@
     </div>
 
     <div id="reload" class="active">
-        <i class="fa fa-refresh" aria-hidden="true"></i>
+        <i class="fas fa-sync-alt"></i>
     </div>
     <script src="https://unpkg.com/@reactivex/rxjs@5.0.0/dist/global/Rx.min.js" defer></script>
+    <script src="https://use.fontawesome.com/releases/v5.0.2/js/all.js" defer></script>
     <script src="helper.js" defer></script>
     <script src="index.js" defer></script>
 </body>

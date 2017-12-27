@@ -86,6 +86,14 @@ a {
         height: 20rem;
     }
 }
+@media screen and (max-width: 376px) {
+    /* phone only */
+    .whitecircle {
+        width: 19rem;
+        height: 19rem;
+    }
+}
+
 
 .points {
     display: flex;
@@ -96,7 +104,8 @@ a {
     width: 100%;
 }
 
-object {
+#splash img {
+    max-width: 88%;
     flex: 1 1 auto;
     margin: 1rem;
 }
@@ -126,7 +135,7 @@ object {
     display: none;
 }
 
-#nav .fa {
+#nav svg{
     font-size: 1.5rem;
 }
 
@@ -144,25 +153,27 @@ object {
 
 #socialmedia a {
     color: black;
+    text-align: center;
+    text-decoration: none;
 }
 
 .ontop #socialmedia a {
     color: white;
 }
 
-#socialmedia i {
+#socialmedia svg {
     transition: all 0.1s ease;
 }
 
-#socialmedia i:hover:not(:active) {
+#socialmedia svg:hover:not(:active) {
     transform: scale(1.1);
 }
 
 #ham {
     cursor: pointer;
-    padding: 0.5rem;
     justify-self: end;
     align-self: center;
+    margin: 0 var(--default-margin) 0 0;
 }
 
 #toc {
@@ -244,6 +255,7 @@ object {
     #splash {
         background-image: url("https://rainshen49.github.io/hellocon/2018/splash/bg_landscape.png");
     }
+    
     #nav {
         padding: 0 1rem;
     }

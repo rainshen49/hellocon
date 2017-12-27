@@ -48,3 +48,4 @@ fs.watch("./2018src",(evtype,filename)=>{
 })
 
 console.log('watching file changes, press Ctrl/Cmd+C to stop')
+console.log('------------Serve the root of this repository to view the webpage------------')
