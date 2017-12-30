@@ -75,14 +75,13 @@ function parseHtml(info) {
     return dummyroot
 }
 
-function swapsrc(element) {
-    const {
-        src
-    } = element
-    const datasrc = element.dataset.src || "//#"
-    const temp = src
-    element.setAttribute('src', datasrc)
-    element.dataset.src = src
+function hideiframe(element) {
+    element.dataset.src = element.src
+    element.src = "//about:blank"
+}
+
+function showiframe(element) {
+    if (element.src !== element.dataset.src) element.setAttribute('src', element.dataset.src)
 }
 
 function applypreloadedstyles() {

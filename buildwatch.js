@@ -10,7 +10,7 @@ function compressCSS(source) {
 }
 
 function compressJS(source) {
-    const result = UglifyJS.minify(source);
+    const result = UglifyJS.minify(source,{mangle:false});
     return result.code
 }
 
