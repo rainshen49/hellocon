@@ -137,6 +137,7 @@ body.modalopen {
     font-size: 1.5rem;
 }
 
+
 #header {
     justify-self: center;
     align-self: center;
@@ -153,6 +154,7 @@ body.modalopen {
     color: black;
     text-align: center;
     text-decoration: none;
+    padding: 0.5rem;
 }
 
 .ontop #socialmedia a {
