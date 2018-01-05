@@ -1,20 +1,20 @@
-/* global Rx:false, loadscript, loadcss, importhtml, $, $$, parseHtml, globalHandler, Promises, swapsrc, removeAllChildren,mobile, makeeditable, Awaiter, blobtoUrl */
+/* global Rx:false, loadscript, loadcss, importhtml, $, $$, parseHtml, globalHandler, Promises, showiframe, hideiframe, removeAllChildren,mobile, makeeditable, Awaiter, blobtoUrl */
 
-const cards = ['hellocon.md', 'submit.md']
+const cards = ['hellocon.html', 'submit.html', 'location.html']
 
 // loading dependencies
 
-let showdown = loadscript('https://cdnjs.cloudflare.com/ajax/libs/showdown/1.8.6/showdown.min.js', 'showdown').then(sd => {
-    showdown = Promise.resolve(sd)
-    return sd
-})
+// let showdown = loadscript('https://cdnjs.cloudflare.com/ajax/libs/showdown/1.8.6/showdown.min.js', 'showdown').then(sd => {
+//     showdown = Promise.resolve(sd)
+//     return sd
+// })
 
-const converter = showdown.then(sd => new sd.Converter())
+// const converter = showdown.then(sd => new sd.Converter())
 
-async function mdtohtml(md) {
-    // markdown text to html, not used in production
-    return (await converter).makeHtml(md)
-}
+// async function mdtohtml(md) {
+//     // markdown text to html, not used in production
+//     return (await converter).makeHtml(md)
+// }
 
 async function main() {
     // load all assets, load cards
@@ -26,7 +26,7 @@ async function main() {
     const mastercard = $('.mastercard', cardtemplates).content.children[0]
 
     const loadingcards = fetchCards(cards)
-        .map(mdtohtml)
+        // .map(mdtohtml)
         .map(parseHtml)
         .map(card => plugintemplate(card, mastercard))
         .forEach(card => listenExpandcard(card))
@@ -59,7 +59,7 @@ function plugintemplate(card, mastercard) {
     const img = pimg.firstElementChild
     const thumb = $('.thumbnail', target)
     const iframes = $$('iframe', card)
-    iframes.forEach(swapsrc)
+    iframes.forEach(hideiframe)
     Object.assign($('.cardtitle', target), {
         textContent: h2.textContent,
         id: h2.id
@@ -67,7 +67,7 @@ function plugintemplate(card, mastercard) {
     removeAllChildren(thumb)
     img.setAttribute('crossOrigin', "anonymous")
     thumb.appendChild(img)
-    $('.brief', target).textContent = brief.textContent
+    $('.brief', target).innerHTML = brief.innerHTML
     const detailsTarget = $('.details', target)
     removeAllChildren(detailsTarget)
     details.forEach(d => detailsTarget.appendChild(d))
@@ -81,7 +81,7 @@ function listenExpandcard(card) {
     }).debounceTime(5)
     return expand.subscribe('click', (ev) => {
         const iframes = $$('iframe', card)
-        if (!mobile) iframes.forEach(swapsrc)
+        if (!mobile) iframes.forEach(showiframe)
         requestAnimationFrame(() => {
             card.classList.toggle('expanded')
             if (!mobile) ObsCardTransition.first().subscribe(() => {
@@ -230,8 +230,8 @@ async function enterediting(card) {
         // render and upload data
         const carddata = {
             title: $('h2', cardcontent).textContent,
-            brief: $('.brief', cardcontent).textContent,
-            details: $('.details', cardcontent).textContent,
+            brief: $('.brief', cardcontent).innerHTML,
+            details: $('.details', cardcontent).innerHTML,
             thumbnailurl
         }
         cardtitle.id = titletoid(cardtitle.textContent)
