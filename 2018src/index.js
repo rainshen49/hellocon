@@ -38,7 +38,7 @@ function getContainerActions(DOM) {
         const h2 = $('h2', target)
         Object.assign(a, {
             textContent: h2.textContent,
-            href: '#' + h2.id,
+            href: '/#' + h2.id,
             // all markdown compiled headings automatically contains an id attribute
             className: "navitem"
         })
