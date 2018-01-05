@@ -1,6 +1,6 @@
 /* global Rx:false, loadscript, loadcss, importhtml, $, $$, parseHtml, globalHandler, Promises, showiframe, hideiframe, removeAllChildren,mobile, makeeditable, Awaiter, blobtoUrl */
 
-const cards = ['hellocon.html', 'submit.html', 'location.html']
+const cards = ['hellocon.html', 'submit.html', 'location.html','coc.html']
 
 // loading dependencies
 

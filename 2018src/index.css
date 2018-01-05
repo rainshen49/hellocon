@@ -39,12 +39,6 @@ body.modalopen {
     overflow: hidden;
 }
 
-a {
-    /* touchabble area */
-    padding: 0.5rem;
-}
-
-
 /* Splash page & Nav */
 
 #splash {
@@ -81,6 +75,10 @@ a {
 }
 
 @media screen and (max-width: 767px) {
+    a {
+        /* touchabble area */
+        padding: 0.5rem;
+    }
     .whitecircle {
         width: 20rem;
         height: 20rem;
