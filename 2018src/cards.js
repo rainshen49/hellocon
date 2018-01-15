@@ -75,7 +75,7 @@ function plugintemplate(card, mastercard) {
 }
 
 function listenExpandcard(card) {
-    const expand = card.firstElementChild
+    const expand = $('.expand',card)
     const ObsCardTransition = Rx.Observable.fromEvent(card, 'transitionend', {
         passive: true
     }).debounceTime(5)

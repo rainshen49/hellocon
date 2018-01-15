@@ -2,10 +2,6 @@
     <!-- a card template that contains everything, will detach all edit/new related elements with javascript -->
     <!-- will use javascript to toggle contenteditable for particular elements -->
     <div class="card rounded">
-        <div class="expand">
-            <div class="draft">edited</div>
-            <i class="fas fa-expand"></i>
-        </div>
         <div class="card-content">
             <h2 class="cardtitle">Click to Add Card</h2>
             <p class="thumbnail">
@@ -18,6 +14,10 @@
             </p>
             <p class="brief">2-sentence description</p>
             <div class="details">Detailed description, markdown supported</div>
+        </div>
+        <div class="expand">
+            <div class="draft">edited</div>
+            <i class="fas fa-caret-square-down"></i>
         </div>
         <div class="actions editonly">
             <div class="done">

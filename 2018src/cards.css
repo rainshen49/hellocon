@@ -48,6 +48,14 @@
     cursor: pointer;
 }
 
+.expanded>.expand>svg{
+    transform: rotate(180deg);
+}
+
+.expand>svg{
+    transition: all 0.3s ease;
+}
+
 .card.reviewing .draft {
     display: block;
 }
