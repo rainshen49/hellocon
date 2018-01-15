@@ -71,11 +71,12 @@ function plugintemplate(card, mastercard) {
     const detailsTarget = $('.details', target)
     removeAllChildren(detailsTarget)
     details.forEach(d => detailsTarget.appendChild(d))
+    target.style.maxHeight = (innerHeight*0.9).toString()+"px"
     return target
 }
 
 function listenExpandcard(card) {
-    const expand = card.firstElementChild
+    const expand = $('.expand',card)
     const ObsCardTransition = Rx.Observable.fromEvent(card, 'transitionend', {
         passive: true
     }).debounceTime(5)
@@ -86,7 +87,7 @@ function listenExpandcard(card) {
             card.classList.toggle('expanded')
             if (!mobile) ObsCardTransition.first().subscribe(() => {
                 // console.log('fired transition end')
-                ev.target.scrollIntoView({
+                ev.target.parentNode.scrollIntoView({
                     behavior: 'smooth'
                 })
             })
