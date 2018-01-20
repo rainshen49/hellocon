@@ -1,6 +1,6 @@
 /* global Rx:false, loadcss, importhtml, $, $$, parseHtml, globalHandler, Promises, showiframe, hideiframe, removeAllChildren,mobile, makeeditable, Awaiter, blobtoUrl */
 
-const cards = ['submit.html', 'come.html','location.html','hellocon.html', 'coc.html']
+const cards = ['register.html', 'come.html', 'submit.html', 'location.html', 'hellocon.html', 'coc.html']
 
 // loading dependencies
 
@@ -71,12 +71,12 @@ function plugintemplate(card, mastercard) {
     const detailsTarget = $('.details', target)
     removeAllChildren(detailsTarget)
     details.forEach(d => detailsTarget.appendChild(d))
-    target.style.maxHeight = (innerHeight*0.9).toString()+"px"
+    target.style.maxHeight = (innerHeight * 0.9).toString() + "px"
     return target
 }
 
 function listenExpandcard(card) {
-    const expand = $('.expand',card)
+    const expand = $('.expand', card)
     const ObsCardTransition = Rx.Observable.fromEvent(card, 'transitionend', {
         passive: true
     }).debounceTime(5)
@@ -106,7 +106,7 @@ function cardeditable(card, mastercard) {
     thumbnail.dataset.url = $('img', thumbnail) ? $('img', thumbnail).src : ""
     makeeditable(title, brief, details)
     let previd = titletoid(title.textContent)
-    cardcontent.onclick = async() => {
+    cardcontent.onclick = async () => {
         if (!card.classList.contains('editing')) {
             const edited = await enterediting(card)
             if (edited) {
