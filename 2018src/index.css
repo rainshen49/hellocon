@@ -250,7 +250,27 @@ body.modalopen {
     display: initial;
     animation: spin 1s linear infinite;
 }
+.sponsorship h2{
+    text-align: center;
+}
+.sponsors{
+    display: flex;
+    flex-wrap: nowrap;
+    width: 100%;
+    overflow-x: auto;
+    justify-content: space-between;
+    align-content: center;
+}
 
+.sponsors>a{
+    height: 6rem;
+    width: auto;
+    margin: var(--default-margin);
+}
+
+.sponsors>a>img{
+    max-height: 100%;
+}
 
 /* responsive */
 
