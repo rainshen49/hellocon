@@ -102,6 +102,10 @@ body.modalopen {
     width: 100%;
 }
 
+.points img{
+    width: calc(30% - 2rem);
+}
+
 #splash img {
     max-width: 88%;
     flex: 1 1 auto;
