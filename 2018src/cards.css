@@ -56,25 +56,6 @@
     transition: all 0.5s ease;
 }
 
-.card.reviewing .draft {
-    display: block;
-}
-
-.draft {
-    display: none;
-    position: absolute;
-    background-color: white;
-    color: black;
-    opacity: 0.6;
-    padding: 0.2rem 0.2rem 0.2rem 0.3rem;
-    margin: 0 0 0 -2px;
-    font-size: 1rem;
-    line-height: 1.6rem;
-    height: 2rem;
-    left: 0;
-    top: 0;
-}
-
 .card-content {
     flex: 1 1 auto;
     transition: all 0.2s ease;
@@ -102,6 +83,12 @@
     display: none;
 }
 
+.dummy{
+    z-index: -1;
+    position: absolute;
+    top: -4rem;
+}
+
 .cardtitle {
     text-align: center;
     align-self: center;
@@ -115,12 +102,16 @@
 
 .thumbnail {
     /* in card content only */
-    position: relative;
+    /* position: relative; */
     min-height: 0;
     min-width: 0;
     transition: all 0.3s ease;
     grid-area: 2/2/3/3;
     margin: 0;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .expanded .thumbnail {
@@ -132,11 +123,9 @@
 }
 
 .thumbnail img {
-    position: absolute;
     object-fit: cover;
     width: 100%;
     height: 100%;
-    z-index: -1;
 }
 
 .thumbnail i, .thumbnail svg{
@@ -180,70 +169,4 @@
         --default-margin: 0.6rem;
         --thumbnail-size: 6rem;
     }
-}
-
-
-/* editing card classes */
-
-.card:not(.editing) .editonly{
-    display: none;
-}
-
-.thumbnail{
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.thumbnail label{
-    cursor: pointer;
-    padding: var(--default-margin);    
-    background-color: rgba(255,255,255,0.7);
-}
-
-.thumbnail input{
-    max-width: 98%;
-}
-.thumbnail.dragover{
-    cursor: pointer;    
-}
-
-.thumbnail.dragover label,.thumbnail.dragover input{
-    /* hide all children when dragging over */
-    display: none;
-}
-
-.actions:not(.detached) {
-    display: flex;
-    justify-content: space-between;
-    align-items: stretch;
-}
-.actions {
-    animation: bottomin 0.3s ease;
-}
-
-.done,
-.cancel {
-    flex: 1 1 49%;
-    margin: 0;
-    font-size: 1rem;
-    padding: var(--default-margin);
-    text-align: center;
-    color: white;
-    cursor: pointer;
-}
-
-.done {
-    background-color: var(--color4);
-}
-
-.cancel {
-    background-color: lightcoral;
-}
-
-
-p[contentEditable="true"] div {
-    display: inline-block;
 }

@@ -11,7 +11,6 @@ function getSharedElements(container = document.body) {
     const toc = $('#toc', container)
     const modalbg = $('.modalbg', container)
     const socialmedia = $('#socialmedia', container)
-    const filechooser = $('#filechooser', container)
     return {
         splash,
         content,
@@ -20,8 +19,7 @@ function getSharedElements(container = document.body) {
         ham,
         toc,
         modalbg,
-        socialmedia,
-        filechooser
+        socialmedia
     }
 }
 
@@ -35,14 +33,17 @@ function getContainerActions(DOM) {
 
     function addTOC(target) {
         const a = document.createElement('a')
-        const h2 = $('h2', target)
+        const h2 = $('.cardtitle', target)
+        const dummy = $('.dummy',target)
         Object.assign(a, {
             textContent: h2.textContent,
-            href: '/#' + h2.id,
+            href: '/#' + dummy.id,
             // all markdown compiled headings automatically contains an id attribute
             className: "navitem"
         })
-        a.subscribe('click', (ev) => toggleTOC(false))
+        a.subscribe('click', (ev) => {
+            toggleTOC(false)
+        })
         DOM.toc.appendChild(a)
     }
 
@@ -60,14 +61,10 @@ function getContainerActions(DOM) {
                 setModal(false)
             }
         })
-    }
+    }    
 
-    function redirectTOC(oldid, target) {
-        const h2 = $('h2', target)
-        const a = $('a[href="#' + oldid + '"]',DOM.toc)
-        a.href = "#" + h2.id
-        a.textContent = h2.textContent
-        console.log('changing', oldid, 'to', h2.id)
+    function addcard(card) {
+        DOM.content.appendChild(card)
     }
 
     DOM.modalbg.subscribe('touchmove', ev => ev.preventDefault())
@@ -84,15 +81,10 @@ function getContainerActions(DOM) {
         })
     }
 
-    function addcard(card) {
-        DOM.content.appendChild(card)
-    }
-
     return {
         addTOC,
-        setModal,
         addcard,
-        redirectTOC
+        setModal
     }
 }
 
@@ -191,4 +183,5 @@ async function main() {
 
 const DOM = getSharedElements(document.body)
 const globalHandler = getContainerActions(DOM)
+
 main()
