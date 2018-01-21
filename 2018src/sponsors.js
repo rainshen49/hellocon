@@ -5,7 +5,7 @@
     // window.last = last
     // window.first = first
     // console.log('loaded sponsors')
-    window.onload = function () {
+    window.addEventListener('load', function () {
         // console.log(last.getBoundingClientRect().right-first.getBoundingClientRect().left)
         // console.log(sponsors.getBoundingClientRect().width)
         if (last.getBoundingClientRect().right-first.getBoundingClientRect().left > sponsors.getBoundingClientRect().width) {
@@ -13,7 +13,7 @@
             // console.log('running')
             carousel(sponsors)
         }
-    }
+    })
 })()
 function carousel(sponsors) {
     const first = sponsors.firstElementChild
