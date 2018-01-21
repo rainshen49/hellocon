@@ -7,20 +7,28 @@ const cardloaded = (async function () {
     const cardtemplates = await toBehtml
     const mastercard = $('.mastercard', cardtemplates).content.children[0]
 
-    const loadingcards = fetchCards(cards)
+    const loadingcards = await fetchCards(cards)
         // .map(mdtohtml)
         .map(parseHtml)
         .map(card => plugintemplate(card, mastercard))
         .forEach(card => listenExpandcard(card))
-        .forEach(globalHandler.addTOC)
-        .forEach(globalHandler.addcard)
-        .forEach(scrollHash)
-    await loadingcards
+
+    loadingcards.forEach(card => {
+        globalHandler.addTOC(card)
+        globalHandler.addcard(card)
+        scrollHash(card)
+    })
 })()
 
 function fetchCards(urls) {
-    const cardjsons = fetch('./cards/cards.json').then(res => res.json())
-    return new Promises(urls.map(url => cardjsons.then(cardsjson => cardsjson[url])))
+    const cardsJSONRes = fetch('./cards/cards.json').then(res => res.json())
+    return new Promises(urls.map(url => cardsJSONRes.then(cardsjson => {
+        if (cardsjson.hasOwnProperty(url)) {
+            return cardsjson[url]
+        } else {
+            return fetch('./cards/' + url).then(res => res.text())
+        }
+    })))
 }
 
 function plugintemplate(card, mastercard) {
