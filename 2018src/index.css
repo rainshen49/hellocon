@@ -266,6 +266,8 @@ body.modalopen {
     height: 6rem;
     width: auto;
     margin: var(--default-margin);
+    padding: 0.2rem;
+    border-radius: 2px;
 }
 
 .sponsors>a>img{
