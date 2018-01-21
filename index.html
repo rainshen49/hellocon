@@ -11,34 +11,23 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="HelloCon">
     <link rel="apple-touch-icon" href="icon.png">
-    <link rel="apple-touch-startup-image" href="splash/small.jpeg">
+    <link rel="apple-touch-startup-image" href="https://rainshen49.github.io/hellocon/2018/splash/small.jpeg">
 
     <!-- <link rel="manifest" href="manifest.json"> -->
     <title>Hello,Con!'18</title>
-    <link rel="stylesheet" href="index.css">
-    <link onload="this.rel='stylesheet'" as="style" rel="preload" href="animations.css">
-    <!-- <link onload="this.rel='stylesheet'" as="style" rel="preload" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
-
-    <!-- preload assets -->
-    <!-- <link rel="preload" href="splash/big.jpg" as="image" media="(min-width: 769px)">
-    <link rel="preload" href="splash/small.jpg" as="image" media="(max-width: 768px)"> -->
-
+    <link rel="stylesheet" href="bundle.css">
 </head>
 
 <body>
     <div id="splash">
-        <!-- <section id="info" class="rounded">
-            <h1>Hello, Con!</h1>
-            <p>A TED-talk style technology conference with a focus on the fun of programming.</p>
-        </section> -->
-        <img src="splash/IEEE.svg" class="ieee"></img>
+        <img src="https://rainshen49.github.io/hellocon/2018/splash/IEEE.svg" class="ieee"></img>
         <div class="whitecircle">
-            <img src="splash/Circle_Text.svg"></img>
+            <img src="https://rainshen49.github.io/hellocon/2018/splash/Circle_Text.svg"></img>
         </div>
         <section class="desktoponly points">
-            <img src="splash/Connectw_Pros.svg"></img>
-            <img src="splash/Share_Ideas.svg"></img>
-            <img src="splash/Code_Passion.svg"></img>
+            <img src="https://rainshen49.github.io/hellocon/2018/splash/Connectw_Pros.svg"></img>
+            <img src="https://rainshen49.github.io/hellocon/2018/splash/Share_Ideas.svg"></img>
+            <img src="https://rainshen49.github.io/hellocon/2018/splash/Code_Passion.svg"></img>
         </section>
         <nav id="nav">
             <div id="socialmedia" class="rounded">
@@ -66,25 +55,25 @@
         <h2>Proudly Sponsored By</h2>
         <div class="sponsors">
             <a rel="noopener noreferrer" target="_blank" href="http://interaptix.com/">
-                <img src="http://interaptix.com/images/logo.png" alt="Interaptix">
+                <img data-src="http://interaptix.com/images/logo.png" alt="Interaptix">
             </a>
             <a rel="noopener noreferrer" target="_blank" href="http://www.daisyintelligence.com" style="background-color: black;">
-                <img src="http://www.daisyintelligence.com/wp-content/uploads/2015/06/Daisy_INTEL_KO.png" alt="Daisy Intelligence">
+                <img data-src="http://www.daisyintelligence.com/wp-content/uploads/2015/06/Daisy_INTEL_KO.png" alt="Daisy Intelligence">
             </a>
             <a rel="noopener noreferrer" target="_blank" href="http://deeplearni.ng/">
-                <img src="http://deeplearni.ng/static/img/dl_header_logo.png" alt="Deeplearni.ng">
+                <img data-src="http://deeplearni.ng/static/img/dl_header_logo.png" alt="Deeplearni.ng">
             </a>
             <a rel="noopener noreferrer" target="_blank" href="https://www.intel.com" style="background-color:#0071c5;">
-                <img src="icons/intel.png" alt="Intel">
+                <img data-src="https://rainshen49.github.io/hellocon/2018/icons/intel.png" alt="Intel">
             </a>
             <a rel="noopener noreferrer" target="_blank" href="https://www.teamstudy.com/" style="background-color:#2ecc71;">
-                <img src="https://www.teamstudy.com/assets/images/logo-white.svg" alt="Team Study">
+                <img data-src="https://www.teamstudy.com/assets/images/logo-white.svg" alt="Team Study">
             </a>
             <a rel="noopener noreferrer" target="_blank" href="https://www.nvidia.com">
-                <img src="icons/NVIDIA.svg" alt="NVIDIA">
+                <img data-src="https://rainshen49.github.io/hellocon/2018/icons/NVIDIA.svg" alt="NVIDIA">
             </a>
             <a rel="noopener noreferrer" target="_blank" href="https://www.utoronto.ca/" style="background-color:#002a5c;">
-                <img src="https://www.utoronto.ca/sites/all/themes/uoft_stark/img/U-of-T-logo.svg" alt="University of Toronto">
+                <img data-src="https://www.utoronto.ca/sites/all/themes/uoft_stark/img/U-of-T-logo.svg" alt="University of Toronto">
             </a>
         </div>
     </div>
@@ -95,9 +84,8 @@
         <i class="fas fa-sync-alt"></i>
     </div>
     <script src="https://unpkg.com/@reactivex/rxjs@5.0.0/dist/global/Rx.min.js" defer></script>
-    <script src="helper.js" defer></script>
-    <script src="index.js" defer></script>
-    <script src="https://use.fontawesome.com/releases/v5.0.2/js/all.js" defer></script>
+    <script src="bundle.js" defer></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.4/js/all.js" async></script>
 </body>
 
 </html>

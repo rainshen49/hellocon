@@ -1,12 +1,8 @@
-/* global Rx:false, loadcss, importhtml, $, $$, parseHtml, globalHandler, Promises, showiframe, hideiframe, removeAllChildren,mobile, makeeditable, Awaiter, blobtoUrl */
+/* global Rx:false, loadcss, importhtml, $, $$, parseHtml, globalHandler, Promises, showiframe, hideiframe, removeAllChildren,mobile, makeeditable, Awaiter, blobtoUrl, DOM */
 
 const cards = ['register.html', 'come.html', 'whenwhere.html', 'submit.html', 'hellocon.html', 'coc.html']
 
-async function main() {
-    // load all assets, load cards
-    // listen to add new card or edit request, and load correspondingly
-
-    const toBestyle = loadcss('cards.css')
+const cardloaded = (async function () {
     const toBehtml = importhtml('cards.html')
     const cardtemplates = await toBehtml
     const mastercard = $('.mastercard', cardtemplates).content.children[0]
@@ -19,13 +15,12 @@ async function main() {
         .forEach(globalHandler.addTOC)
         .forEach(globalHandler.addcard)
         .forEach(scrollHash)
-}
-main()
+    await loadingcards
+})()
 
-function fetchCards(cardmds) {
-    return new Promises(cardmds.map(card =>
-        fetch('cards/' + card).then(res => res.text())
-    ))
+function fetchCards(urls) {
+    const cardjsons = fetch('./cards/cards.json').then(res => res.json())
+    return new Promises(urls.map(url => cardjsons.then(cardsjson => cardsjson[url])))
 }
 
 function plugintemplate(card, mastercard) {
@@ -66,7 +61,6 @@ function listenExpandcard(card) {
         requestAnimationFrame(() => {
             card.classList.toggle('expanded')
             if (!mobile) ObsCardTransition.first().subscribe(() => {
-                // console.log('fired transition end')
                 expand.parentNode.scrollIntoView({
                     behavior: 'smooth'
                 })
@@ -78,9 +72,9 @@ function listenExpandcard(card) {
 function scrollHash(card) {
     const dummy = $('.dummy', card)
     if (dummy.id === location.hash.slice(1)) {
-        window.addEventListener('load', ()=>{
+        window.addEventListener('load', () => {
             console.log('comparing hash')
-            requestAnimationFrame(()=> dummy.scrollIntoView())
+            requestAnimationFrame(() => dummy.scrollIntoView())
         })
     }
 }

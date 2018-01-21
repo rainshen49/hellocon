@@ -1,10 +1,15 @@
-(function () {
+(async function () {
     const sponsors = $('.sponsors')
     const last = sponsors.lastElementChild
     const first = sponsors.firstElementChild
+    const imgs = $$('img',sponsors)
     // window.last = last
     // window.first = first
     // console.log('loaded sponsors')
+    await cardloaded
+    imgs.forEach(img=>{
+        img.src = img.dataset.src
+    })
     window.addEventListener('load', function () {
         // console.log(last.getBoundingClientRect().right-first.getBoundingClientRect().left)
         // console.log(sponsors.getBoundingClientRect().width)

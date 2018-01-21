@@ -10,41 +10,57 @@ function compressCSS(source) {
 }
 
 function compressJS(source) {
-    const result = UglifyJS.minify(source,{mangle:false});
+    const result = UglifyJS.minify(source, { mangle: false });
     return result.code
 }
 
 function compressHTML(source) {
-    return htmlminify(source, { minifyJS: true, collapseWhitespace: true, conservativeCollapse: true,removeComments:true })
+    return htmlminify(source, { minifyJS: true, collapseWhitespace: true, conservativeCollapse: true, removeComments: true })
 }
 
-function process(filename){
+const jssequence = { 'helper.js': "", 'index.js': "", 'cards.js': "", 'sponsors.js': "" }
+const csssequence = { 'index.css': "", 'animations.css': "", 'cards.css': "" }
+
+async function process(filename) {
     if (filename.endsWith('.css')) {
         // add vendor prefix, minify
-        const file = fs.readFileSync('./2018src/'+filename).toString()
-        postcss([autoprefixer]).process(file).then(function (result) {
+        const file = fs.readFileSync('./2018src/' + filename).toString()
+        const css = await postcss([autoprefixer]).process(file).then(function (result) {
             result.warnings().forEach(function (warn) {
                 console.warn(warn.toString());
             });
-            fs.writeFileSync('./2018/'+filename,compressCSS(result.css));
-        });
+            return compressCSS(result.css)
+        })
+        if (csssequence.hasOwnProperty(filename)) {
+            csssequence[filename] = css
+        }
     } else if (filename.endsWith('.js')) {
         // minify, do nothing for now
-        const file = fs.readFileSync('./2018src/'+filename).toString()
-        fs.writeFileSync('./2018/'+filename,compressJS(file))
-        
+        const file = fs.readFileSync('./2018src/' + filename).toString()
+        const js = compressJS(file)
+        if (jssequence.hasOwnProperty(filename)) {
+            jssequence[filename] = js
+        }
     } else if (filename.endsWith('.html')) {
         // minify
-        const file = fs.readFileSync('./2018src/'+filename).toString()
-        fs.writeFileSync('./2018/'+filename,compressHTML(file))
+        const file = fs.readFileSync('./2018src/' + filename).toString()
+        fs.writeFileSync('./2018/' + filename, compressHTML(file))
     }
 }
 
-fs.readdirSync("./2018src/").forEach(process)
+function writeBundles() {
+    fs.writeFileSync('./2018/bundle.js', Object.keys(jssequence).map(key => jssequence[key]).join(''))
+    fs.writeFileSync('./2018/bundle.css', Object.keys(csssequence).map(key => csssequence[key]).join(''))
+}
 
-fs.watch("./2018src",(evtype,filename)=>{
-    console.log(evtype,filename)
-    if(evtype==="change")process(filename)
+Promise.all(fs.readdirSync("./2018src/").map(process)).then(writeBundles)
+
+fs.watch("./2018src", async (evtype, filename) => {
+    console.log(evtype, filename)
+    if (evtype === "change") {
+        await process(filename)
+        writeBundles()
+    }
 })
 
 console.log('watching file changes, press Ctrl/Cmd+C to stop')

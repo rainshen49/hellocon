@@ -1,4 +1,4 @@
-/* global Rx */
+/* global Rx, $,  */
 const mobile = window.innerWidth <= 768
 
 function getSharedElements(container = document.body) {
@@ -41,7 +41,7 @@ function getContainerActions(DOM) {
             // all markdown compiled headings automatically contains an id attribute
             className: "navitem"
         })
-        a.subscribe('click', (ev) => {
+        a.subscribe('click', () => {
             toggleTOC(false)
         })
         DOM.toc.appendChild(a)
@@ -171,13 +171,11 @@ function initializeReload(DOM) {
 }
 
 async function main() {
-    applypreloadedstyles()
-    const loadcards = loadscript('cards.js', "") //will be awaited later
-    loadscript('sponsors.js', "") 
-    await loadcards
-    requestAnimationFrame(() => {
-        DOM.reload.classList.remove('active')
-        DOM.reload.classList.add('detached')
+    window.addEventListener('load',function(){
+        requestAnimationFrame(() => {
+            DOM.reload.classList.remove('active')
+            DOM.reload.classList.add('detached')
+        })
     })
 }
 
