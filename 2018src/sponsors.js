@@ -2,23 +2,23 @@
     const sponsors = $('.sponsors')
     const last = sponsors.lastElementChild
     const first = sponsors.firstElementChild
-    const imgs = $$('img',sponsors)
-    // window.last = last
-    // window.first = first
-    // console.log('loaded sponsors')
+    const imgs = $$('img', sponsors)
     await cardloaded
-    imgs.forEach(img=>{
-        img.src = img.dataset.src
-    })
-    window.addEventListener('load', function () {
-        // console.log(last.getBoundingClientRect().right-first.getBoundingClientRect().left)
-        // console.log(sponsors.getBoundingClientRect().width)
-        if (last.getBoundingClientRect().right-first.getBoundingClientRect().left > sponsors.getBoundingClientRect().width) {
-            // overflowed, need to run
-            // console.log('running')
-            carousel(sponsors)
-        }
-    })
+    await new Promises(
+        imgs.map(img => {
+            img.src = img.dataset.src
+            return new Promise((yes, no) => {
+                img.onload = yes
+                img.onerror = no
+            })
+        })
+    )
+    // console.log(last.getBoundingClientRect().right - first.getBoundingClientRect().left, sponsors.getBoundingClientRect().width)
+    if (last.getBoundingClientRect().right - first.getBoundingClientRect().left > sponsors.getBoundingClientRect().width) {
+        // overflowed, need to run
+        // console.log('running')
+        carousel(sponsors)
+    }
 })()
 function carousel(sponsors) {
     const first = sponsors.firstElementChild
