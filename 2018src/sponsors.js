@@ -9,7 +9,10 @@
             img.src = img.dataset.src
             return new Promise((yes, no) => {
                 img.onload = yes
-                img.onerror = no
+                img.onerror = ()=>{
+                    yes()
+                    console.error(img.src,'error')
+                }
             })
         })
     )

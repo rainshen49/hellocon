@@ -1,3 +1,4 @@
 - check all links valid
 - check grammar
 - Pagespeed insights
+- check scrolling sponsors
