@@ -254,6 +254,7 @@ body.modalopen {
     text-align: center;
 }
 .sponsors{
+    border-bottom: 1px solid grey;
     display: flex;
     flex-wrap: nowrap;
     width: 100%;

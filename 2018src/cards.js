@@ -54,7 +54,7 @@ function plugintemplate(card, mastercard) {
     const detailsTarget = $('.details', target)
     // removeAllChildren(detailsTarget)
     details.forEach(d => detailsTarget.appendChild(d))
-    target.style.maxHeight = (innerHeight * 0.9).toString() + "px"
+    if(!mobile)target.style.maxHeight = (innerHeight * 0.9).toString() + "px"
     return target
 }
 

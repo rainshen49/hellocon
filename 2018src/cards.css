@@ -1,196 +1,198 @@
-@media screen and (min-width: 769px) {
-    /* apply only to large screen */
-}
 
-@media screen and (max-width: 768px) {
-    /* apply only to small screen */
-    .content {
-        flex-direction: column;
-        align-items: stretch;
-    }
-}
-
-
-/* card will have three mode: normal(no class), reviewing, editing */
-
-/* non-editing card */
 
 .card {
-    transition: all 0.2s ease;
-    box-shadow: var(--black-shadow);
-    overflow-x: hidden;
-    flex: 1 1 30%;
-    margin: var(--default-margin);
-    display: flex;
-    transition: all 0.3s ease;
-    /* height of the expand button */
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: stretch;
-    position: relative;
+  transition: all 0.2s ease;
+  overflow-x: hidden;
+  flex: 1 1 30%;
+  margin: var(--default-margin);
+  display: flex;
+  /* height of the expand button */
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+  position: relative;
 }
 
 .expanded {
-    /* only apply to card */
-    box-shadow: var(--big-black-shadow);
-    flex: 2 1 99%;
+  /* only apply to card */
+  box-shadow: var(--big-black-shadow);
+  flex: 2 1 99%;
 }
 
 .expand {
-    /* the expand button in card */
-    flex: 0 0 auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--color5);
-    color: white;
-    padding: 0.5rem;
-    cursor: pointer;
+  /* the expand button in card */
+  flex: 0 0 auto;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color5);
+  color: white;
+  padding: 0.5rem;
+  cursor: pointer;
 }
 
-.expanded>.expand>svg{
-    transform: scaleY(-1);
+.expanded > .expand > svg {
+  transform: scaleY(-1);
 }
 
-.expand>svg{
-    transition: all 0.5s ease;
+.expand > svg {
+  transition: all 0.5s ease;
 }
 
 .card-content {
-    flex: 1 1 auto;
-    transition: all 0.2s ease;
-    display: grid;
-    padding: var(--default-margin);
-    /* as a grid container */
-    grid-template-rows: auto var(--thumbnail-size);
-    grid-template-columns: auto var(--thumbnail-size);
-    grid-row-gap: calc(var(--default-margin) / 2);
-    grid-column-gap: calc(var(--default-margin) / 2);
-    justify-content: stretch;
+  flex: 1 1 auto;
+  transition: all 0.2s ease;
+  display: grid;
+  padding: var(--default-margin);
+  /* as a grid container */
+  grid-template-rows: auto var(--thumbnail-size);
+  grid-template-columns: auto var(--thumbnail-size);
+  grid-row-gap: calc(var(--default-margin) / 2);
+  grid-column-gap: calc(var(--default-margin) / 2);
+  justify-content: stretch;
 }
 
 .expanded .card-content {
-    /* one more auto row for the details */
-    grid-template-rows: var(--thumbnail-size) auto auto;
-    /* grid-template-columns: auto 10rem; */
-    grid-row-gap: var(--default-margin);
-    grid-column-gap: var(--default-margin);
-    /* column gap set responsively */
-    overflow-y: auto;
+  /* one more auto row for the details */
+  grid-template-rows: auto var(--thumbnail-size)  auto;
+  /* grid-template-columns: auto 10rem; */
+  grid-row-gap: var(--default-margin);
+  grid-column-gap: var(--default-margin);
+  /* column gap set responsively */
+  overflow-y: auto;
 }
 
-.card:not(.expanded) .details {
-    display: none;
-}
-
-.dummy{
-    z-index: -1;
-    position: absolute;
-    top: -4rem;
+.dummy {
+  z-index: -1;
+  position: absolute;
+  top: -4rem;
 }
 
 .cardtitle {
-    text-align: center;
-    align-self: center;
-    grid-area: 1/1/2/3;
-    margin: 0.5rem 0;
-}
-
-.expanded .cardtitle {
-    grid-area: 1/1/2/2;
+  text-align: center;
+  align-self: center;
+  grid-area: 1/1/2/3;
+  margin: 0.5rem 0;
 }
 
 .thumbnail {
-    /* in card content only */
-    /* position: relative; */
-    min-height: 0;
-    min-width: 0;
-    transition: all 0.3s ease;
-    grid-area: 2/2/3/3;
-    margin: 0;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.expanded .thumbnail {
-    grid-area: 1/2/2/3;
+  /* in card content only */
+  /* position: relative; */
+  min-height: 0;
+  min-width: 0;
+  transition: all 0.3s ease;
+  grid-area: 2/2/3/3;
+  margin: 0;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .expanded .thumbnail img {
-    border-radius: 50%;
+  border-radius: 50%;
 }
 
 .thumbnail img {
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
 }
 
-.thumbnail i, .thumbnail svg{
-    font-size: 5rem;    
+.thumbnail i,
+.thumbnail svg {
+  font-size: 5rem;
 }
 
 .brief {
-    /* in card only */
-    grid-area: 2/1/3/2;
-    margin: 0;
-}
-
-.expanded .brief {
-    grid-area: 2/1/3/3;
+  /* in card only */
+  grid-area: 2/1/3/2;
+  margin: 0;
 }
 
 .card:not(.expanded) .brief {
-    overflow-y: auto;
+  overflow-y: auto;
 }
 
 .details {
-    grid-column: span 2;
+  grid-column: span 2;
 }
 
 .details iframe {
-    width: 100%;
-    min-height: 30rem;
+  width: 100%;
+  min-height: 30rem;
 }
 
-.card-action-wrapper{
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    /* width: 100%; */
+.card-action-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  /* width: 100%; */
 }
 
-a.card-action{
-    padding: 0.5rem 1rem;
-    border: 2px solid var(--color5);
-    border-radius: 1rem;
-    text-align: center;
-    color: var(--color5);
-    text-decoration: none;
-    margin: var(--default-margin);
-    transition: all 0.1s ease;
-    font-size: 1.2rem;
+a.card-action {
+  padding: 0.5rem 1rem;
+  border: 2px solid var(--color5);
+  border-radius: 1rem;
+  text-align: center;
+  color: var(--color5);
+  text-decoration: none;
+  margin: var(--default-margin);
+  transition: all 0.1s ease;
+  font-size: 1.2rem;
 }
 
-a.card-action:hover:not(:active){
-    color: white;
-    background-color: var(--color5);
+a.card-action:hover:not(:active) {
+  color: white;
+  background-color: var(--color5);
+}
+
+@media screen and (min-width: 769px) {
+  /* apply only to large screen */
+  :root {
+    --default-margin: 1rem;
+    --thumbnail-size: 9rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  /* apply only to small screen */
+  :root {
+    --default-margin: 0.6rem;
+    --thumbnail-size: 6rem;
+  }
 }
 
 @media screen and (min-width: 769px) {
     /* apply only to large screen */
-     :root {
-        --default-margin: 1rem;
-        --thumbnail-size: 9rem;
+    .card:not(.expanded) .details {
+      display: none;
     }
-}
-
-@media screen and (max-width: 768px) {
+    .expand {
+      display: flex;
+    }
+    .card {
+      box-shadow: var(--black-shadow);
+      border-radius: 4px;
+    }
+  }
+  
+  @media screen and (max-width: 768px) {
     /* apply only to small screen */
-     :root {
-        --default-margin: 0.6rem;
-        --thumbnail-size: 6rem;
+    .content {
+      flex-direction: column;
+      align-items: stretch;
     }
-}
+    .card-content {
+      grid-template-rows: auto var(--thumbnail-size) auto;
+      grid-template-columns: auto var(--thumbnail-size);
+    }
+    .card {
+      flex: 1 1 auto;
+      margin: 0;
+      border-bottom: 1px solid grey;
+      max-height: 100%;
+    }
+    .expand {
+      display: none;
+    }
+  }
