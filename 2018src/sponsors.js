@@ -9,9 +9,9 @@
             img.src = img.dataset.src
             return new Promise((yes, no) => {
                 img.onload = yes
-                img.onerror = ()=>{
+                img.onerror = () => {
                     yes()
-                    console.error(img.src,'error')
+                    console.error(img.src, 'error')
                 }
             })
         })
@@ -26,12 +26,11 @@
 function carousel(sponsors) {
     const first = sponsors.firstElementChild
     function scroll(lastx, dir) {
-        sponsors.scrollBy(dir, 0)
-        const { x } = first.getBoundingClientRect()
-        if (lastx === x) {
-            setTimeout(() => requestAnimationFrame(() => scroll(x, -dir)), 2000)
+        sponsors.scrollLeft += dir
+        if (lastx === sponsors.scrollLeft) {
+            setTimeout(() => requestAnimationFrame(() => scroll(lastx, -dir)), 2000)
         } else {
-            requestAnimationFrame(() => scroll(x, dir))
+            requestAnimationFrame(() => requestAnimationFrame(() => scroll(sponsors.scrollLeft, dir)))
         }
     }
     requestAnimationFrame(() => scroll(first.getBoundingClientRect(), 1))
