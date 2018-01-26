@@ -203,6 +203,15 @@ body.modalopen {
   transition: all 0.3s ease;
 }
 
+.navsection{
+  text-align: center;
+  color: gray;
+  padding: 0.5rem 1rem;
+  position: relative;
+  border-top: 1px solid gray;
+  
+}
+
 .navitem:first-child {
   margin: 1rem 0 0 0;
 }

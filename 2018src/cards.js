@@ -11,7 +11,10 @@ const infocards = [
 const { speakerDiv, infoDiv } = DOM;
 
 const cardloaded = (async function() {
-  await Promise.all([renderInfoCards(infocards), renderSpeakerCards()]);
+  globalHandler.addSection("Speakers")
+  await renderSpeakerCards()
+  globalHandler.addSection("Conference")  
+  await renderInfoCards(infocards)
 })();
 
 function toArrayByKey(json, keys) {

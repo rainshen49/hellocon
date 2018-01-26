@@ -66,6 +66,16 @@ function getContainerActions(DOM) {
         })
     }
 
+    function addSection(heading){
+        const div = document.createElement('div')
+        Object.assign(div, {
+            textContent: heading,
+            // all markdown compiled headings automatically contains an id attribute
+            className: "navsection"
+        })
+        DOM.toc.appendChild(div)
+    }
+
     DOM.modalbg.subscribe('touchmove', ev => ev.preventDefault())
 
     function setModal(on = false) {
@@ -82,7 +92,8 @@ function getContainerActions(DOM) {
 
     return {
         addTOC,
-        setModal
+        setModal,
+        addSection
     }
 }
 
