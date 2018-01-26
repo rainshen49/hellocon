@@ -58,7 +58,7 @@ function readMoreElement(card, id) {
     card.style.maxHeight =
       card.style.maxHeight === "" ? window.innerHeight * 0.7 + "px" : "";
     action.textContent =
-      action.textContent === "More..." ? "Less..." : "More...";
+      action.textContent === "More..." ? "Less" : "More...";
   });
   return action;
 }
