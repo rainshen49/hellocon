@@ -1,5 +1,5 @@
-/* global Rx, $,  */
-const mobile = window.innerWidth <= 768
+/* global Rx, $, waitDOMLoad ,isInViewport*/
+const mobile = window.innerWidth <= 767
 
 function getSharedElements(container = document.body) {
     // keep all selectors in here, the rest is HTML agnostic
@@ -11,6 +11,8 @@ function getSharedElements(container = document.body) {
     const toc = $('#toc', container)
     const modalbg = $('.modalbg', container)
     const socialmedia = $('#socialmedia', container)
+    const [speakerDiv, infoDiv] = [$(".speakers"), $(".infocards")];
+    const head = $('#header',nav)
     return {
         splash,
         content,
@@ -19,7 +21,10 @@ function getSharedElements(container = document.body) {
         ham,
         toc,
         modalbg,
-        socialmedia
+        socialmedia,
+        speakerDiv,
+        infoDiv,
+        head
     }
 }
 
@@ -31,13 +36,11 @@ function getContainerActions(DOM) {
     // click listeners
     initializeTOC(DOM, toggleTOC)
 
-    function addTOC(target) {
+    function addTOC(text,id) {
         const a = document.createElement('a')
-        const h2 = $('.cardtitle', target)
-        const dummy = $('.dummy',target)
         Object.assign(a, {
-            textContent: h2.textContent,
-            href: '/#' + dummy.id,
+            textContent: text,
+            href: '/#' + id,
             // all markdown compiled headings automatically contains an id attribute
             className: "navitem"
         })
@@ -61,10 +64,6 @@ function getContainerActions(DOM) {
                 setModal(false)
             }
         })
-    }    
-
-    function addcard(card) {
-        DOM.content.appendChild(card)
     }
 
     DOM.modalbg.subscribe('touchmove', ev => ev.preventDefault())
@@ -83,7 +82,6 @@ function getContainerActions(DOM) {
 
     return {
         addTOC,
-        addcard,
         setModal
     }
 }
@@ -96,7 +94,10 @@ function initializeTOC(DOM, toggleTOC) {
 function initializeNav(DOM) {
     const {
         nav,
-        splash
+        splash,
+        head,
+        speakerDiv,
+        infoDiv
     } = DOM
     const navheight = nav.getBoundingClientRect().height
     const ObsWindowScroll = Rx.Observable.fromEvent(window, 'scroll', {
@@ -110,9 +111,23 @@ function initializeNav(DOM) {
             const showbanner = location < 0
             if (showbanner !== nav.classList.contains('ontop'))
                 nav.classList.toggle('ontop')
-        }).subscribe()
+        }).do(()=>{
+            if(mobile){
+                const speakerhidden = !isInViewport(speakerDiv)
+                const infohidden = !isInViewport(infoDiv)
+                if(infohidden){
+                    head.textContent= "HelloCon"
+                }else if(speakerhidden){
+                    head.textContent="Speakers"
+                }else{
+                    // default
+                    head.textContent= "HelloCon"                    
+                }
+            }
+        })
+        .subscribe()
     // prevent scroll through in modal
-    nav.subscribe('touchmove', ev => ev.preventDefault())
+    // nav.subscribe('touchmove', ev => ev.preventDefault())
 }
 
 function initializeReload(DOM) {
@@ -171,7 +186,7 @@ function initializeReload(DOM) {
 }
 
 async function main() {
-    window.addEventListener('load',function(){
+    waitDOMLoad().then(function(){
         requestAnimationFrame(() => {
             DOM.reload.classList.remove('active')
             DOM.reload.classList.add('detached')

@@ -1,8 +1,8 @@
 ## Code of Conduct
-<!-- followed by brief -->
-Hello, Con! is dedicated to offering the programming community in the Greater Toronto Area an opportunity to teach, learn and **have fun**! To provide a good experience for everyone, we feel that it is necessary to provide a set of code of conduct for speakers, attendees and volunteers to follow. 
 <!-- thumbnail -->
 <i class="fas fa-exclamation-circle"></i>
+<!-- followed by brief -->
+Hello, Con! is dedicated to offering the programming community in the Greater Toronto Area an opportunity to teach, learn and **have fun**! To provide a good experience for everyone, we feel that it is necessary to provide a set of code of conduct for speakers, attendees and volunteers to follow. 
 
 ## The Short Version
 

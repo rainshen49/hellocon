@@ -253,3 +253,6 @@ paket-files/
 
 # Mac
 .DS_Store
+
+# Privacy
+sensitive.tsv

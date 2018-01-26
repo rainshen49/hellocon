@@ -11,7 +11,6 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="HelloCon">
     <link rel="apple-touch-icon" href="icon.png">
-    <link rel="apple-touch-startup-image" href="https://rainshen49.github.io/hellocon/2018/splash/small.jpeg">
 
     <!-- <link rel="manifest" href="manifest.json"> -->
     <title>Hello,Con!'18</title>
@@ -24,7 +23,7 @@
         <div class="whitecircle">
             <img src="https://rainshen49.github.io/hellocon/2018/splash/Circle_Text.svg"></img>
         </div>
-        <section class="desktoponly points">
+        <section class="notphone points">
             <img src="https://rainshen49.github.io/hellocon/2018/splash/Connectw_Pros.svg"></img>
             <img src="https://rainshen49.github.io/hellocon/2018/splash/Share_Ideas.svg"></img>
             <img src="https://rainshen49.github.io/hellocon/2018/splash/Code_Passion.svg"></img>
@@ -81,12 +80,21 @@
         </div>
     </div>
     <div class="content">
+        <div class="speakers">
+            <h2>Speakers</h2>
+        </div>
+        <div class="infocards">
+            <h2>Conference Info</h2>
+        </div>
     </div>
-
     <div id="reload" class="active">
         <i class="fas fa-sync-alt"></i>
     </div>
-    <script src="https://unpkg.com/@reactivex/rxjs@5.0.0/dist/global/Rx.min.js" defer></script>
+    <footer>
+        <span class="site-footer-owner"><a href="https://github.com/rainshen49/hellocon">hellocon.net</a> is maintained by <a rel="noopener noreferrer" target="_blank" href="https://github.com/rainshen49">rainshen49</a> at <a href="http://ieee.utoronto.ca/about/"><strong>IEEE University of Toronto</strong></a>.</span>
+    </footer>
+    <script src="https://unpkg.com/@reactivex/rxjs@latest/dist/global/Rx.min.js" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js" defer></script>
     <script src="bundle.js" defer></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.4/js/all.js" async></script>
 </body>

@@ -4,7 +4,7 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "initeslint": "eslint --init",
-        "start":"node buildwatch"
+        "start": "node buildwatch"
     },
     "repository": {
         "type": "git",
@@ -18,16 +18,16 @@
     },
     "homepage": "https://github.com/rainshen49/hellocon/",
     "devDependencies": {
-        "autoprefixer": "^7.2.3",
-        "csso": "^3.4.0",
-        "eslint": "^4.14.0",
+        "autoprefixer": "^7.2.5",
+        "csso": "^3.5.0",
+        "eslint": "^4.16.0",
         "html-minifier": "^3.5.8",
-        "postcss": "^6.0.14",
+        "postcss": "^6.0.16",
         "showdown": "^1.8.6"
     },
     "dependencies": {
         "redux": "^3.7.2",
         "rxjs-es": "^5.0.0-beta.12",
-        "uglify-es": "^3.3.2"
+        "uglify-es": "^3.3.8"
     }
 }
