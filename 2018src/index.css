@@ -135,7 +135,7 @@ body.modalopen {
   display: none;
 }
 
-@media screen and (max-width: 321px) {
+@media screen and (max-width: 400px) {
   /* super small screen */
   #nav.ontop {
     grid-template-columns: auto auto auto;
@@ -149,7 +149,7 @@ body.modalopen {
 #header {
   justify-self: center;
   align-self: center;
-  margin: auto;
+  margin: auto 0;
 }
 
 #socialmedia {

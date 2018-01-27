@@ -19,6 +19,7 @@
     "homepage": "https://github.com/rainshen49/hellocon/",
     "devDependencies": {
         "autoprefixer": "^7.2.5",
+        "babel-plugin-transform-react-jsx": "^6.24.1",
         "csso": "^3.5.0",
         "eslint": "^4.16.0",
         "html-minifier": "^3.5.8",
