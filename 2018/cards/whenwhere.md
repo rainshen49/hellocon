@@ -2,7 +2,7 @@
 
 <!-- thumbnail -->
 
-<i class="far fa-map"></i>
+<i class="far fa-calendar-alt"></i>
 
 <!-- followed by brief -->
 
