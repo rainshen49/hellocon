@@ -65,11 +65,14 @@ body.modalopen {
   height: 25rem;
   margin: var(--default-margin);
   display: flex;
+  flex-direction: column;
+  align-items: center;
   align-content: center;
   justify-content: center;
   background-color: white;
   opacity: 0.8;
   border-radius: 50%;
+  padding-bottom: 1rem;
 }
 
 @media screen and (max-width: 767px) {
