@@ -55,10 +55,15 @@ function readMoreElement(card, id) {
     `<a href="/#${id}" class="readmore phoneonly">More...</a>`
   );
   action.addEventListener("click", () => {
-    card.style.maxHeight =
-      card.style.maxHeight === "" ? window.innerHeight * 0.7 + "px" : "";
-    action.textContent =
-      action.textContent === "More..." ? "Less" : "More...";
+    if(action.textContent === "More..."){
+      card.style.maxHeight = "";
+      action.textContent ="Less";
+      action.style.position="static";
+    }else{
+      card.style.maxHeight = window.innerHeight * 0.7+"px";
+      action.textContent ="More...";
+      action.style.position="absolute";
+    }
   });
   return action;
 }

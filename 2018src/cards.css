@@ -2,7 +2,7 @@
 .dummy {
   z-index: -1;
   position: absolute;
-  top: -4rem;
+  top: -3rem;
 }
 
 @media screen and (max-width: 767px) {
@@ -117,8 +117,8 @@ a.card-action:hover:not(:active) {
 
 .card-content > .speaker-name {
   flex: 1 auto;
-  max-width: calc(100% - var(--thumbnail-size) - 1rem);  
-  padding: 0 0 0 1rem;    
+  max-width: calc(100% - var(--thumbnail-size) - 1rem);
+  padding: 0 0 0 1rem;
 }
 
 .speaker-name > a {
@@ -126,7 +126,11 @@ a.card-action:hover:not(:active) {
   color: var(--color5);
 }
 
-.talk-title + p, h3 + p, h2 + p, h4 + p, p+p{
+.talk-title + p,
+h3 + p,
+h2 + p,
+h4 + p,
+p + p {
   margin-top: 0;
 }
 
@@ -154,7 +158,6 @@ a.card-action:hover:not(:active) {
   width: 100%;
   height: 100%;
 }
-
 .readmore {
   cursor: pointer;
   text-decoration: none;
