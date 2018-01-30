@@ -13,15 +13,17 @@ function parseHtml(info) {
   return dummyroot;
 }
 
-function parseSingleRoot(html){
-  return parseHtml(html).firstElementChild
+function parseSingleRoot(html) {
+  return parseHtml(html).firstElementChild;
 }
 
-function safeLink(href,innerHTML){
-  if(href){
-    return parseSingleRoot(`<a rel="noopener noreferrer" target="_blank" href="${href}">${innerHTML}</a>`)
-  }else{
-    return parseSingleRoot(`<a">${innerHTML}</a>`)
+function safeLink(href, innerHTML) {
+  if (href) {
+    return parseSingleRoot(
+      `<a rel="noopener noreferrer" target="_blank" href="${href}">${innerHTML}</a>`
+    );
+  } else {
+    return parseSingleRoot(`<a">${innerHTML}</a>`);
   }
 }
 
@@ -55,21 +57,12 @@ class Promises extends Promise {
   }
 }
 
-// function makeeditable(...elements) {
-//     elements.forEach(element => element.setAttribute('contenteditable', 'true'))
-// }
-
-// function makenoneditable(...elements) {
-//     elements.forEach(element => element.setAttribute('contenteditable', 'false'))
-// }
-
-// function Awaiter() {
-//     this.promise = new Promise((yes, no) => {
-//         this.done = yes
-//         this.fail = no
-//     })
-// }
-
+function removeAllChildren(parent) {
+  let children;
+  while ((children = parent.lastChild)) {
+    parent.removeChild(children);
+  }
+}
 Object.assign(EventTarget.prototype, {
   subscribe(event, ftn) {
     const self = this;
@@ -88,12 +81,12 @@ function fetchJSON(url) {
 // console.log('loaded helper')
 
 function waitDOMLoad() {
-  return new Promise((yes) => {
+  return new Promise(yes => {
     if (document.readyState !== "loading") {
-      console.log('already loaded')
+      console.log("already loaded");
       yes();
     } else {
-      console.log('waiting for loading')      
+      console.log("waiting for loading");
       document.addEventListener("DOMContentLoaded", yes);
     }
   });
@@ -127,5 +120,5 @@ function isInViewport(elem) {
   // console.log(elem, "checkingif in viewport");
   const bounding = elem.getBoundingClientRect();
   // console.table(bounding);
-  return bounding.x>=0 && bounding.y>=0
+  return bounding.x >= 0 && bounding.y >= 0;
 }

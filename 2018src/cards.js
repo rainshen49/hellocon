@@ -97,8 +97,10 @@ async function renderSpeakerCards() {
     profilepic,
     abstract
   }) {
+    // also record names to window
     const id = name.id;
     name.id = "";
+    window.speakerData[name.textContent]=title.textContent
     const card = parseSingleRoot(`<div class="card">
     <div class="dummy" id="${id}"></div>
     <div class="card-content"></div>
@@ -120,6 +122,7 @@ async function renderSpeakerCards() {
     globalHandler.addTOC(data.heading, data.id);
     return data;
   };
+  window.speakerData = {}
   // fetch speakers json
   const toSpeakersjson = fetchJSON("./speakers/speakers.json");
   const toSpeakerlist = readDb("speakerlist")

@@ -10,9 +10,13 @@ function compressCSS(source) {
 }
 
 function compressJS(source) {
-  const result = UglifyJS.minify(source, { mangle: false,sourceMap:{
-    url:"inline"
-  } });
+  const result = UglifyJS.minify(source, {
+    mangle: false,
+    sourceMap: {
+      url: "inline"
+    }
+  });
+  if(result.error)console.error(result.error)
   return result.code;
   // return source
 }
@@ -31,7 +35,8 @@ const jssequence = {
   "index.js": "",
   "firebase.js": "",
   "cards.js": "",
-  "sponsors.js": ""
+  "sponsors.js": "",
+  "realtime.js":""
 };
 const csssequence = { "index.css": "", "animations.css": "", "cards.css": "" };
 
@@ -66,15 +71,19 @@ async function process(filename) {
 function writeBundles() {
   fs.writeFileSync(
     "./2018/bundle.js",
-    compressJS(Object.keys(jssequence)
-      .map(key => jssequence[key])
-      .join("\n"))
+    compressJS(
+      Object.keys(jssequence)
+        .map(key => jssequence[key])
+        .join("\n")
+    )
   );
   fs.writeFileSync(
     "./2018/bundle.css",
-    compressCSS(Object.keys(csssequence)
-      .map(key => csssequence[key])
-      .join(""))
+    compressCSS(
+      Object.keys(csssequence)
+        .map(key => csssequence[key])
+        .join("")
+    )
   );
 }
 
