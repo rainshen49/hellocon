@@ -28,7 +28,7 @@ function readDb(path) {
     ref.once("value", snap => {
       yes(snap.val());
     });
-    setTimeout(() => no("Database Timeout"), 1000);
+    setTimeout(() => no("Database Timeout"), 2000);
   });
 }
 

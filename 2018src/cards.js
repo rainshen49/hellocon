@@ -122,12 +122,13 @@ async function renderSpeakerCards() {
   };
   // fetch speakers json
   const toSpeakersjson = fetchJSON("./speakers/speakers.json");
-  // const toSpeakerlist = readDb("speakerlist")
-  const toSpeakerlist = Promise.resolve(toSpeakersjson.then(json=>Object.keys(json)));
+  const toSpeakerlist = readDb("speakerlist")
+  // const toSpeakerlist = Promise.resolve(toSpeakersjson.then(json=>Object.keys(json)));
   const [Speakerjson, SpeakerList] = await Promise.all([
     toSpeakersjson,
     toSpeakerlist
   ]);
+  // writeDb("speakerbak",{...SpeakerList})
   // fetch speakers list
   const cards = toArrayByKey(Speakerjson, SpeakerList)
     .map(extractInfo)
