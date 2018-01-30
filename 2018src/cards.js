@@ -123,12 +123,7 @@ async function renderSpeakerCards() {
   // fetch speakers json
   const toSpeakersjson = fetchJSON("./speakers/speakers.json");
   // const toSpeakerlist = readDb("speakerlist")
-  const toSpeakerlist = Promise.resolve([
-    "Arshia Mufti",
-    "Ridwan Howlader",
-    "Anna Lorimer",
-    "Andrew Ling"
-  ]);
+  const toSpeakerlist = Promise.resolve(toSpeakersjson.then(json=>Object.keys(json)));
   const [Speakerjson, SpeakerList] = await Promise.all([
     toSpeakersjson,
     toSpeakerlist

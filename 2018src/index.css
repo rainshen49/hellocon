@@ -69,10 +69,17 @@ body.modalopen {
   align-items: center;
   align-content: center;
   justify-content: center;
-  background-color: white;
-  opacity: 0.8;
+  background-color: rgba(255, 255, 255, 0.9);
   border-radius: 50%;
-  padding-bottom: 1rem;
+  padding: 1rem;
+}
+
+.whitecircle > a {
+  padding: 0.5rem;
+  color: white;
+  background-color: var(--color5);
+  text-decoration: none;
+  margin: 0.5rem;
 }
 
 @media screen and (max-width: 767px) {
@@ -83,13 +90,14 @@ body.modalopen {
   .whitecircle {
     width: 20rem;
     height: 20rem;
+    margin: auto;
   }
 }
 @media screen and (max-width: 376px) {
   /* small phone only */
   .whitecircle {
-    width: 19rem;
-    height: 19rem;
+    width: 18rem;
+    height: 18rem;
   }
 }
 
@@ -104,9 +112,6 @@ body.modalopen {
 
 .points img {
   width: calc(30% - 2rem);
-}
-
-#splash img {
   max-width: 88%;
   flex: 1 1 auto;
   margin: 1rem;
@@ -161,7 +166,6 @@ body.modalopen {
 
 #socialmedia {
   display: flex;
-  margin: 0 0 0 var(--default-margin);
   padding: 0 0 0 0;
   justify-self: start;
   align-self: center;
@@ -322,15 +326,19 @@ body.modalopen {
   border-radius: 4px;
 }
 
+.content {
+  display: flex;
+  flex-wrap: nowrap;
+}
 .content > div {
-  display: inline-flex;
+  display: flex;
   flex-wrap: wrap;
   margin: 0;
-  padding: 0 0 3rem 0;
+  align-content: flex-start;
 }
 
 .content > div > h2 {
-  flex: 0 2 100%;
+  flex: 0 1 100%;
   text-align: center;
   color: gray;
 }
@@ -339,15 +347,16 @@ body.modalopen {
   /* pad and desktop */
   /* two column */
   .content > div {
-    width: 49.7%;
-    justify-content: center;
+    flex: 1 1 50%;
   }
 }
 
 @media screen and (max-width: 767px) {
   /* phone */
+  .content {
+    flex-direction: column;
+  }
   .content > div {
-    width: 100%;
     flex-direction: column;
   }
 }
