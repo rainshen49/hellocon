@@ -100,6 +100,37 @@ a.card-action:hover:not(:active) {
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
+  position: relative;
+}
+
+.keynote{
+  position: absolute;
+  top:0;
+  right:0;
+  padding: 0 0 0 1rem;
+  line-height: 1.8rem;
+  background: #ed2f2f;  
+  color: white;
+}
+
+.flag {
+  letter-spacing: 0.2rem;
+  text-align: center;
+  text-transform: uppercase;
+  --flagwidth: 8rem;
+  width: var(--flagwidth);
+}
+
+.flag:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 0;
+  border-bottom: 0.9rem solid transparent;
+  border-top: 0.9rem solid transparent;
+  border-left: 1rem solid white;
 }
 
 @media screen and (max-width: 767px) {

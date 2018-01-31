@@ -96,7 +96,7 @@ async function renderSpeakerCards() {
     bio,
     profilepic,
     abstract
-  }) {
+  },i) {
     // also record names to window
     const id = name.id;
     name.id = "";
@@ -106,6 +106,11 @@ async function renderSpeakerCards() {
     <div class="card-content"></div>
     </div>`);
     const cardContent = $(".card-content", card);
+    if(i===0){
+      // keynote
+      const keynote = parseSingleRoot(`<span class="keynote flag">Keynote</span>`)
+      cardContent.appendChild(keynote)
+    }
     cardContent.appendChild(profilepic).className = "pic";
     cardContent.appendChild(name).className = "speaker-name";
     name.appendChild(linkEl);
@@ -131,6 +136,7 @@ async function renderSpeakerCards() {
     toSpeakersjson,
     toSpeakerlist
   ]);
+  console.log(SpeakerList)
   // writeDb("speakerbak",{...SpeakerList})
   // fetch speakers list
   const cards = toArrayByKey(Speakerjson, SpeakerList)
