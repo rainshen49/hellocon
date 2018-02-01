@@ -103,13 +103,13 @@ a.card-action:hover:not(:active) {
   position: relative;
 }
 
-.keynote{
+.keynote {
   position: absolute;
-  top:0;
-  right:0;
+  top: 0;
+  right: 0;
   padding: 0 0 0 1rem;
   line-height: 1.8rem;
-  background: #ed2f2f;  
+  background: #ed2f2f;
   color: white;
 }
 
@@ -150,6 +150,22 @@ a.card-action:hover:not(:active) {
   flex: 1 auto;
   max-width: calc(100% - var(--thumbnail-size) - 1rem);
   padding: 0 0 0 1rem;
+}
+
+.card-content > table {
+  width: 100%;
+}
+
+.card-content > table tr{
+  line-height: 2rem;
+}
+
+.card-content > table tr:nth-child(even){
+  background-color: var(--color1);
+}
+
+.card-content > table td{
+  padding: 0 0.4rem;
 }
 
 .speaker-name > a {

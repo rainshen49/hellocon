@@ -1,0 +1,15 @@
+time	type	title	Short Title	speaker	icon
+8:30 AM 	other	Registration Begins !!!	Registration		<i class="fas fa-sign-in-alt"></i>
+9:45 AM 	talk	Event Begins - Intro 10 Min	Opening		<i class="far fa-comments"></i>
+9:55 AM 	keynote	Keynote - DeepLearni.ng 	Keynote - DeepLearni.ng 	Stephen Piron	<i class="far fa-comments"></i>
+10:30 AM 	talk	Daisy Intelligence 	Daisy Intelligence 		<i class="far fa-comments"></i>
+11:00 AM 	talk	Anna - Cryptography	Cryptography	Anna Lorimer	<i class="far fa-comments"></i>
+11:30 AM 	talk	Intel	Intel	Andrew Ling	<i class="far fa-comments"></i>
+12:00 PM 	break	<<<< Lunch >>>>	Lunch		<i class="fas fa-utensils"></i>
+1:00 PM 	talk	Arshia Muft	Distributed System	Arshia Mufti	<i class="far fa-comments"></i>
+1:30 PM 	talk	Team Study	Team Study		<i class="far fa-comments"></i>
+2:00 PM 	talk	Zissis - Blockchain	BlockChain		<i class="far fa-comments"></i>
+2:30 PM 	break	<<<<Break + Refreshments>>>	Refreshments		<i class="fas fa-utensils"></i>
+3:00 PM 	talk	UTAT - Ridwan	University of Toronto Aerospace Team	Ridwan Howlader	<i class="far fa-comments"></i>
+3:30 PM 	talk	Interaptix- Closing Keynote	Interaptix- Closing Keynote		<i class="far fa-comments"></i>
+4:00 PM 	break	Unconference	Networking		<i class="fas fa-share-alt"></i>

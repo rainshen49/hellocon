@@ -1,6 +1,6 @@
 const fs = require('fs')
 const showdown = require('showdown')
-const converter = new showdown.Converter()
+const converter = new showdown.Converter({tables:true})
 const filelist = fs.readdirSync('./').filter(fn => fn.endsWith('.md'))
 const tasks = filelist.map(filename => {
     return new Promise((y, n) => {

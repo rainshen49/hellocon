@@ -1,6 +1,7 @@
 /* global Rx:false, importhtml, $, $$, parseHtml, globalHandler, Promises, showiframe, hideiframe, fetchJSON,mobile, makeeditable, Awaiter, blobtoUrl, DOM, waitDOMLoad, readDb ,parseSingleRoot,safeLink,detectOverflowX */
 
 const infocards = [
+  "schedule.html",
   "register.html",
   "come.html",
   "whenwhere.html",
