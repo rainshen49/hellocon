@@ -54,7 +54,7 @@ function getLinkIcon(link) {
 function getProfilePicElement(link) {
   if (link.length) {
     // there exist a profile
-    return `<img src="${link}" alt="loading profile picture..." />`;
+    return `<img data-src="${link}" alt="loading profile picture..." />`;
   } else {
     return `<i class="far fa-user"></i>`;
   }

@@ -1,4 +1,4 @@
-/* global Rx:false, importhtml, $, $$, parseHtml, globalHandler, Promises, showiframe, hideiframe, fetchJSON,mobile, makeeditable, Awaiter, blobtoUrl, DOM, waitDOMLoad, readDb ,parseSingleRoot,safeLink,detectOverflowX */
+/* global Rx:false, importhtml, $, $$, parseHtml, globalHandler, Promises, showiframe, hideiframe, fetchJSON,mobile, makeeditable, Awaiter, blobtoUrl, DOM, waitDOMLoad, readDb ,parseSingleRoot,safeLink,detectOverflowX,loadLazyImg */
 
 const infocards = [
   "schedule.html",
@@ -12,10 +12,7 @@ const infocards = [
 const { speakerDiv, infoDiv } = DOM;
 
 const cardloaded = (async function() {
-  globalHandler.addSection("Speakers")
-  await renderSpeakerCards()
-  globalHandler.addSection("Conference")  
-  await renderInfoCards(infocards)
+  return await Promise.all([renderSpeakerCards(),renderInfoCards(infocards)])
 })();
 
 function toArrayByKey(json, keys) {
@@ -56,14 +53,14 @@ function readMoreElement(card, id) {
     `<a href="/#${id}" class="readmore phoneonly">More...</a>`
   );
   action.addEventListener("click", () => {
-    if(action.textContent === "More..."){
+    if (action.textContent === "More...") {
       card.style.maxHeight = "";
-      action.textContent ="Less";
-      action.style.position="static";
-    }else{
-      card.style.maxHeight = window.innerHeight * 0.7+"px";
-      action.textContent ="More...";
-      action.style.position="absolute";
+      action.textContent = "Less";
+      action.style.position = "static";
+    } else {
+      card.style.maxHeight = window.innerHeight * 0.7 + "px";
+      action.textContent = "More...";
+      action.style.position = "absolute";
     }
   });
   return action;
@@ -89,28 +86,25 @@ async function renderSpeakerCards() {
       abstract: parseSingleRoot(`<p>${abstract}</p>`)
     };
   };
-  const plugTemplate = function({
-    name,
-    title,
-    linkEl,
-    link,
-    bio,
-    profilepic,
-    abstract
-  },i) {
+  const plugTemplate = function(
+    { name, title, linkEl, link, bio, profilepic, abstract },
+    i
+  ) {
     // also record names to window
     const id = name.id;
     name.id = "";
-    window.speakerData[name.textContent]=title.textContent
+    window.speakerData[name.textContent] = title.textContent;
     const card = parseSingleRoot(`<div class="card">
     <div class="dummy" id="${id}"></div>
     <div class="card-content"></div>
     </div>`);
     const cardContent = $(".card-content", card);
-    if(i===0){
+    if (i === 0) {
       // keynote
-      const keynote = parseSingleRoot(`<span class="keynote flag">Keynote</span>`)
-      cardContent.appendChild(keynote)
+      const keynote = parseSingleRoot(
+        `<span class="keynote flag">Keynote</span>`
+      );
+      cardContent.appendChild(keynote);
     }
     cardContent.appendChild(profilepic).className = "pic";
     cardContent.appendChild(name).className = "speaker-name";
@@ -121,6 +115,7 @@ async function renderSpeakerCards() {
       parseSingleRoot(`<h4 class="about-speaker">About the speaker</h4>`)
     );
     cardContent.appendChild(bio);
+    waitDOMLoad().then(()=>loadLazyImg(profilepic.firstChild))
     return { card, id, heading: name.textContent };
   };
   const addToPage = function(data) {
@@ -128,18 +123,19 @@ async function renderSpeakerCards() {
     globalHandler.addTOC(data.heading, data.id);
     return data;
   };
-  window.speakerData = {}
+  window.speakerData = {};
   // fetch speakers json
   const toSpeakersjson = fetchJSON("./speakers/speakers.json");
-  const toSpeakerlist = readDb("speakerlist")
+  const toSpeakerlist = readDb("speakerlist");
   // const toSpeakerlist = Promise.resolve(toSpeakersjson.then(json=>Object.keys(json)));
   const [Speakerjson, SpeakerList] = await Promise.all([
     toSpeakersjson,
     toSpeakerlist
   ]);
-  console.log(SpeakerList)
+  console.log(SpeakerList);
   // writeDb("speakerbak",{...SpeakerList})
   // fetch speakers list
+  globalHandler.addSection("Speakers");
   const cards = toArrayByKey(Speakerjson, SpeakerList)
     .map(extractInfo)
     .map(plugTemplate)
@@ -154,7 +150,7 @@ async function renderInfoCards(infocards) {
     // title, pic, ...actions...
     const root = parseHtml(cardhtml);
     const action = $(".card-action-wrapper", root);
-    
+
     const [title, pic, ...content] = root.children;
     return {
       title,
@@ -183,6 +179,7 @@ async function renderInfoCards(infocards) {
     return { card, id, heading };
   };
   const raw = await fetchJSON("./cards/cards.json");
+  globalHandler.addSection("Conference");
   const cards = toArrayByKey(raw, infocards)
     .map(extractInfo)
     .map(plugTemplate)

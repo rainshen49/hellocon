@@ -16,7 +16,7 @@ const result = `
 
 <i class="far fa-clock"></i>
 
-|  | Activity | Start Time |
+|  | Activity | Start |
 |:-----: | :---- | -------:|
 ${scheduleTable.slice(1).join('\n')}`;
 fs.writeFileSync(filedir+"/schedule.md", result);

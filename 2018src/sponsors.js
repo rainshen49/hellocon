@@ -1,19 +1,10 @@
-/* global detectOverflowY,Promises,cardloaded */
+/* global detectOverflowY,Promises,cardloaded,loadLazyImg */
 (async function() {
   const sponsors = $(".sponsors");
   const imgs = $$("img", sponsors);
   await cardloaded;
   await new Promises(
-    imgs.map(img => {
-      img.src = img.dataset.src;
-      return new Promise((yes, no) => {
-        img.onload = yes;
-        img.onerror = () => {
-          yes();
-          console.error(img.src, "error");
-        };
-      });
-    })
+    imgs.map(loadLazyImg)
   );
   // console.log(last.getBoundingClientRect().right - first.getBoundingClientRect().left, sponsors.getBoundingClientRect().width)
   if (detectOverflowY(sponsors)) {

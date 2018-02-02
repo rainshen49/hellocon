@@ -122,3 +122,13 @@ function isInViewport(elem) {
   // console.table(bounding);
   return bounding.x >= 0 && bounding.y >= 0;
 }
+
+function loadLazyImg(img) {
+  if (img.dataset.src)
+    return new Promise((y, n) => {
+      img.src = img.dataset.src;
+      img.onload = y;
+      img.onerror = n;
+    });
+  else return Promise.resolve(null);
+}
