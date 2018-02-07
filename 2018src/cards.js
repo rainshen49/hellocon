@@ -12,7 +12,7 @@ const infocards = [
 const { speakerDiv, infoDiv } = DOM;
 
 const cardloaded = (async function() {
-  return await Promise.all([renderSpeakerCards(),renderInfoCards(infocards)])
+  return await Promise.all([renderSpeakerCards(), renderInfoCards(infocards)]);
 })();
 
 function toArrayByKey(json, keys) {
@@ -88,7 +88,9 @@ async function renderSpeakerCards() {
   };
   const plugTemplate = function(
     { name, title, linkEl, link, bio, profilepic, abstract },
-    i
+    i,
+    spklist,
+    schedule
   ) {
     // also record names to window
     const id = name.id;
@@ -99,7 +101,7 @@ async function renderSpeakerCards() {
     <div class="card-content"></div>
     </div>`);
     const cardContent = $(".card-content", card);
-    if (i === 0) {
+    if (i === 0 || i == spklist.length - 1) {
       // keynote
       const keynote = parseSingleRoot(
         `<span class="keynote flag">Keynote</span>`
@@ -110,12 +112,13 @@ async function renderSpeakerCards() {
     cardContent.appendChild(name).className = "speaker-name";
     name.appendChild(linkEl);
     cardContent.appendChild(title).className = "talk-title";
+    cardContent.appendChild(parseSingleRoot(`<span class="time">${schedule[i]}</span>`))
     cardContent.appendChild(abstract);
     cardContent.appendChild(
       parseSingleRoot(`<h4 class="about-speaker">About the speaker</h4>`)
     );
     cardContent.appendChild(bio);
-    waitDOMLoad().then(()=>loadLazyImg(profilepic.firstChild))
+    waitDOMLoad().then(() => loadLazyImg(profilepic.firstChild));
     return { card, id, heading: name.textContent };
   };
   const addToPage = function(data) {
@@ -126,11 +129,14 @@ async function renderSpeakerCards() {
   window.speakerData = {};
   // fetch speakers json
   const toSpeakersjson = fetchJSON("./speakers/speakers.json");
+  const toSchedule = fetchJSON("./speakers/schedule.json")
   const toSpeakerlist = readDb("speakerlist");
+  
   // const toSpeakerlist = Promise.resolve(toSpeakersjson.then(json=>Object.keys(json)));
-  const [Speakerjson, SpeakerList] = await Promise.all([
+  const [Speakerjson, SpeakerList,Schedule] = await Promise.all([
     toSpeakersjson,
-    toSpeakerlist
+    toSpeakerlist,
+    toSchedule
   ]);
   console.log(SpeakerList);
   // writeDb("speakerbak",{...SpeakerList})
@@ -138,7 +144,7 @@ async function renderSpeakerCards() {
   globalHandler.addSection("Speakers");
   const cards = toArrayByKey(Speakerjson, SpeakerList)
     .map(extractInfo)
-    .map(plugTemplate)
+    .map((card,i,cards)=>plugTemplate(card,i,cards,Schedule))
     .map(addToPage)
     .map(cardObj => (scrollHash(cardObj.card), cardObj))
     .map(readMore);

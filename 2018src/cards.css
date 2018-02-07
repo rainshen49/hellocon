@@ -168,6 +168,12 @@ a.card-action:hover:not(:active) {
   padding: 0 0.4rem;
 }
 
+.card-content .time{
+  background-color: var(--color1);
+  padding: 0.1rem 1rem;
+  border-radius: 1rem;
+}
+
 .speaker-name > a {
   display: block;
   color: var(--color5);

@@ -3,7 +3,7 @@
 
 <i class="far fa-clock"></i>
 
-|  | Activity | Start Time |
+|  | Activity | Start |
 |:-----: | :---- | -------:|
 | <i class="fas fa-sign-in-alt"></i>|Registration | 8:30 AM  |
 | <i class="far fa-comments"></i>|Opening | 9:45 AM  |

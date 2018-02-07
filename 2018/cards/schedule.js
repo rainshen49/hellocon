@@ -20,3 +20,5 @@ const result = `
 |:-----: | :---- | -------:|
 ${scheduleTable.slice(1).join('\n')}`;
 fs.writeFileSync(filedir+"/schedule.md", result);
+
+console.log("done rendering schedule")

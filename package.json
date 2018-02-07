@@ -4,7 +4,8 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "initeslint": "eslint --init",
-        "start": "node buildwatch"
+        "start": "node buildwatch",
+        "convert":"cd 2018/cards && node convert && node schedule && cd ../speakers && node convert"
     },
     "repository": {
         "type": "git",

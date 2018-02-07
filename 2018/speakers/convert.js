@@ -2,14 +2,16 @@ const fs = require("fs");
 const { URL } = require("url");
 const showdown = require("showdown");
 const converter = new showdown.Converter();
-const filedir = process.argv[1].split("/").slice(0, -1).join("/")
+const filedir = process.argv[1]
+  .split("/")
+  .slice(0, -1)
+  .join("/");
 
 const dirfiles = fs.readdirSync(filedir);
-const speakersdata = fs
-  .readFileSync(
-    filedir + "/sensitive.tsv"
-  )
-  .toString();
+const speakersdata = fs.readFileSync(filedir + "/sensitive.tsv").toString();
+
+
+
 const parsed = speakersdata.split("\n").map(line => line.split("\t"));
 const fields = parsed[0];
 const ordered = parsed.slice(1).map(speakerinfo => {
@@ -77,11 +79,27 @@ function pluginTemplate(speakerinfo) {
 const speakersJSON = JSON.stringify(
   ordered
     .map(pluginTemplate)
-    .map((json,i) => ({ [ordered[i]["Your Name/Nickname"]]: json }))
+    .map((json, i) => ({ [ordered[i]["Your Name/Nickname"]]: json }))
     .reduce((prev, curr) => Object.assign(prev, curr))
 );
 
+fs.writeFileSync(filedir + "/speakers.json", speakersJSON);
+
+const scheduledata = fs
+  .readFileSync(filedir + "/../cards/Schedule - Formatted Schedule.tsv")
+  .toString()
+  .replace(/\r/g, "")
+  .split("\n")
+  .map(line=>line.split("\t"))
+
 fs.writeFileSync(
-  filedir + "/speakers.json",
-  speakersJSON
+  filedir + "/schedule.json",
+  JSON.stringify(
+    scheduledata
+      .map(([time, type]) => ({ time, type }))
+      .filter(({ type }) => type === "talk" || type === "keynote")
+      .map(({ time }) => time)
+  )
 );
+
+console.log("done rendering speakers")
