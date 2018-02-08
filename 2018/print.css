@@ -1,0 +1,60 @@
+@media only print{
+    .sponsors {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+        -webkit-animation-play-state: paused!important;
+                animation-play-state: paused!important;
+        -ms-flex-pack: distribute;
+            justify-content: space-around;
+    }
+    
+    .sponsors > a{
+        margin: 1rem 0;
+    }
+    
+    .content{
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+    }
+
+    .speakers, .infocards{
+        padding: 1rem;
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+    }
+
+    .card-content{
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+    }
+
+    .card-content h2{
+        width: 100%;
+    }
+
+    .card-content>.pic{
+        width: 10rem;
+        height: 10rem;
+    }
+
+    .talk-title{
+        text-align: center;
+    }
+    
+    .noprint{
+        display: none!important;
+    }
+
+    p,a,img{
+        page-break-inside: avoid;
+    }
+
+    #nav{
+        display: none;
+    }
+}

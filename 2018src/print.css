@@ -1,0 +1,50 @@
+@media only print{
+    .sponsors {
+        display: flex;
+        flex-wrap: wrap;
+        animation-play-state: paused!important;
+        justify-content: space-around;
+    }
+    
+    .sponsors > a{
+        margin: 1rem 0;
+    }
+    
+    .content{
+        flex-wrap: wrap;
+    }
+
+    .speakers, .infocards{
+        padding: 1rem;
+        justify-content: center;
+    }
+
+    .card-content{
+        justify-content: center;
+    }
+
+    .card-content h2{
+        width: 100%;
+    }
+
+    .card-content>.pic{
+        width: 10rem;
+        height: 10rem;
+    }
+
+    .talk-title{
+        text-align: center;
+    }
+    
+    .noprint{
+        display: none!important;
+    }
+
+    p,a,img{
+        page-break-inside: avoid;
+    }
+
+    #nav{
+        display: none;
+    }
+}

@@ -6,7 +6,11 @@
   await new Promises(
     imgs.map(loadLazyImg)
   );
-  imgs.forEach(img=>sponsors.appendChild(img.parentNode.cloneNode(true)))
+  imgs.forEach(img=>{
+    const a = img.parentNode.cloneNode(true)
+    a.classList.add("noprint")
+    sponsors.appendChild(a)
+  })
   sponsors.classList.add("loaded")
 })();
 

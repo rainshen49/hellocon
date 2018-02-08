@@ -54,6 +54,8 @@ async function process(filename) {
       });
     if (csssequence.hasOwnProperty(filename)) {
       csssequence[filename] = css;
+    }else{
+      fs.writeFileSync("./2018/print.css",css)
     }
   } else if (filename.endsWith(".js")) {
     // minify, do nothing for now
