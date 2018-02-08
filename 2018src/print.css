@@ -18,7 +18,12 @@
         padding: 1rem;
         justify-content: center;
     }
-
+    .speakers > .card{
+        max-height: 100%;
+    }
+    .readmore{
+        display: none;
+    }
     .card-content{
         justify-content: center;
     }
@@ -30,6 +35,8 @@
     .card-content>.pic{
         width: 10rem;
         height: 10rem;
+        page-break-before: always;
+        
     }
 
     .talk-title{
