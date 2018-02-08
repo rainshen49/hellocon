@@ -31,6 +31,13 @@ function readDb(path) {
     setTimeout(() => no("Database Timeout"), 2000);
   });
 }
-readDb('access').then(old=>writeDb('access',{...old,[old.length]:[document.referrer,navigator.appVersion]}))
+readDb("access").then(old =>
+  writeDb(
+    "access",
+    Object.assign(old, {
+      [old.length]: [document.referrer, navigator.appVersion]
+    })
+  )
+);
 
 // listenData('next',data=>console.log(data))
