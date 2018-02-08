@@ -84,7 +84,8 @@ body.modalopen {
   max-width: 100%;
 }
 
-.whitecircle > a, .now>a {
+.whitecircle > a,
+.now > a {
   padding: 0.5rem;
   color: white;
   background-color: var(--color5);
@@ -290,28 +291,39 @@ body.modalopen {
   display: initial;
   animation: spin 1s linear infinite;
 }
+.sponsorship {
+  overflow-x: auto;
+  border-bottom: 1px solid grey;
+}
 .sponsorship h2 {
   text-align: center;
 }
 .sponsors {
-  border-bottom: 1px solid grey;
-  display: flex;
-  flex-wrap: nowrap;
-  width: 100%;
-  overflow-x: auto;
-  justify-content: space-between;
-  align-content: center;
+  display: table;
+  /* width: auto; */
+  /* flex-wrap: nowrap; */
+  justify-content: center;
+  align-items: center;
+  animation: move-slideshow 60s linear infinite;
+  transform: translate3d(0, 0, 0);
+  animation-play-state: paused;
+}
+
+.sponsors:hover {
+  animation-play-state: paused;
 }
 
 .sponsors > a {
   height: 6rem;
   width: auto;
-  margin: var(--default-margin);
-  padding: 0.2rem;
   border-radius: 2px;
+  vertical-align: middle;
+  display: table-cell;
+  position: relative;
 }
 
 .sponsors > a > img {
+  padding: 0.5rem;
   height: 100%;
 }
 
