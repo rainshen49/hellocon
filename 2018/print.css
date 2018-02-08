@@ -25,6 +25,8 @@
         -webkit-box-pack: center;
             -ms-flex-pack: center;
                 justify-content: center;
+        page-break-after: always;
+        page-break-before: always;
     }
     .speakers > .card{
         max-height: 100%;

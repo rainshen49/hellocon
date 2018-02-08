@@ -333,14 +333,14 @@ body.modalopen {
 
 /* responsive */
 
-@media screen and (orientation: landscape) {
+@media (orientation: landscape) {
   /* apply only to large screen */
   #splash {
     background-image: url("https://rainshen49.github.io/hellocon/2018/splash/bg_landscape.png");
   }
 }
 
-@media screen and (orientation: portrait) {
+@media (orientation: portrait) {
   /* apply only to small screen */
   #splash {
     background-image: url("https://rainshen49.github.io/hellocon/2018/splash/bg_por.png");

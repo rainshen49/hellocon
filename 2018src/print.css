@@ -17,6 +17,8 @@
     .speakers, .infocards{
         padding: 1rem;
         justify-content: center;
+        page-break-after: always;
+        page-break-before: always;
     }
     .speakers > .card{
         max-height: 100%;
