@@ -7,6 +7,6 @@
     imgs.map(loadLazyImg)
   );
   imgs.forEach(img=>sponsors.appendChild(img.parentNode.cloneNode(true)))
-  sponsors.style.animationPlayState="running";
+  sponsors.classList.add("loaded")
 })();
 

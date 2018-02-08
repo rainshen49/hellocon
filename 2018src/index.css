@@ -304,9 +304,13 @@ body.modalopen {
   /* flex-wrap: nowrap; */
   justify-content: center;
   align-items: center;
-  animation: move-slideshow 60s linear infinite;
   transform: translate3d(0, 0, 0);
+  animation:move-slideshow 60s linear infinite;
   animation-play-state: paused;
+}
+
+.sponsors.loaded:not(:hover){
+  animation-play-state: running;
 }
 
 .sponsors:hover {
