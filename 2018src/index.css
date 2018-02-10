@@ -292,6 +292,7 @@ body.modalopen {
   animation: spin 1s linear infinite;
 }
 .sponsorship {
+  overflow: hidden;
   border-bottom: 1px solid grey;
 }
 .sponsorship h2 {
