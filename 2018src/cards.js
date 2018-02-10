@@ -1,10 +1,8 @@
 /* global Rx:false, importhtml, $, $$, parseHtml, globalHandler, Promises, showiframe, hideiframe, fetchJSON,mobile, makeeditable, Awaiter, blobtoUrl, DOM, waitDOMLoad, readDb ,parseSingleRoot,safeLink,detectOverflowX,loadLazyImg */
 
 const infocards = [
-  "schedule.html",
-  "register.html",
-  "come.html",
   "whenwhere.html",
+  "schedule.html",
   // "submit.html",
   "coc.html",
   "hellocon.html"
