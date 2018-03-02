@@ -109,7 +109,9 @@ async function renderSpeakerCards() {
     cardContent.appendChild(name).className = "speaker-name";
     name.appendChild(linkEl);
     cardContent.appendChild(title).className = "talk-title";
-    cardContent.appendChild(parseSingleRoot(`<span class="time">${schedule[i]}</span>`))
+    cardContent.appendChild(
+      parseSingleRoot(`<span class="time">${schedule[i]}</span>`)
+    );
     cardContent.appendChild(abstract);
     cardContent.appendChild(
       parseSingleRoot(`<h4 class="about-speaker">About the speaker</h4>`)
@@ -126,11 +128,21 @@ async function renderSpeakerCards() {
   window.speakerData = {};
   // fetch speakers json
   const toSpeakersjson = fetchJSON("./speakers/speakers.json");
-  const toSchedule = fetchJSON("./speakers/schedule.json")
-  const toSpeakerlist = readDb("speakerlist");
-  
+  const toSchedule = fetchJSON("./speakers/schedule.json");
+  const toSpeakerlist = Promise.resolve([
+    "Stephen Piron",
+    "Gary Saarenvirta",
+    "Anna Lorimer",
+    "Andrew Ling",
+    "Arshia Mufti",
+    "Aditya Chugh",
+    "Ryan Berryhill",
+    "Ridwan Howlader",
+    "Bardia Bina"
+  ]);
+
   // const toSpeakerlist = Promise.resolve(toSpeakersjson.then(json=>Object.keys(json)));
-  const [Speakerjson, SpeakerList,Schedule] = await Promise.all([
+  const [Speakerjson, SpeakerList, Schedule] = await Promise.all([
     toSpeakersjson,
     toSpeakerlist,
     toSchedule
@@ -141,7 +153,7 @@ async function renderSpeakerCards() {
   globalHandler.addSection("Speakers");
   const cards = toArrayByKey(Speakerjson, SpeakerList)
     .map(extractInfo)
-    .map((card,i,cards)=>plugTemplate(card,i,cards,Schedule))
+    .map((card, i, cards) => plugTemplate(card, i, cards, Schedule))
     .map(addToPage)
     .map(cardObj => (scrollHash(cardObj.card), cardObj))
     .map(readMore);

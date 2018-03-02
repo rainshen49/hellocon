@@ -35,8 +35,7 @@ const jssequence = {
   "index.js": "",
   "firebase.js": "",
   "cards.js": "",
-  "sponsors.js": "",
-  "realtime.js":""
+  "sponsors.js": ""
 };
 const csssequence = { "index.css": "", "animations.css": "", "cards.css": "" };
 
